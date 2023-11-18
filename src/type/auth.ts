@@ -28,6 +28,7 @@ export type User = {
   updatedAt: Time;
   role: UserRole;
   nonce: number;
+  lensId: string;
 };
 
 export type UserRole = 'GUEST' | 'ADMIN' | 'USER';

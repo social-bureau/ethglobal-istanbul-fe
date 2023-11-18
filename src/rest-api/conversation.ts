@@ -66,3 +66,9 @@ export async function getCoversationMediaApi(
   const { data } = await axios.get(url);
   return data;
 }
+
+export async function updateLensProfile(lensId: string) {
+  const url = `${environment.apiUrl}/api/users/me`;
+  const { data } = await axios.patch(url, { lensId });
+  return data;
+}

@@ -6,37 +6,51 @@ import { createLensProfile, getLensProfile } from '../../helper/lens';
 import { useDeepEffect } from '../../hook/useDeepEffect';
 import { useSelector } from '../../redux';
 import { useState } from 'react';
+import { useNetwork } from 'wagmi';
+import { updateLensProfile } from '../../rest-api/conversation';
+import { TextInput } from 'flowbite-react';
 
 export default function Setting() {
+  const { chain } = useNetwork();
+  const [lensHandle, setLensHandle] = useState('');
   const { user } = useSelector(state => state.account);
   const [lensProfile, setLensProfile] = useState<any>(null);
 
+  console.log({ user });
+
   useDeepEffect(() => {
     (async () => {
-      const profile = await getLensProfile('0x0481');
-      if (profile) {
-        console.log(profile.handle?.fullHandle);
-        setLensProfile(profile);
+      if (user) {
+        const profile = await getLensProfile(user.lensId);
+        if (profile) {
+          console.log(profile.handle?.fullHandle);
+          setLensProfile(profile);
+        }
       }
     })();
-  }, []);
+  }, [user]);
 
   const createLens = async () => {
     try {
       if (user) {
-        const handle = 'ikhaqqqq';
         const createResponse = await createLensProfile(
           user.publicAddress,
-          handle
+          lensHandle
         );
 
-        // 0x0481
-        console.log(createResponse.items);
+        if (createResponse) {
+          await updateLensProfile(createResponse.items[0].id);
+          window.location.reload();
+        }
       }
     } catch (error) {
       toast.error(errorFormat(error).message);
+    } finally {
+      setLensHandle('');
     }
   };
+
+  console.log(chain);
 
   return (
     <section className="bg-white dark:bg-gray-900 flex justify-center w-full">
@@ -45,45 +59,29 @@ export default function Setting() {
           Settings
         </h2>
         <div className="mx-auto w-full">
-          <div className="w-full">
-            <h2 id="accordion-flush-heading-2">
-              <button
-                type="button"
-                className="flex justify-between items-center py-5 w-full font-medium text-left text-gray-500 border-b border-gray-200 dark:border-gray-700 dark:text-gray-400"
-                data-accordion-target="#accordion-flush-body-2"
-                aria-expanded="false"
-                aria-controls="accordion-flush-body-2">
-                <span>Lens profile</span>
-                {lensProfile ? (
-                  <>@{lensProfile.handle?.fullHandle}</>
-                ) : (
-                  <button onClick={() => createLens()}>create</button>
-                )}
-              </button>
-            </h2>
-            <div
-              id="accordion-flush-body-2"
-              className="hidden"
-              aria-labelledby="accordion-flush-heading-2">
-              <div className="py-5 border-b border-gray-200 dark:border-gray-700">
-                <p className="mb-2 text-gray-500 dark:text-gray-400">
-                  Flowbite is first conceptualized and designed using the Figma
-                  software so everything you see in the library has a design
-                  equivalent in our Figma file.
-                </p>
-                <p className="text-gray-500 dark:text-gray-400">
-                  Check out the{' '}
-                  <a
-                    href="#"
-                    className="text-primary-600 dark:text-primary-500 hover:underline">
-                    Figma design system
-                  </a>{' '}
-                  based on the utility classes from Tailwind CSS and components
-                  from Flowbite.
-                </p>
-              </div>
-            </div>
-          </div>
+          {chain?.id === 80001 && (
+            <>
+              <h2 id="accordion-flush-heading-2">
+                <div className="flex justify-between items-center py-5 w-full font-medium text-left text-gray-500 border-b border-gray-200 dark:border-gray-700 dark:text-gray-400">
+                  <span>Lens profile</span>
+                  {lensProfile ? (
+                    <>@{lensProfile?.handle?.fullHandle}</>
+                  ) : (
+                    <div>
+                      <TextInput
+                        className="w-full bg-gray-50 border-gray-300"
+                        placeholder="Enter wallet address "
+                        sizing="md"
+                        value={lensHandle}
+                        onChange={e => setLensHandle(e.target.value)}
+                      />
+                      <button onClick={() => createLens()}>create</button>
+                    </div>
+                  )}
+                </div>
+              </h2>
+            </>
+          )}
         </div>
       </div>
     </section>
