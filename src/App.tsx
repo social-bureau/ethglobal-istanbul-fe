@@ -4,11 +4,13 @@ import { CombineComponents } from "./wrapper/CombineComponents";
 import FlowbiteProvider from "./wrapper/FlowbiteProvider";
 import ReduxProvider from "./wrapper/ReduxProvider";
 import WagmiProvider from "./wrapper/WagmiProvider";
+import AccountPortal from "./wrapper/AccountPortal";
 
 const providers = [
   ReduxProvider,
   FlowbiteProvider,
   WagmiProvider,
+  AccountPortal,
   BrowserRouter,
 ];
 const AppProvider = CombineComponents(...providers);
