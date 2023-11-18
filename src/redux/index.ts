@@ -10,13 +10,16 @@ import {
   Reducer,
 } from "@reduxjs/toolkit";
 import layoutSlice, { LayoutReducerState } from "./layout";
+import accountSlice, { AccountReducerState } from "./account";
 
 export type ReduxRootState = {
   layout: LayoutReducerState;
+  account: AccountReducerState;
 };
 
 const rootReducer: Reducer<CombinedState<ReduxRootState>> = combineReducers({
   layout: layoutSlice.reducer,
+  account: accountSlice.reducer,
 });
 
 const store = configureStore({

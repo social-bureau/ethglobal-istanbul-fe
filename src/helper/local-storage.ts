@@ -1,6 +1,6 @@
-import { tokenKey } from '../constant/local-storage';
-import { JwtToken } from '../type/auth';
-import { setAxiosAuthorization } from './axios';
+import { tokenKey } from "../constant/local-storage";
+import { JwtToken } from "../type/auth";
+import { setAxiosAuthorization } from "./axios";
 
 export const setCredentialTokens = (tokens: JwtToken | null) => {
   if (tokens) {
