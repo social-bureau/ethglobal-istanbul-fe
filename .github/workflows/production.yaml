@@ -1,0 +1,32 @@
+name: Deploy to Firebase
+
+on:
+  push:
+    branches:
+      - production
+
+jobs:
+  deploy-prod:
+    runs-on: ubuntu-latest
+
+    container:
+      image: andreysenov/firebase-tools:latest-node-16
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Cache node_modules
+      uses: actions/cache@v2
+      with:
+        path: node_modules
+        key: ${{ runner.os }}-node-${{ hashFiles('**/yarn.lock') }}
+
+    - name: Install dependencies
+      run: yarn
+
+    - name: Build Angular project for production
+      run: yarn build
+
+    - name: Deploy to Firebase hosting
+      run: firebase deploy --only hosting:prod --token ${{ secrets.FIREBASE_TOKEN }}
