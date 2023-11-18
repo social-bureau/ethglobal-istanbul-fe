@@ -68,7 +68,7 @@ const messageSlice = createSlice({
         participants: Participant[];
         pageInfo: PageInfo;
         chatScheme: CryptoAES256;
-      }>
+      }>,
     ) => {
       state.messages = action.payload.messages;
       state.participants = action.payload.participants;
@@ -86,7 +86,7 @@ const messageSlice = createSlice({
         messages: MessageWithAlignAndSentStatus[];
         participants: Participant[];
         pageInfo: PageInfo;
-      }>
+      }>,
     ) => {
       state.messages = action.payload.messages;
       state.participants = action.payload.participants;
@@ -97,7 +97,7 @@ const messageSlice = createSlice({
       state,
       action: PayloadAction<{
         messages: MessageWithAlignAndSentStatus[];
-      }>
+      }>,
     ) => {
       state.messages = action.payload.messages;
     },
@@ -140,6 +140,8 @@ export const initializeMessage =
 
       const messageResponse = await fetchMessage(query, conversationIdParam);
 
+      console.log(messageResponse);
+
       const peer = getReceiver(messageResponse.participants, user);
       if (isEmpty(peer)) {
         throw new Error("Peer public address not found.");
@@ -149,7 +151,7 @@ export const initializeMessage =
         contract,
         peer.publicAddress,
         user.publicAddress,
-        userScheme
+        userScheme,
       );
 
       const conversation = await getConversationApi(conversationIdParam);
@@ -159,21 +161,22 @@ export const initializeMessage =
       dispatch(
         setSelectedConversation({
           selectedConversation: conversation,
-        })
+        }),
       );
 
       dispatch(
         initializeMessageSuccess({
           messages: prepareMessages(
             messageResponse.conversationMessages.results,
-            user.publicAddress
+            user.publicAddress,
           ),
           participants: messageResponse.participants,
           pageInfo: omit(messageResponse.conversationMessages, ["results"]),
           chatScheme,
-        })
+        }),
       );
     } catch (error) {
+      console.log(error);
       toast.error(errorFormat(error).message);
       dispatch(fetchMessageFailure());
     }
@@ -197,18 +200,18 @@ export const backgroundUpdateMessage =
 
       const messageResponse = await fetchMessage(
         query,
-        selectedConversation.conversation.id
+        selectedConversation.conversation.id,
       );
 
       dispatch(
         backgroundUpdateMessageSuccess({
           messages: prepareMessages(
             messageResponse.conversationMessages.results,
-            user.publicAddress
+            user.publicAddress,
           ),
           participants: messageResponse.participants,
           pageInfo: omit(messageResponse.conversationMessages, ["results"]),
-        })
+        }),
       );
     } catch (error) {
       toast.error(errorFormat(error).message);
@@ -279,14 +282,14 @@ export const sendMessage =
       };
 
       dispatch(
-        updateSendingMessage({ messages: [sendingMessage, ...messages] })
+        updateSendingMessage({ messages: [sendingMessage, ...messages] }),
       );
 
       await sendTextMessageApi(
         selectedConversation.conversation.id,
         cypherText,
         type!,
-        optional
+        optional,
       );
 
       dispatch(backgroundUpdateMessage());
@@ -299,12 +302,12 @@ export const sendMessage =
 // Private
 const fetchMessage = async (
   query: PaginateParams,
-  conversationIdParam: string
+  conversationIdParam: string,
 ) => {
   const queryParams = queryParamsToString({ ...query });
   const messageResponse = await getMessagesApi(
     conversationIdParam,
-    queryParams
+    queryParams,
   );
   if (isEmpty(messageResponse)) {
     throw new Error("Message response is empty.");
@@ -317,7 +320,7 @@ const fetchMessage = async (
 
 const prepareMessages = (
   messages: Message[],
-  userAddress: string
+  userAddress: string,
 ): MessageWithAlignAndSentStatus[] => {
   const messageWithAlignAndSentStatus = messages.map((msg) => {
     const align: ChatBubbleAlign =
@@ -337,11 +340,11 @@ const getChatScheme = async (
   contract: Contract,
   peerAddress: string,
   userAddress: string,
-  userScheme: CryptoECIES
+  userScheme: CryptoECIES,
 ) => {
   const isChatInitialized = await contract.callStatic.isChatInitialized(
     userAddress,
-    peerAddress
+    peerAddress,
   );
 
   let chatSecret: Buffer | null = null;
@@ -349,11 +352,11 @@ const getChatScheme = async (
   if (isChatInitialized) {
     const chatSecretEncrypted = await contract.callStatic.getChatInitialization(
       userAddress,
-      peerAddress
+      peerAddress,
     );
     const encryptedChatSecret = Buffer.from(
       chatSecretEncrypted.slice(2),
-      "hex"
+      "hex",
     );
     chatSecret = userScheme.decrypt(encryptedChatSecret);
   } else {
@@ -361,18 +364,17 @@ const getChatScheme = async (
     chatSecret = generateSecret();
 
     // fetch peer's public key
-    const peerInit = await contract.callStatic.getUserInitialization(
-      peerAddress
-    );
+    const peerInit =
+      await contract.callStatic.getUserInitialization(peerAddress);
 
     // encrypt for peer
     const peerPublicKey = Buffer.from(
       (peerInit.publicKeyPrefix ? "02" : "03") + peerInit.publicKeyX.slice(2),
-      "hex"
+      "hex",
     );
     const chatSecretEncryptedForPeer = CryptoECIES.encrypt(
       peerPublicKey.toString("hex"),
-      chatSecret
+      chatSecret,
     );
     const chatSecretEncryptedForMe = userScheme.encrypt(chatSecret);
 
@@ -380,7 +382,7 @@ const getChatScheme = async (
     const tx = await contract.initializeChat(
       chatSecretEncryptedForMe,
       chatSecretEncryptedForPeer,
-      peerAddress
+      peerAddress,
     );
     await tx.wait();
   }

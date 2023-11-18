@@ -1,6 +1,6 @@
-import { useWeb3Modal } from '@web3modal/wagmi/react';
-import { Button } from 'flowbite-react';
-import { useAccount } from 'wagmi';
+import { useWeb3Modal } from "@web3modal/wagmi/react";
+import { Button } from "flowbite-react";
+import { useAccount } from "wagmi";
 
 export default function UnauthorizedWallet() {
   const { open } = useWeb3Modal();
@@ -18,7 +18,8 @@ export default function UnauthorizedWallet() {
         </p>
         <Button
           disabled={isConnecting}
-          onClick={() => open({ view: 'Networks' })}>
+          onClick={() => open({ view: "Networks" })}
+        >
           Connect Wallet
         </Button>
       </div>

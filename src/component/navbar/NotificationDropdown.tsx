@@ -1,6 +1,6 @@
-import { Dropdown } from 'flowbite-react';
-import { FC } from 'react';
-import { HiOutlineBell, HiEye } from 'react-icons/hi';
+import { Dropdown } from "flowbite-react";
+import { FC } from "react";
+import { HiOutlineBell, HiEye } from "react-icons/hi";
 
 export default function NotificationDropdown() {
   return (
@@ -12,7 +12,8 @@ export default function NotificationDropdown() {
           <span className="sr-only">Notifications</span>
           <HiOutlineBell className="text-2xl text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white " />
         </span>
-      }>
+      }
+    >
       <div className="max-w-[24rem]">
         <div className="block rounded-t-xl bg-gray-50 py-2 px-4 text-center text-base font-medium text-gray-700 dark:bg-gray-700 dark:text-gray-400">
           Notifications
@@ -20,7 +21,8 @@ export default function NotificationDropdown() {
         <div>
           <a
             href="#"
-            className="flex border-y py-3 px-4 hover:bg-gray-100 dark:border-gray-600 dark:hover:bg-gray-600">
+            className="flex border-y py-3 px-4 hover:bg-gray-100 dark:border-gray-600 dark:hover:bg-gray-600"
+          >
             <div className="shrink-0">
               <img
                 alt=""
@@ -46,7 +48,8 @@ export default function NotificationDropdown() {
           </a>
           <a
             href="#"
-            className="flex border-b py-3 px-4 hover:bg-gray-100 dark:border-gray-600 dark:hover:bg-gray-600">
+            className="flex border-b py-3 px-4 hover:bg-gray-100 dark:border-gray-600 dark:hover:bg-gray-600"
+          >
             <div className="shrink-0">
               <img
                 alt=""
@@ -75,7 +78,8 @@ export default function NotificationDropdown() {
           </a>
           <a
             href="#"
-            className="flex border-b py-3 px-4 hover:bg-gray-100 dark:border-gray-600 dark:hover:bg-gray-600">
+            className="flex border-b py-3 px-4 hover:bg-gray-100 dark:border-gray-600 dark:hover:bg-gray-600"
+          >
             <div className="shrink-0">
               <img
                 alt=""
@@ -104,7 +108,8 @@ export default function NotificationDropdown() {
           </a>
           <a
             href="#"
-            className="flex border-b py-3 px-4 hover:bg-gray-100 dark:border-gray-600 dark:hover:bg-gray-600">
+            className="flex border-b py-3 px-4 hover:bg-gray-100 dark:border-gray-600 dark:hover:bg-gray-600"
+          >
             <div className="shrink-0">
               <img
                 alt=""
@@ -133,7 +138,8 @@ export default function NotificationDropdown() {
           </a>
           <a
             href="#"
-            className="flex py-3 px-4 hover:bg-gray-100 dark:hover:bg-gray-600">
+            className="flex py-3 px-4 hover:bg-gray-100 dark:hover:bg-gray-600"
+          >
             <div className="shrink-0">
               <img
                 alt=""
@@ -160,7 +166,8 @@ export default function NotificationDropdown() {
         </div>
         <a
           href="#"
-          className="block rounded-b-xl bg-gray-50 py-2 text-center text-base font-normal text-gray-900 hover:bg-gray-100 dark:bg-gray-700 dark:text-white dark:hover:underline">
+          className="block rounded-b-xl bg-gray-50 py-2 text-center text-base font-normal text-gray-900 hover:bg-gray-100 dark:bg-gray-700 dark:text-white dark:hover:underline"
+        >
           <div className="inline-flex items-center gap-x-2">
             <HiEye className="h-6 w-6" />
             <span>View all</span>
@@ -177,7 +184,8 @@ const NewMessageIcon: FC = function () {
       className="h-3 w-3 text-white"
       fill="currentColor"
       viewBox="0 0 20 20"
-      xmlns="http://www.w3.org/2000/svg">
+      xmlns="http://www.w3.org/2000/svg"
+    >
       <path d="M8.707 7.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l2-2a1 1 0 00-1.414-1.414L11 7.586V3a1 1 0 10-2 0v4.586l-.293-.293z"></path>
       <path d="M3 5a2 2 0 012-2h1a1 1 0 010 2H5v7h2l1 2h4l1-2h2V5h-1a1 1 0 110-2h1a2 2 0 012 2v10a2 2 0 01-2 2H5a2 2 0 01-2-2V5z"></path>
     </svg>
@@ -190,7 +198,8 @@ const NewFollowIcon: FC = function () {
       className="h-3 w-3 text-white"
       fill="currentColor"
       viewBox="0 0 20 20"
-      xmlns="http://www.w3.org/2000/svg">
+      xmlns="http://www.w3.org/2000/svg"
+    >
       <path d="M8 9a3 3 0 100-6 3 3 0 000 6zM8 11a6 6 0 016 6H2a6 6 0 016-6zM16 7a1 1 0 10-2 0v1h-1a1 1 0 100 2h1v1a1 1 0 102 0v-1h1a1 1 0 100-2h-1V7z"></path>
     </svg>
   );
@@ -202,11 +211,13 @@ const NewLoveIcon: FC = function () {
       className="h-3 w-3 text-white"
       fill="currentColor"
       viewBox="0 0 20 20"
-      xmlns="http://www.w3.org/2000/svg">
+      xmlns="http://www.w3.org/2000/svg"
+    >
       <path
         fillRule="evenodd"
         d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z"
-        clipRule="evenodd"></path>
+        clipRule="evenodd"
+      ></path>
     </svg>
   );
 };
@@ -217,11 +228,13 @@ const NewMentionIcon: FC = function () {
       className="h-3 w-3 text-white"
       fill="currentColor"
       viewBox="0 0 20 20"
-      xmlns="http://www.w3.org/2000/svg">
+      xmlns="http://www.w3.org/2000/svg"
+    >
       <path
         fillRule="evenodd"
         d="M18 13V5a2 2 0 00-2-2H4a2 2 0 00-2 2v8a2 2 0 002 2h3l3 3 3-3h3a2 2 0 002-2zM5 7a1 1 0 011-1h8a1 1 0 110 2H6a1 1 0 01-1-1zm1 3a1 1 0 100 2h3a1 1 0 100-2H6z"
-        clipRule="evenodd"></path>
+        clipRule="evenodd"
+      ></path>
     </svg>
   );
 };
@@ -232,7 +245,8 @@ const NewVideoIcon: FC = function () {
       className="h-3 w-3 text-white"
       fill="currentColor"
       viewBox="0 0 20 20"
-      xmlns="http://www.w3.org/2000/svg">
+      xmlns="http://www.w3.org/2000/svg"
+    >
       <path d="M2 6a2 2 0 012-2h6a2 2 0 012 2v8a2 2 0 01-2 2H4a2 2 0 01-2-2V6zM14.553 7.106A1 1 0 0014 8v4a1 1 0 00.553.894l2 1A1 1 0 0018 13V7a1 1 0 00-1.447-.894l-2 1z"></path>
     </svg>
   );

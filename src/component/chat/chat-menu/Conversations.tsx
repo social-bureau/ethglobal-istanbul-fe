@@ -1,10 +1,10 @@
-import { isArray } from 'lodash';
-import ConversationCard from './ConversationCard';
-import EmptyChat from './EmptyChat';
-import { Conversation } from '../../../type/conversation';
-import ConversationsSkeleton from '../../@skeleton/ConversationsSkeleton';
-import { toggleIsShowAddContact } from '../../../redux/layout';
-import { useDispatch } from '../../../redux';
+import { isArray } from "lodash";
+import ConversationCard from "./ConversationCard";
+import EmptyChat from "./EmptyChat";
+import { Conversation } from "../../../type/conversation";
+import ConversationsSkeleton from "../../@skeleton/ConversationsSkeleton";
+import { toggleIsShowAddContact } from "../../../redux/layout";
+import { useDispatch } from "../../../redux";
 
 type Props = {
   title: string;
@@ -30,13 +30,14 @@ export default function Conversations({
           <div>{title}</div>
           <div
             className="cursor-pointer hover:text-gray-600"
-            onClick={() => dispatch(toggleIsShowAddContact(true))}>
+            onClick={() => dispatch(toggleIsShowAddContact(true))}
+          >
             +
           </div>
         </div>
         {!conversations.length && <EmptyChat />}
         {isArray(conversations) &&
-          conversations.map(conv => (
+          conversations.map((conv) => (
             <ConversationCard key={conv.id} conversation={conv} />
           ))}
       </div>

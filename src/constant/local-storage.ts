@@ -1,4 +1,4 @@
-const prefix = 'social_bureau_chat';
+const prefix = "social_bureau_chat";
 
 export const tokenKey = {
   accessToken: `${prefix}__access_token`,

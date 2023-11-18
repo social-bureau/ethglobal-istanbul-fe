@@ -1,13 +1,13 @@
-import axios from 'axios';
-import { JwtToken } from '../type/auth';
+import axios from "axios";
+import { JwtToken } from "../type/auth";
 
 const axiosServices = axios.create();
 
 axiosServices.interceptors.response.use(
-  response => response,
-  error => {
+  (response) => response,
+  (error) => {
     return Promise.reject(error);
-  }
+  },
 );
 
 export default axiosServices;

@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef } from "react";
 
 export const usePortal = (tagName: keyof HTMLElementTagNameMap) => {
   const portal = useRef(document.createElement(tagName));

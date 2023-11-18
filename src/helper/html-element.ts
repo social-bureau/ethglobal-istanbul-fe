@@ -1,24 +1,24 @@
 export const getFocusableElements = (
-  parent?: HTMLElement | null
+  parent?: HTMLElement | null,
 ): HTMLElement[] => {
   if (!parent) return [];
 
   return (
     Array.from(
       parent.querySelectorAll(
-        'a[href], button, input, textarea, select, details,[tabindex]'
-      )
+        "a[href], button, input, textarea, select, details,[tabindex]",
+      ),
     )
       .filter(
-        el =>
-          el.getAttribute('tabindex') !== '-1' &&
-          !el.hasAttribute('disabled') &&
-          !el.getAttribute('aria-hidden')
+        (el) =>
+          el.getAttribute("tabindex") !== "-1" &&
+          !el.hasAttribute("disabled") &&
+          !el.getAttribute("aria-hidden"),
       )
       // sort tabindexes as follows: 1, 2, 3, 4, ..., 0, 0, 0
       .sort((a, b) => {
-        const aIndex = Number(a.getAttribute('tabindex')) ?? 0;
-        const bIndex = Number(b.getAttribute('tabindex')) ?? 0;
+        const aIndex = Number(a.getAttribute("tabindex")) ?? 0;
+        const bIndex = Number(b.getAttribute("tabindex")) ?? 0;
         if (aIndex === bIndex) return 0;
         if (aIndex === 0) return 1;
         if (bIndex === 0) return -1;
@@ -28,7 +28,7 @@ export const getFocusableElements = (
 };
 
 export const nextFocus = (elements: HTMLElement[], forward = true) => {
-  const currentIndex = elements.findIndex(e => e === document.activeElement);
+  const currentIndex = elements.findIndex((e) => e === document.activeElement);
   let nextIndex = 0;
 
   if (currentIndex > -1) {

@@ -26,7 +26,7 @@ export default function ContractPortal({ children }: PropsWithChildren) {
         const contractInstance = new ethers.Contract(
           contractAddress,
           abi,
-          signer
+          signer,
         );
         dispatch(initializeContractSuccess({ contract: contractInstance }));
       } catch (error) {

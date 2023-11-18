@@ -14,7 +14,7 @@ import {
 import { MediaContentWithPageInfo } from "../type/message-media";
 
 export async function requestConversationApi(
-  userIds: string[]
+  userIds: string[],
 ): Promise<Conversation | undefined> {
   const url = `${environment.apiUrl}/api/chats/conversations/request`;
   const { data } = await axios.post(url, { userIds });
@@ -22,7 +22,7 @@ export async function requestConversationApi(
 }
 
 export async function getConversationApi(
-  conversationId: string
+  conversationId: string,
 ): Promise<ConversationWithParticipants | undefined> {
   const url = `${environment.apiUrl}/api/chats/conversation/${conversationId}`;
   const { data } = await axios.get(url);
@@ -30,7 +30,7 @@ export async function getConversationApi(
 }
 
 export async function getConversationsApi(
-  query: string
+  query: string,
 ): Promise<ConversationWithPageInfo | undefined> {
   const url = `${environment.apiUrl}/api/chats/conversations/me${query}`;
   const { data } = await axios.get(url);
@@ -39,7 +39,7 @@ export async function getConversationsApi(
 
 export async function getMessagesApi(
   conversationId: string,
-  query: string
+  query: string,
 ): Promise<MessageWithParticipant | undefined> {
   const url = `${environment.apiUrl}/api/chats/conversations/${conversationId}${query}`;
   const { data } = await axios.get(url);
@@ -50,7 +50,7 @@ export async function sendTextMessageApi(
   conversationId: string,
   text: string,
   contentType: MessageType,
-  optional: MessageStateOptional
+  optional: MessageStateOptional,
 ): Promise<Message[] | undefined> {
   const url = `${environment.apiUrl}/api/chats/conversations/${conversationId}/send`;
   const { data } = await axios.post(url, { text, contentType, optional });
@@ -60,7 +60,7 @@ export async function sendTextMessageApi(
 export async function getCoversationMediaApi(
   conversationId: string,
   contentType: MessageType,
-  query: string
+  query: string,
 ): Promise<MediaContentWithPageInfo | undefined> {
   const url = `${environment.apiUrl}/api/chats/media/conversations/${conversationId}${query}&contentType=${contentType}`;
   const { data } = await axios.get(url);

@@ -1,5 +1,5 @@
-import { Suspense, LazyExoticComponent } from 'react';
-import FullSpinner from './FullSpinner';
+import { Suspense, LazyExoticComponent } from "react";
+import FullSpinner from "./FullSpinner";
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 const Loadable =

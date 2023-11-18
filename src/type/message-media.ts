@@ -1,5 +1,5 @@
-import { PageInfo } from './common';
-import { MessageStateOptional } from './message';
+import { PageInfo } from "./common";
+import { MessageStateOptional } from "./message";
 
 export type MediaContent = {
   content: string;

@@ -1,9 +1,9 @@
-import EmptyContact from './EmptyContact';
-import ContactCard from './ContactCard';
-import ContactsSkeleton from '../../@skeleton/ContactsSkeleton';
-import { Contact } from '../../../type/contact';
-import { useDispatch } from '../../../redux';
-import { toggleIsShowAddContact } from '../../../redux/layout';
+import EmptyContact from "./EmptyContact";
+import ContactCard from "./ContactCard";
+import ContactsSkeleton from "../../@skeleton/ContactsSkeleton";
+import { Contact } from "../../../type/contact";
+import { useDispatch } from "../../../redux";
+import { toggleIsShowAddContact } from "../../../redux/layout";
 
 type Props = {
   contacts: Contact[];
@@ -24,13 +24,14 @@ export default function Contacts({ contacts, loading }: Props) {
           <div>Contacts</div>
           <div
             className="cursor-pointer hover:text-gray-600"
-            onClick={() => dispatch(toggleIsShowAddContact(true))}>
+            onClick={() => dispatch(toggleIsShowAddContact(true))}
+          >
             +
           </div>
         </div>
 
         {!contacts.length && <EmptyContact />}
-        {contacts.map(cont => (
+        {contacts.map((cont) => (
           <ContactCard key={cont.id} contact={cont} />
         ))}
       </div>

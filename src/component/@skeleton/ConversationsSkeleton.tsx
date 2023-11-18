@@ -1,4 +1,4 @@
-import Skeleton from 'react-loading-skeleton';
+import Skeleton from "react-loading-skeleton";
 
 export default function ConversationsSkeleton() {
   return (
@@ -7,7 +7,7 @@ export default function ConversationsSkeleton() {
         Conversation
       </div>
 
-      {Array.from(Array(10).keys()).map(i => (
+      {Array.from(Array(10).keys()).map((i) => (
         <div className="flex py-1.5 justify-between" key={i}>
           <span className="flex items-center space-x-1">
             <Skeleton circle containerClassName="flex" height={38} width={38} />

@@ -44,7 +44,7 @@ const layoutSlice = createSlice({
     },
     setConversationDetailPanel: (
       state,
-      action: PayloadAction<MediaPanel | null>
+      action: PayloadAction<MediaPanel | null>,
     ) => {
       state.conversationDetailPanel = action.payload;
     },

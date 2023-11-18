@@ -1,5 +1,5 @@
-import { Time, PageInfo } from './common';
-import { Participant } from './conversation';
+import { Time, PageInfo } from "./common";
+import { Participant } from "./conversation";
 
 export type Message = {
   id: string;
@@ -27,14 +27,14 @@ export type MessageWithAlignAndSentStatus = Message & {
 };
 
 export enum MessageType {
-  TEXT = 'txt',
-  IMAGE = 'img',
-  FILE = 'file',
+  TEXT = "txt",
+  IMAGE = "img",
+  FILE = "file",
 }
 
 export enum ChatBubbleAlign {
-  Left = 'left',
-  Right = 'right',
+  Left = "left",
+  Right = "right",
 }
 
 export type SendingMessageState = {

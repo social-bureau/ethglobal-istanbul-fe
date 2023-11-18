@@ -40,7 +40,7 @@ export default function ChatFeed() {
     } else {
       const allTabs = Object.values(ChatMenuTab);
       dispatch(
-        setActiveChatMenuTab(allTabs.includes(tab) ? tab : ChatMenuTab.Chats)
+        setActiveChatMenuTab(allTabs.includes(tab) ? tab : ChatMenuTab.Chats),
       );
     }
   }, [tabParam, location.pathname]);
@@ -80,7 +80,7 @@ export default function ChatFeed() {
       <div
         className={classNames(
           "overflow-y-auto relative w-full h-full bg-white dark:bg-gray-900",
-          isOpenSidebar ? "lg:ml-80" : "lg:ml-0"
+          isOpenSidebar ? "lg:ml-80" : "lg:ml-0",
         )}
       >
         <div className="h-full">

@@ -11,7 +11,7 @@ import { useSelector } from "../../../redux";
 
 export default function Container() {
   const { selectedContact, selectedContactInitialzing } = useSelector(
-    (state) => state.contact
+    (state) => state.contact,
   );
   const { isWidget } = useSelector((state) => state.layout);
   const { isShowConversationDetail } = useSelector((state) => state.layout);
@@ -23,7 +23,7 @@ export default function Container() {
   const isSelectedConversation = !!messageParticipants.length;
 
   const { isShowAddContact, activeChatMenuTab } = useSelector(
-    (state) => state.layout
+    (state) => state.layout,
   );
 
   if (messageInitialzing || selectedContactInitialzing) {

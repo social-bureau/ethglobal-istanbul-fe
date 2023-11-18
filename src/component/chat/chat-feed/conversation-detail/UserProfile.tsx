@@ -1,14 +1,14 @@
-import trimAddress from '../../../../helper/trim-address.ts';
-import { useSelector } from '../../../../redux/index.ts';
-import { GoCopy } from 'react-icons/go';
-import { CopyToClipboard } from 'react-copy-to-clipboard';
-import PlaceholderAvatar from '../../../@share/PlaceholderAvatar';
-import { isEmpty } from 'lodash';
-import { getReceiver } from '../../../../helper/conversation.ts';
+import trimAddress from "../../../../helper/trim-address.ts";
+import { useSelector } from "../../../../redux/index.ts";
+import { GoCopy } from "react-icons/go";
+import { CopyToClipboard } from "react-copy-to-clipboard";
+import PlaceholderAvatar from "../../../@share/PlaceholderAvatar";
+import { isEmpty } from "lodash";
+import { getReceiver } from "../../../../helper/conversation.ts";
 
 export default function UserProfile() {
-  const { user } = useSelector(state => state.account);
-  const { selectedConversation } = useSelector(state => state.conversation);
+  const { user } = useSelector((state) => state.account);
+  const { selectedConversation } = useSelector((state) => state.conversation);
 
   if (isEmpty(selectedConversation) || isEmpty(user)) {
     return null;

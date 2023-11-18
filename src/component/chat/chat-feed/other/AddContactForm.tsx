@@ -1,25 +1,25 @@
-import { ChangeEvent, useState } from 'react';
-import { Label, Radio, TextInput, Textarea, Button } from 'flowbite-react';
-import { useFormik } from 'formik';
-import * as yup from 'yup';
-import { PiPaperPlaneTiltBold } from 'react-icons/pi';
-import { BiEditAlt } from 'react-icons/bi';
-import { toast } from 'react-toastify';
-import { errorFormat } from '../../../../helper/error-format';
-import { requestConversationApi } from '../../../../rest-api/conversation';
-import { isEmpty } from 'lodash';
-import { useNavigate } from 'react-router-dom';
-import sleep from '../../../../helper/sleep';
-import { CreateContactBody } from '../../../../type/contact';
-import { createContactApi } from '../../../../rest-api/contact';
-import { ChatMenuTab } from '../../../../type/conversation';
-import { useDispatch } from '../../../../redux';
-import { toggleIsShowAddContact } from '../../../../redux/layout';
+import { ChangeEvent, useState } from "react";
+import { Label, Radio, TextInput, Textarea, Button } from "flowbite-react";
+import { useFormik } from "formik";
+import * as yup from "yup";
+import { PiPaperPlaneTiltBold } from "react-icons/pi";
+import { BiEditAlt } from "react-icons/bi";
+import { toast } from "react-toastify";
+import { errorFormat } from "../../../../helper/error-format";
+import { requestConversationApi } from "../../../../rest-api/conversation";
+import { isEmpty } from "lodash";
+import { useNavigate } from "react-router-dom";
+import sleep from "../../../../helper/sleep";
+import { CreateContactBody } from "../../../../type/contact";
+import { createContactApi } from "../../../../rest-api/contact";
+import { ChatMenuTab } from "../../../../type/conversation";
+import { useDispatch } from "../../../../redux";
+import { toggleIsShowAddContact } from "../../../../redux/layout";
 
 const validationSchema = yup.object({
-  address: yup.string().required('Address is required'),
-  reason: yup.mixed().required('Reason is required'),
-  description: yup.mixed().required('Description is required'),
+  address: yup.string().required("Address is required"),
+  reason: yup.mixed().required("Reason is required"),
+  description: yup.mixed().required("Description is required"),
 });
 
 export default function AddContactForm() {
@@ -29,16 +29,16 @@ export default function AddContactForm() {
 
   const formik = useFormik<CreateContactBody>({
     initialValues: {
-      address: '',
-      reason: '',
-      description: '',
+      address: "",
+      reason: "",
+      description: "",
     },
     validationSchema,
     onSubmit: () => {},
   });
 
   const handleReasonChange = (e: ChangeEvent<HTMLInputElement>) => {
-    formik.setFieldValue('reason', e.target.value);
+    formik.setFieldValue("reason", e.target.value);
   };
 
   const handleSendChatRequest = async () => {
@@ -99,7 +99,8 @@ export default function AddContactForm() {
 
           <fieldset
             className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4"
-            id="radio">
+            id="radio"
+          >
             <div className="flex items-start gap-2">
               <Radio
                 id="business-purpose"
@@ -112,12 +113,14 @@ export default function AddContactForm() {
               <div className="flex items-start flex-col">
                 <Label
                   htmlFor="business-purpose"
-                  className="leading-none text-sm font-medium text-gray-900">
+                  className="leading-none text-sm font-medium text-gray-900"
+                >
                   Business purpose
                 </Label>
                 <Label
                   htmlFor="business-purpose"
-                  className="text-xs font-normal text-gray-500">
+                  className="text-xs font-normal text-gray-500"
+                >
                   Contact for business
                 </Label>
               </div>
@@ -134,12 +137,14 @@ export default function AddContactForm() {
               <div className="flex items-start flex-col">
                 <Label
                   htmlFor="making-friend"
-                  className="leading-none text-sm font-medium text-gray-900">
+                  className="leading-none text-sm font-medium text-gray-900"
+                >
                   Making friend
                 </Label>
                 <Label
                   htmlFor="making-friend"
-                  className="text-xs font-normal text-gray-500">
+                  className="text-xs font-normal text-gray-500"
+                >
                   Want to be a friend with
                 </Label>
               </div>
@@ -156,12 +161,14 @@ export default function AddContactForm() {
               <div className="flex items-start flex-col">
                 <Label
                   htmlFor="ask-for-help"
-                  className="leading-none text-sm font-medium text-gray-900">
+                  className="leading-none text-sm font-medium text-gray-900"
+                >
                   Ask for help
                 </Label>
                 <Label
                   htmlFor="ask-for-help"
-                  className="text-xs font-normal text-gray-500">
+                  className="text-xs font-normal text-gray-500"
+                >
                   You need his/ her help
                 </Label>
               </div>
@@ -178,12 +185,14 @@ export default function AddContactForm() {
               <div className="flex items-start flex-col">
                 <Label
                   htmlFor="other"
-                  className="leading-none text-sm font-medium text-gray-900">
+                  className="leading-none text-sm font-medium text-gray-900"
+                >
                   Other
                 </Label>
                 <Label
                   htmlFor="other"
-                  className="text-xs font-normal text-gray-500">
+                  className="text-xs font-normal text-gray-500"
+                >
                   The other purpose
                 </Label>
               </div>
@@ -196,7 +205,7 @@ export default function AddContactForm() {
             </div>
           )}
 
-          <div className="p-3 mt-3 w-full" style={{ maxWidth: '496px' }}>
+          <div className="p-3 mt-3 w-full" style={{ maxWidth: "496px" }}>
             <TextInput
               className="w-full bg-gray-50 border-gray-300"
               placeholder="Enter wallet address "
@@ -216,15 +225,16 @@ export default function AddContactForm() {
 
           <div
             className="p-3 w-full relative"
-            style={{ maxWidth: '496px', position: 'relative' }}>
+            style={{ maxWidth: "496px", position: "relative" }}
+          >
             {!formik.values.description && (
-              <div style={{ position: 'absolute', top: '24px', left: '22px' }}>
+              <div style={{ position: "absolute", top: "24px", left: "22px" }}>
                 <BiEditAlt className="text-gray-500" />
               </div>
             )}
             <Textarea
               placeholder="      Short note to receiver"
-              style={{ height: '218px', padding: '10px' }}
+              style={{ height: "218px", padding: "10px" }}
               className="resize-none bg-gray-50 border border-gray-300"
               name="description"
               value={formik.values.description}
@@ -242,7 +252,8 @@ export default function AddContactForm() {
               color="primary"
               outline
               disabled={submitting}
-              onClick={handleAddContact}>
+              onClick={handleAddContact}
+            >
               <span className="text-primary-700 group-enabled:group-hover:text-white">
                 Just add to my contact
               </span>
@@ -250,7 +261,8 @@ export default function AddContactForm() {
             <Button
               color="primary"
               disabled={submitting}
-              onClick={handleSendChatRequest}>
+              onClick={handleSendChatRequest}
+            >
               <PiPaperPlaneTiltBold className="me-2" />
               Send a chat request
             </Button>

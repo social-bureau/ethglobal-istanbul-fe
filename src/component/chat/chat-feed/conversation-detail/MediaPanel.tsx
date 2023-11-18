@@ -1,26 +1,26 @@
-import { FaChevronLeft } from 'react-icons/fa';
-import { MediaPanel } from '../../../../type/conversation';
-import classnames from 'classnames';
-import { useDispatch, useSelector } from '../../../../redux';
+import { FaChevronLeft } from "react-icons/fa";
+import { MediaPanel } from "../../../../type/conversation";
+import classnames from "classnames";
+import { useDispatch, useSelector } from "../../../../redux";
 import {
   setConversationDetailPanel,
   setLightBoxPortal,
-} from '../../../../redux/layout';
-import { capitalize, isEmpty } from 'lodash';
-import { useDeepEffect } from '../../../../hook/useDeepEffect';
+} from "../../../../redux/layout";
+import { capitalize, isEmpty } from "lodash";
+import { useDeepEffect } from "../../../../hook/useDeepEffect";
 import {
   initializeFileMedia,
   initializeImageMedia,
-} from '../../../../redux/message-media';
-import ImageMediaTabSkeleton from '../../../@skeleton/ImageMediaTabSkeleton';
-import FileMediaTabSkeleton from '../../../@skeleton/FileMediaTabSkeleton';
-import FileCard from './FileCard';
+} from "../../../../redux/message-media";
+import ImageMediaTabSkeleton from "../../../@skeleton/ImageMediaTabSkeleton";
+import FileMediaTabSkeleton from "../../../@skeleton/FileMediaTabSkeleton";
+import FileCard from "./FileCard";
 
 export default function MediaTabPanel() {
   const dispatch = useDispatch();
-  const { conversationDetailPanel } = useSelector(state => state.layout);
-  const { image, file } = useSelector(state => state.messageMedia);
-  const { chatScheme } = useSelector(state => state.message);
+  const { conversationDetailPanel } = useSelector((state) => state.layout);
+  const { image, file } = useSelector((state) => state.messageMedia);
+  const { chatScheme } = useSelector((state) => state.message);
 
   const menus = Object.values(MediaPanel);
 
@@ -40,10 +40,10 @@ export default function MediaTabPanel() {
 
   const decrypt = (cypher: string) => {
     if (chatScheme) {
-      const plain = chatScheme.decrypt(Buffer.from(cypher, 'hex')).toString();
+      const plain = chatScheme.decrypt(Buffer.from(cypher, "hex")).toString();
       return plain;
     }
-    return '';
+    return "";
   };
 
   const displayImages = () => {
@@ -57,7 +57,7 @@ export default function MediaTabPanel() {
 
     return (
       <div className="flex flex-wrap w-full">
-        {image.media.map(media => {
+        {image.media.map((media) => {
           const src = decrypt(media.content);
           return (
             <div className="w-[33.33%] p-0.5 border-2 cursor-pointer rounded">
@@ -87,7 +87,7 @@ export default function MediaTabPanel() {
 
     return (
       <div>
-        {file.media.slice(0, 3).map(media => {
+        {file.media.slice(0, 3).map((media) => {
           if (isEmpty(media.optional)) {
             return <></>;
           }
@@ -111,29 +111,31 @@ export default function MediaTabPanel() {
       <div className="flex items-center min-h-[55px] space-x-2 border-b-2 border-gray-200 px-3 ">
         <div
           className="text-gray-500 w-7 h-7 flex justify-center items-center rounded-full hover:bg-gray-100 cursor-pointer"
-          onClick={() => dispatch(setConversationDetailPanel(null))}>
+          onClick={() => dispatch(setConversationDetailPanel(null))}
+        >
           <FaChevronLeft />
         </div>
         <div className="font-medium text-gray-500">Media and Files</div>
       </div>
       <nav className="flex flex-row justify-around border-b-[1px] px-2">
-        {menus.map(m => (
+        {menus.map((m) => (
           <div
             key={m}
             onClick={() => dispatch(setConversationDetailPanel(m))}
             className={classnames(
-              'flex justify-center items-center',
-              'w-1/3',
-              'text-sm font-medium',
-              'cursor-pointer',
-              'text-gray-400 hover:text-gray-600',
-              'focus:outline-none',
-              'py-3',
+              "flex justify-center items-center",
+              "w-1/3",
+              "text-sm font-medium",
+              "cursor-pointer",
+              "text-gray-400 hover:text-gray-600",
+              "focus:outline-none",
+              "py-3",
               {
-                'text-gray-600 border-b-[1px] border-b-primary-400':
+                "text-gray-600 border-b-[1px] border-b-primary-400":
                   conversationDetailPanel === m,
-              }
-            )}>
+              },
+            )}
+          >
             {capitalize(m)}
           </div>
         ))}

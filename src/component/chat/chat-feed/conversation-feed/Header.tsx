@@ -1,21 +1,21 @@
-import { useState } from 'react';
-import { AiOutlineMore } from 'react-icons/ai';
-import PlaceholderAvatar from '../../../@share/PlaceholderAvatar';
-import { getReceiver } from '../../../../helper/conversation';
-import { useDeepEffect } from '../../../../hook/useDeepEffect';
-import { isEmpty } from 'lodash';
-import { Participant } from '../../../../type/conversation';
-import { useDispatch, useSelector } from '../../../../redux';
-import { toggleIsShowConversationDetail } from '../../../../redux/layout';
-import trimAddress from '../../../../helper/trim-address';
+import { useState } from "react";
+import { AiOutlineMore } from "react-icons/ai";
+import PlaceholderAvatar from "../../../@share/PlaceholderAvatar";
+import { getReceiver } from "../../../../helper/conversation";
+import { useDeepEffect } from "../../../../hook/useDeepEffect";
+import { isEmpty } from "lodash";
+import { Participant } from "../../../../type/conversation";
+import { useDispatch, useSelector } from "../../../../redux";
+import { toggleIsShowConversationDetail } from "../../../../redux/layout";
+import trimAddress from "../../../../helper/trim-address";
 
 export default function ConversationHeader() {
   const dispatch = useDispatch();
-  const { user } = useSelector(state => state.account);
-  const { participants } = useSelector(state => state.message);
-  const { isShowConversationDetail } = useSelector(state => state.layout);
+  const { user } = useSelector((state) => state.account);
+  const { participants } = useSelector((state) => state.message);
+  const { isShowConversationDetail } = useSelector((state) => state.layout);
   const [receiverInfo, setReceiverInfo] = useState<Participant | undefined>();
-  const { isWidget } = useSelector(state => state.layout);
+  const { isWidget } = useSelector((state) => state.layout);
 
   useDeepEffect(() => {
     if (!isEmpty(user) && participants.length) {
@@ -49,7 +49,8 @@ export default function ConversationHeader() {
           className="cursor-pointer"
           onClick={() =>
             dispatch(toggleIsShowConversationDetail(!isShowConversationDetail))
-          }>
+          }
+        >
           <AiOutlineMore />
         </div>
       )}

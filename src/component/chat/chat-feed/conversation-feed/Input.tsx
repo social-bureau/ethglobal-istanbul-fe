@@ -38,7 +38,7 @@ export default function Input() {
     if (file.size > bytes.parse(maxUploadImageSize)) {
       const fileSize = bytes(file.size);
       return toast.error(
-        `Please make sure your image is no larger than ${maxUploadImageSize}. (${fileSize})`
+        `Please make sure your image is no larger than ${maxUploadImageSize}. (${fileSize})`,
       );
     }
     setFileUploading(true);
@@ -58,7 +58,7 @@ export default function Input() {
     if (file.size > bytes.parse(maxUploadFileSize)) {
       const fileSize = bytes(file.size);
       return toast.error(
-        `Please make sure your file is no larger than ${maxUploadFileSize}. (${fileSize})`
+        `Please make sure your file is no larger than ${maxUploadFileSize}. (${fileSize})`,
       );
     }
     setFileUploading(true);

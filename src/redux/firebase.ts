@@ -19,7 +19,7 @@ const firebaseSlice = createSlice({
       state,
       action: PayloadAction<{
         database: Database;
-      }>
+      }>,
     ) => ({
       ...state,
       database: action.payload.database,

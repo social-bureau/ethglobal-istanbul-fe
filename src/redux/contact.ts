@@ -1,14 +1,14 @@
-import { PayloadAction, createSlice } from '@reduxjs/toolkit';
-import { toast } from 'react-toastify';
-import { StoreDispatch, StoreGetState } from '.';
-import { initialPageInfoValue } from '../constant/page-info';
-import { PageInfo, PaginateParams } from '../type/common';
-import { queryParamsToString } from '../helper/formater';
-import { errorFormat } from '../helper/error-format';
-import { Contact } from '../type/contact';
-import { getContactApi, getContactsApi } from '../rest-api/contact';
-import { isArray, isEmpty, omit } from 'lodash';
-import sleep from '../helper/sleep';
+import { PayloadAction, createSlice } from "@reduxjs/toolkit";
+import { toast } from "react-toastify";
+import { StoreDispatch, StoreGetState } from ".";
+import { initialPageInfoValue } from "../constant/page-info";
+import { PageInfo, PaginateParams } from "../type/common";
+import { queryParamsToString } from "../helper/formater";
+import { errorFormat } from "../helper/error-format";
+import { Contact } from "../type/contact";
+import { getContactApi, getContactsApi } from "../rest-api/contact";
+import { isArray, isEmpty, omit } from "lodash";
+import sleep from "../helper/sleep";
 
 export type ContactReducerState = {
   contacts: Contact[];
@@ -38,7 +38,7 @@ const initialState: ContactReducerState = {
 };
 
 const contactSlice = createSlice({
-  name: 'contact',
+  name: "contact",
   initialState,
   reducers: {
     // initialization
@@ -47,14 +47,14 @@ const contactSlice = createSlice({
       action: PayloadAction<{
         contacts: Contact[];
         pageInfo: PageInfo;
-      }>
+      }>,
     ) => {
       state.contacts = action.payload.contacts;
       state.pageInfo = action.payload.pageInfo;
       state.initialzing = false;
     },
     // background update
-    backgroundUpdatingContact: state => {
+    backgroundUpdatingContact: (state) => {
       state.backgroundUpdating = true;
     },
     backgroundUpdateContactSuccess: (
@@ -62,21 +62,21 @@ const contactSlice = createSlice({
       action: PayloadAction<{
         contacts: Contact[];
         pageInfo: PageInfo;
-      }>
+      }>,
     ) => {
       state.contacts = action.payload.contacts;
       state.pageInfo = action.payload.pageInfo;
       state.backgroundUpdating = false;
     },
     // selected contact
-    initializingSelectedContact: state => {
+    initializingSelectedContact: (state) => {
       state.selectedContactInitialzing = true;
     },
     setSeletedContactSuccess: (
       state,
       action: PayloadAction<{
         contact: Contact | null;
-      }>
+      }>,
     ) => {
       state.selectedContact = action.payload.contact;
       state.selectedContactInitialzing = false;
@@ -109,8 +109,8 @@ export const initializeContact =
       dispatch(
         initializeContactSuccess({
           contacts: contactResponse.results,
-          pageInfo: omit(contactResponse, ['results']),
-        })
+          pageInfo: omit(contactResponse, ["results"]),
+        }),
       );
     } catch (error) {
       toast.error(errorFormat(error).message);
@@ -127,8 +127,8 @@ export const backgroundUpdateContact =
       dispatch(
         backgroundUpdateContactSuccess({
           contacts: contactResponse.results,
-          pageInfo: omit(contactResponse, ['results']),
-        })
+          pageInfo: omit(contactResponse, ["results"]),
+        }),
       );
     } catch (error) {
       toast.error(errorFormat(error).message);
@@ -157,10 +157,10 @@ const fetchContacts = async (query: PaginateParams) => {
   const queryParam = queryParamsToString({ ...query });
   const contactResponse = await getContactsApi(queryParam);
   if (isEmpty(contactResponse)) {
-    throw new Error('Contact response is empty.');
+    throw new Error("Contact response is empty.");
   }
   if (!isArray(contactResponse.results)) {
-    throw new Error('Contact is not found.');
+    throw new Error("Contact is not found.");
   }
   return contactResponse;
 };
@@ -168,7 +168,7 @@ const fetchContacts = async (query: PaginateParams) => {
 const fetchContactById = async (contactId: string) => {
   const contactResponse = await getContactApi(contactId!);
   if (isEmpty(contactResponse)) {
-    throw new Error('Contact response is empty.');
+    throw new Error("Contact response is empty.");
   }
   return contactResponse;
 };

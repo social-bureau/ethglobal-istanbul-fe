@@ -103,7 +103,7 @@ const messageMediaSlice = createSlice({
           image: PreviewPayload;
           file: PreviewPayload;
         };
-      }>
+      }>,
     ) => {
       state.preview.file = action.payload.preview.file;
       state.preview.image = action.payload.preview.image;
@@ -115,7 +115,7 @@ const messageMediaSlice = createSlice({
       action: PayloadAction<{
         media: MediaContent[];
         pageInfo: PageInfo;
-      }>
+      }>,
     ) => {
       state.image.media = action.payload.media;
       state.image.pageInfo = action.payload.pageInfo;
@@ -126,7 +126,7 @@ const messageMediaSlice = createSlice({
       action: PayloadAction<{
         media: MediaContent[];
         pageInfo: PageInfo;
-      }>
+      }>,
     ) => {
       state.file.media = action.payload.media;
       state.file.pageInfo = action.payload.pageInfo;
@@ -166,12 +166,12 @@ export const initializePreviewMedia =
         fetchConversationsMedia(
           conversationId,
           MessageType.IMAGE,
-          imagePreviewParam
+          imagePreviewParam,
         ),
         await fetchConversationsMedia(
           conversationId,
           MessageType.FILE,
-          filePreviewParam
+          filePreviewParam,
         ),
       ]);
 
@@ -207,14 +207,14 @@ export const initializeImageMedia =
       const imageResponse = await fetchConversationsMedia(
         selectedConversation.conversation.id,
         MessageType.IMAGE,
-        image.query
+        image.query,
       );
 
       dispatch(
         initializeImageSuccess({
           media: imageResponse.results,
           pageInfo: omit(imageResponse, ["results"]),
-        })
+        }),
       );
     } catch (error) {
       toast.error(errorFormat(error).message);
@@ -236,14 +236,14 @@ export const initializeFileMedia =
       const fileResponse = await fetchConversationsMedia(
         selectedConversation.conversation.id,
         MessageType.FILE,
-        file.query
+        file.query,
       );
 
       dispatch(
         initializeFileSuccess({
           media: fileResponse.results,
           pageInfo: omit(fileResponse, ["results"]),
-        })
+        }),
       );
     } catch (error) {
       toast.error(errorFormat(error).message);
@@ -254,13 +254,13 @@ export const initializeFileMedia =
 const fetchConversationsMedia = async (
   conversationId: string,
   contentType: MessageType,
-  query: PaginateParams
+  query: PaginateParams,
 ) => {
   const queryParams = queryParamsToString({ ...query });
   const mediaResponse = await getCoversationMediaApi(
     conversationId,
     contentType,
-    queryParams
+    queryParams,
   );
   if (isEmpty(mediaResponse)) {
     throw new Error("Media response is empty.");

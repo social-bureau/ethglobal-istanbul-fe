@@ -1,5 +1,5 @@
-import { PropsWithChildren } from 'react';
-import { ToastContainer } from 'react-toastify';
+import { PropsWithChildren } from "react";
+import { ToastContainer } from "react-toastify";
 
 export default function ToastifyPortal({ children }: PropsWithChildren) {
   return (

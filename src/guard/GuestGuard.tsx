@@ -1,7 +1,7 @@
-import { PropsWithChildren } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
-import { useAccount, useNetwork } from 'wagmi';
-import { useDeepEffect } from '../hook/useDeepEffect';
+import { PropsWithChildren } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
+import { useAccount, useNetwork } from "wagmi";
+import { useDeepEffect } from "../hook/useDeepEffect";
 
 export default function GuestGuard({ children }: PropsWithChildren) {
   const { address } = useAccount();
@@ -11,9 +11,9 @@ export default function GuestGuard({ children }: PropsWithChildren) {
 
   useDeepEffect(() => {
     if (address && !chain?.unsupported) {
-      navigate(location?.state?.from || '/', {
+      navigate(location?.state?.from || "/", {
         state: {
-          from: '',
+          from: "",
         },
         replace: true,
       });

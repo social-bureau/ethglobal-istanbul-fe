@@ -1,4 +1,4 @@
-import Skeleton from 'react-loading-skeleton';
+import Skeleton from "react-loading-skeleton";
 
 export default function ContactsSkeleton() {
   return (
@@ -7,7 +7,7 @@ export default function ContactsSkeleton() {
         Contacts
       </div>
 
-      {Array.from(Array(10).keys()).map(i => (
+      {Array.from(Array(10).keys()).map((i) => (
         <span className="flex items-center space-x-1 py-1.5" key={i}>
           <Skeleton circle containerClassName="flex" height={32} width={32} />
           <div className="flex flex-col justify-center pl-2">

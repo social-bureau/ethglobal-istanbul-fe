@@ -1,17 +1,17 @@
-import moment from 'moment';
-import classNames from 'classnames';
-import { useNavigate, useParams } from 'react-router-dom';
-import trimAddress from '../../../helper/trim-address';
-import classnames from 'classnames';
-import PlaceholderAvatar from '../../@share/PlaceholderAvatar';
-import { Conversation } from '../../../type/conversation';
-import { isEmpty } from 'lodash';
-import { getReceiver } from '../../../helper/conversation';
-import { toggleIsShowAddContact } from '../../../redux/layout';
-import { useDispatch, useSelector } from '../../../redux';
-import { MessageType } from '../../../type/message';
-import { setSelectedConversation } from '../../../redux/conversation';
-import { setDefaultMessageState } from '../../../redux/message';
+import moment from "moment";
+import classNames from "classnames";
+import { useNavigate, useParams } from "react-router-dom";
+import trimAddress from "../../../helper/trim-address";
+import classnames from "classnames";
+import PlaceholderAvatar from "../../@share/PlaceholderAvatar";
+import { Conversation } from "../../../type/conversation";
+import { isEmpty } from "lodash";
+import { getReceiver } from "../../../helper/conversation";
+import { toggleIsShowAddContact } from "../../../redux/layout";
+import { useDispatch, useSelector } from "../../../redux";
+import { MessageType } from "../../../type/message";
+import { setSelectedConversation } from "../../../redux/conversation";
+import { setDefaultMessageState } from "../../../redux/message";
 
 type Props = {
   conversation: Conversation;
@@ -21,8 +21,8 @@ export default function ConversationCard({ conversation }: Props) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { id: conversationIdParam } = useParams();
-  const { activeChatMenuTab } = useSelector(state => state.layout);
-  const { user } = useSelector(state => state.account);
+  const { activeChatMenuTab } = useSelector((state) => state.layout);
+  const { user } = useSelector((state) => state.account);
 
   const { participants, latestMessage } = conversation;
   const receiver = getReceiver(participants, user!);
@@ -32,7 +32,7 @@ export default function ConversationCard({ conversation }: Props) {
       default: {
         return !isEmpty(receiver)
           ? trimAddress(receiver.publicAddress)
-          : 'Unknown';
+          : "Unknown";
       }
     }
   };
@@ -42,17 +42,17 @@ export default function ConversationCard({ conversation }: Props) {
       case MessageType.FILE: {
         return latestMessage?.content
           ? `Encrypted File ${trimAddress(latestMessage?.content)}`
-          : '...';
+          : "...";
       }
       case MessageType.IMAGE: {
         return latestMessage?.content
           ? `Encrypted Image ${trimAddress(latestMessage?.content)}`
-          : '...';
+          : "...";
       }
       default: {
         return latestMessage?.content
           ? `Encrypted Message ${trimAddress(latestMessage?.content)}`
-          : '...';
+          : "...";
       }
     }
   };
@@ -96,11 +96,12 @@ export default function ConversationCard({ conversation }: Props) {
     <div
       onClick={() => onClickCard(conversation)}
       className={classnames(
-        'flex pt-2 pb-3 px-3 items-center overflow-hidden relative cursor-pointer hover:bg-gray-100 rounded',
+        "flex pt-2 pb-3 px-3 items-center overflow-hidden relative cursor-pointer hover:bg-gray-100 rounded",
         {
-          'bg-gray-100': conversationIdParam === conversation.id,
-        }
-      )}>
+          "bg-gray-100": conversationIdParam === conversation.id,
+        },
+      )}
+    >
       <div className="relative flex justify-center w-[36px] h-[36px]">
         <PlaceholderAvatar publicAddress={receiver.publicAddress} />
         {/* {onlineIndicator()} */}
@@ -110,9 +111,10 @@ export default function ConversationCard({ conversation }: Props) {
         <div className="flex justify-between">
           <div
             className={classNames(
-              'text-sm text-gray-500 truncate w-48'
+              "text-sm text-gray-500 truncate w-48",
               // {'font-bold text-black': !!chat.unread,}
-            )}>
+            )}
+          >
             {displayMessgae()}
           </div>
           {/* {displayBadge()} */}

@@ -46,9 +46,8 @@ export default function UnauthorizedUserScheme() {
 
       setUserSchemeInitializing(true);
 
-      const isUserInitialized = await contract.callStatic.isUserInitialized(
-        address
-      );
+      const isUserInitialized =
+        await contract.callStatic.isUserInitialized(address);
 
       let userScheme: CryptoECIES | null = null;
 
@@ -56,18 +55,18 @@ export default function UnauthorizedUserScheme() {
         const userSecret = generateSecret();
         const publicKey = Buffer.from(
           new CryptoECIES(userSecret).getPublicKey(),
-          "hex"
+          "hex",
         );
 
         const encryptedUserSecret = await new CryptoMetaMask(
           address,
-          window.ethereum
+          window.ethereum,
         ).encrypt(userSecret);
 
         const tx = await contract.initializeUser(
           encryptedUserSecret.toJSON().data,
           publicKey[0] == 2,
-          publicKey.slice(1).toJSON().data
+          publicKey.slice(1).toJSON().data,
         );
         await tx.wait();
 
@@ -78,12 +77,12 @@ export default function UnauthorizedUserScheme() {
 
         const encryptedUserSecret = Buffer.from(
           userInitialization.encryptedUserSecret.slice(2),
-          "hex"
+          "hex",
         );
 
         const userSecret = await new CryptoMetaMask(
           address,
-          window.ethereum
+          window.ethereum,
         ).decrypt(encryptedUserSecret);
         userScheme = new CryptoECIES(userSecret);
       }

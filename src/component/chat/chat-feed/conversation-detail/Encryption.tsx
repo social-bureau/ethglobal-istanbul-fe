@@ -1,4 +1,4 @@
-import { TbLockSquareRounded } from 'react-icons/tb';
+import { TbLockSquareRounded } from "react-icons/tb";
 
 export default function Encryption() {
   return (
@@ -12,7 +12,8 @@ export default function Encryption() {
         </div>
         <div
           className="text-gray-500 text-xs leading-[150%] mt-1"
-          style={{ whiteSpace: 'pre' }}>
+          style={{ whiteSpace: "pre" }}
+        >
           Messages are end-to-end encrypted by using blockchain. Click to start.
         </div>
       </div>
