@@ -1,7 +1,10 @@
 import { RouteObject, useRoutes } from "react-router-dom";
 import AppLayout from "../layout/AppLayout";
-import ChatFeed from "../page/chat-feed/ChatFeed";
+import AuthGuard from "../guard/AuthGuard";
+import GuestGuard from "../guard/GuestGuard";
 import Error404 from "../page/miscellaneous/Error404";
+import ChatFeed from "../page/chat-feed/ChatFeed";
+import Unauthorized from "../page/unauthorize/Unauthorized";
 
 const routes: RouteObject = {
   path: "/",
@@ -12,7 +15,19 @@ const routes: RouteObject = {
       children: [
         {
           path: ":tab?/:id?",
-          element: <ChatFeed />,
+          element: (
+            <AuthGuard>
+              <ChatFeed />
+            </AuthGuard>
+          ),
+        },
+        {
+          path: "unauthorized",
+          element: (
+            <GuestGuard>
+              <Unauthorized />
+            </GuestGuard>
+          ),
         },
       ],
     },

@@ -18,6 +18,7 @@ export default function ContractPortal({ children }: PropsWithChildren) {
   const dispatch = useDispatch();
 
   useDeepEffect(() => {
+    console.log(chain);
     if (chain) {
       try {
         const contractAddress = getContractAddress("Prontera", chain.id);

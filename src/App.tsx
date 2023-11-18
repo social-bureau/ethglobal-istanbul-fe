@@ -6,7 +6,8 @@ import ReduxProvider from "./wrapper/ReduxProvider";
 import WagmiProvider from "./wrapper/WagmiProvider";
 import AccountPortal from "./wrapper/AccountPortal";
 import ToastifyPortal from "./wrapper/ToastifyPortal";
-import { SkeletonTheme } from "react-loading-skeleton";
+import ContractPortal from "./wrapper/ContractPortal";
+import SkeletonTheme from "./wrapper/SkeletonTheme";
 
 const providers = [
   ReduxProvider,
@@ -14,6 +15,7 @@ const providers = [
   SkeletonTheme,
   FlowbiteProvider,
   WagmiProvider,
+  ContractPortal,
   AccountPortal,
   BrowserRouter,
 ];
