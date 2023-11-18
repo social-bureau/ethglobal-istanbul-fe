@@ -1,47 +1,47 @@
-import { Button } from "flowbite-react";
-import { useEffect, useState } from "react";
-import { toast } from "react-toastify";
-import { useAccount, useNetwork } from "wagmi";
-import { useDispatch, useSelector } from "../../redux";
+import { Button } from 'flowbite-react';
+import { useEffect, useState } from 'react';
+import { toast } from 'react-toastify';
+import { useAccount, useNetwork } from 'wagmi';
+import { useDispatch, useSelector } from '../../redux';
 import {
   CryptoECIES,
   CryptoMetaMask,
   generateSecret,
-} from "../../helper/crypto";
-import { errorFormat } from "../../helper/error-format";
+} from '../../helper/crypto';
+import { errorFormat } from '../../helper/error-format';
 import {
   initializeAccountFailure,
   initializeUserSchemeSuccess,
-} from "../../redux/account";
-import { useNavigate } from "react-router-dom";
+} from '../../redux/account';
+import { useNavigate } from 'react-router-dom';
 
 export default function UnauthorizedUserScheme() {
   const navigate = useNavigate();
   const { address } = useAccount();
   const { chain } = useNetwork();
   const dispatch = useDispatch();
-  const { contract } = useSelector((state) => state.contract);
-  const { isWidget } = useSelector((state) => state.layout);
+  const { contract } = useSelector(state => state.contract);
+  const { isWidget } = useSelector(state => state.layout);
   const [userSchemeInitializing, setUserSchemeInitializing] = useState(false);
 
   useEffect(() => {
     if (!isWidget) {
-      navigate("/");
+      navigate('/');
     }
   }, [isWidget]);
 
   const initializeUserScheme = async () => {
     try {
       if (!address) {
-        throw new Error("Wallet address not found.");
+        throw new Error('Wallet address not found.');
       }
 
       if (chain?.unsupported) {
-        throw new Error("Chain unsupported.");
+        throw new Error('Chain unsupported.');
       }
 
       if (!contract) {
-        throw new Error("Contract not found.");
+        throw new Error('Contract not found.');
       }
 
       setUserSchemeInitializing(true);
@@ -55,18 +55,18 @@ export default function UnauthorizedUserScheme() {
         const userSecret = generateSecret();
         const publicKey = Buffer.from(
           new CryptoECIES(userSecret).getPublicKey(),
-          "hex",
+          'hex'
         );
 
         const encryptedUserSecret = await new CryptoMetaMask(
           address,
-          window.ethereum,
+          window.ethereum
         ).encrypt(userSecret);
 
         const tx = await contract.initializeUser(
           encryptedUserSecret.toJSON().data,
           publicKey[0] == 2,
-          publicKey.slice(1).toJSON().data,
+          publicKey.slice(1).toJSON().data
         );
         await tx.wait();
 
@@ -77,12 +77,12 @@ export default function UnauthorizedUserScheme() {
 
         const encryptedUserSecret = Buffer.from(
           userInitialization.encryptedUserSecret.slice(2),
-          "hex",
+          'hex'
         );
 
         const userSecret = await new CryptoMetaMask(
           address,
-          window.ethereum,
+          window.ethereum
         ).decrypt(encryptedUserSecret);
         userScheme = new CryptoECIES(userSecret);
       }
@@ -109,9 +109,8 @@ export default function UnauthorizedUserScheme() {
         <Button
           className="w-[250px]"
           disabled={userSchemeInitializing}
-          onClick={initializeUserScheme}
-        >
-          {userSchemeInitializing ? "Loading" : "Initialize Chat"}
+          onClick={initializeUserScheme}>
+          {userSchemeInitializing ? 'Loading' : 'Initialize Chat'}
         </Button>
       </div>
     </div>

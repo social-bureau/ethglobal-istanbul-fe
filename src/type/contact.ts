@@ -1,4 +1,4 @@
-import { PageInfo, Time } from "./common";
+import { PageInfo, Time } from './common';
 
 export type CreateContactBody = {
   address: string;

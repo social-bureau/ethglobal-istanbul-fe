@@ -1,21 +1,21 @@
-import { PropsWithChildren, useState } from "react";
-import { useDeepEffect } from "../hook/useDeepEffect";
-import { errorFormat } from "../helper/error-format";
+import { PropsWithChildren, useState } from 'react';
+import { useDeepEffect } from '../hook/useDeepEffect';
+import { errorFormat } from '../helper/error-format';
 import {
   authWithSignMessageApi,
   singInWithPublicAddressApi,
-} from "../rest-api/authentication";
-import { AuthRespData, SinginRespData } from "../type/auth";
-import { useAccount, useDisconnect, useSignMessage } from "wagmi";
-import { toast } from "react-toastify";
-import FullSpinner from "../component/@share/FullSpinner";
-import { getUserInfoApi } from "../rest-api/user";
-import { useDispatch } from "../redux";
-import { disconnectWallet, initializeUserSuccess } from "../redux/account";
+} from '../rest-api/authentication';
+import { AuthRespData, SinginRespData } from '../type/auth';
+import { useAccount, useDisconnect, useSignMessage } from 'wagmi';
+import { toast } from 'react-toastify';
+import FullSpinner from '../component/@share/FullSpinner';
+import { getUserInfoApi } from '../rest-api/user';
+import { useDispatch } from '../redux';
+import { disconnectWallet, initializeUserSuccess } from '../redux/account';
 import {
   getCredentialTokens,
   setCredentialTokens,
-} from "../helper/local-storage";
+} from '../helper/local-storage';
 
 export default function AccountPortal({ children }: PropsWithChildren) {
   const { address } = useAccount();
@@ -73,7 +73,7 @@ export default function AccountPortal({ children }: PropsWithChildren) {
       setCredentialTokens(storageToken);
       const userInfo = await getUserInfoApi();
       if (!userInfo) {
-        throw "user not found";
+        throw 'user not found';
       }
       dispatch(initializeUserSuccess({ user: userInfo }));
     } catch (error) {

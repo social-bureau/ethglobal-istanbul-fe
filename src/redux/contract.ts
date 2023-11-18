@@ -1,5 +1,5 @@
-import { PayloadAction, createSlice } from "@reduxjs/toolkit";
-import { Contract } from "ethers";
+import { PayloadAction, createSlice } from '@reduxjs/toolkit';
+import { Contract } from 'ethers';
 
 export type ContractReducerState = {
   contract: Contract | null;
@@ -12,14 +12,14 @@ const initialState: ContractReducerState = {
 };
 
 const contractSlice = createSlice({
-  name: "contract",
+  name: 'contract',
   initialState,
   reducers: {
     initializeContractSuccess: (
       state,
       action: PayloadAction<{
         contract: Contract;
-      }>,
+      }>
     ) => ({
       ...state,
       contract: action.payload.contract,

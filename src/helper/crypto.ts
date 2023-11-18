@@ -4,22 +4,22 @@
  * See https://ecies.org/js/
  * See https://davidederosa.com/basic-blockchain-programming/elliptic-curve-keys/
  */
-import { providers } from "ethers";
-import { randomBytes } from "crypto";
-import { encrypt as encryptMM } from "@metamask/eth-sig-util";
+import { providers } from 'ethers';
+import { randomBytes } from 'crypto';
+import { encrypt as encryptMM } from '@metamask/eth-sig-util';
 import {
   decrypt as decryptEC,
   encrypt as encryptEC,
   PrivateKey,
-} from "eciesjs";
-import { aesDecrypt, aesEncrypt } from "eciesjs/dist/utils";
+} from 'eciesjs';
+import { aesDecrypt, aesEncrypt } from 'eciesjs/dist/utils';
 
 /**
  * A utility class that uses MetaMask RPC api to use public key cryptography of your EOA.
  */
 export class CryptoMetaMask {
-  private SCHEME_VERSION: Readonly<string> = "x25519-xsalsa20-poly1305";
-  private ACCOUNT: Readonly<string> = "";
+  private SCHEME_VERSION: Readonly<string> = 'x25519-xsalsa20-poly1305';
+  private ACCOUNT: Readonly<string> = '';
   private RPC: providers.ExternalProvider | undefined;
 
   constructor(account: string, rpc: providers.ExternalProvider | undefined) {
@@ -31,7 +31,7 @@ export class CryptoMetaMask {
    * Wrapper for `encrypt`, converts the string to buffer with utf-8 format
    */
   async encryptString(str: string): Promise<Buffer> {
-    return this.encrypt(Buffer.from(str, "utf-8"));
+    return this.encrypt(Buffer.from(str, 'utf-8'));
   }
 
   /**
@@ -40,25 +40,25 @@ export class CryptoMetaMask {
   async encrypt(data: Buffer): Promise<Buffer> {
     // Public Key
     const keyB64: string = (await this.RPC?.request?.({
-      method: "eth_getEncryptionPublicKey",
+      method: 'eth_getEncryptionPublicKey',
       params: [this.ACCOUNT],
     })) as string;
-    const publicKey = Buffer.from(keyB64, "base64");
+    const publicKey = Buffer.from(keyB64, 'base64');
 
     // Returned object contains 4 properties: version, ephemPublicKey, nonce, ciphertext
     // Each contains data encoded using base64, version is always the same string
     const enc = encryptMM({
-      publicKey: publicKey.toString("base64"),
-      data: data.toString("base64"),
+      publicKey: publicKey.toString('base64'),
+      data: data.toString('base64'),
       version: this.SCHEME_VERSION,
     });
 
     // We want to store the data in smart contract, therefore we concatenate them
     // into single Buffer
     const buf = Buffer.concat([
-      Buffer.from(enc.ephemPublicKey, "base64"),
-      Buffer.from(enc.nonce, "base64"),
-      Buffer.from(enc.ciphertext, "base64"),
+      Buffer.from(enc.ephemPublicKey, 'base64'),
+      Buffer.from(enc.nonce, 'base64'),
+      Buffer.from(enc.ciphertext, 'base64'),
     ]);
 
     // In smart contract we are using `bytes[112]` variable (fixed size byte array)
@@ -80,24 +80,24 @@ export class CryptoMetaMask {
     // Reconstructing the original object outputed by encryption
     const structuredData = {
       version: this.SCHEME_VERSION,
-      ephemPublicKey: data.slice(0, 32).toString("base64"),
-      nonce: data.slice(32, 56).toString("base64"),
-      ciphertext: data.slice(56).toString("base64"),
+      ephemPublicKey: data.slice(0, 32).toString('base64'),
+      nonce: data.slice(32, 56).toString('base64'),
+      ciphertext: data.slice(56).toString('base64'),
     };
     // Convert data to hex string required by MetaMask
     const ct = `0x${Buffer.from(
       JSON.stringify(structuredData),
-      "utf8",
-    ).toString("hex")}`;
+      'utf8'
+    ).toString('hex')}`;
     // Send request to MetaMask to decrypt the ciphertext
     // Once again application must have acces to the account
 
     const decrypt = await this.RPC?.request?.({
-      method: "eth_decrypt",
+      method: 'eth_decrypt',
       params: [ct, this.ACCOUNT],
     });
     // Decode the base85 to final bytes
-    return Buffer.from(decrypt, "base64");
+    return Buffer.from(decrypt, 'base64');
   }
 }
 

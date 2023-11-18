@@ -1,8 +1,8 @@
-import { PayloadAction, createSlice } from "@reduxjs/toolkit";
-import { CryptoECIES } from "../helper/crypto";
-import { User } from "../type/auth";
-import { StoreDispatch } from ".";
-import { setCredentialTokens } from "../helper/local-storage";
+import { PayloadAction, createSlice } from '@reduxjs/toolkit';
+import { CryptoECIES } from '../helper/crypto';
+import { User } from '../type/auth';
+import { StoreDispatch } from '.';
+import { setCredentialTokens } from '../helper/local-storage';
 
 export type AccountReducerState = {
   user: User | null;
@@ -17,14 +17,14 @@ const initialState: AccountReducerState = {
 };
 
 const accountSlice = createSlice({
-  name: "account",
+  name: 'account',
   initialState,
   reducers: {
     initializeUserSuccess: (
       state,
       action: PayloadAction<{
         user: User;
-      }>,
+      }>
     ) => ({
       ...state,
       user: action.payload.user,
@@ -33,7 +33,7 @@ const accountSlice = createSlice({
       state,
       action: PayloadAction<{
         userScheme: CryptoECIES;
-      }>,
+      }>
     ) => ({
       ...state,
       userScheme: action.payload.userScheme,

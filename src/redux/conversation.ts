@@ -1,16 +1,16 @@
-import { PayloadAction, createSlice } from "@reduxjs/toolkit";
-import { toast } from "react-toastify";
-import { omit, isEmpty, isArray } from "lodash";
-import { StoreDispatch, StoreGetState } from ".";
-import { initialPageInfoValue } from "../constant/page-info";
-import { PageInfo, PaginateParams } from "../type/common";
-import { queryParamsToString } from "../helper/formater";
-import { errorFormat } from "../helper/error-format";
+import { PayloadAction, createSlice } from '@reduxjs/toolkit';
+import { toast } from 'react-toastify';
+import { omit, isEmpty, isArray } from 'lodash';
+import { StoreDispatch, StoreGetState } from '.';
+import { initialPageInfoValue } from '../constant/page-info';
+import { PageInfo, PaginateParams } from '../type/common';
+import { queryParamsToString } from '../helper/formater';
+import { errorFormat } from '../helper/error-format';
 import {
   Conversation,
   ConversationWithParticipants,
-} from "../type/conversation";
-import { getConversationsApi } from "../rest-api/conversation";
+} from '../type/conversation';
+import { getConversationsApi } from '../rest-api/conversation';
 
 export type ConversationReducerState = {
   conversations: Conversation[];
@@ -38,7 +38,7 @@ const initialState: ConversationReducerState = {
 };
 
 const conversationSlice = createSlice({
-  name: "conversation",
+  name: 'conversation',
   initialState,
   reducers: {
     // initialization
@@ -47,7 +47,7 @@ const conversationSlice = createSlice({
       action: PayloadAction<{
         conversations: Conversation[];
         pageInfo: PageInfo;
-      }>,
+      }>
     ) => {
       state.conversations = action.payload.conversations;
       state.pageInfo = action.payload.pageInfo;
@@ -57,13 +57,13 @@ const conversationSlice = createSlice({
       state,
       action: PayloadAction<{
         selectedConversation: ConversationWithParticipants | null;
-      }>,
+      }>
     ) => ({
       ...state,
       selectedConversation: action.payload.selectedConversation,
     }),
     // background update
-    backgroundUpdatingConversation: (state) => {
+    backgroundUpdatingConversation: state => {
       state.backgroundUpdating = true;
     },
     backgroundUpdateConversationSuccess: (
@@ -71,7 +71,7 @@ const conversationSlice = createSlice({
       action: PayloadAction<{
         conversations: Conversation[];
         pageInfo: PageInfo;
-      }>,
+      }>
     ) => {
       state.conversations = action.payload.conversations;
       state.pageInfo = action.payload.pageInfo;
@@ -101,8 +101,8 @@ export const initializeConversation =
       dispatch(
         initializeConversationSuccess({
           conversations: conversationResponse.results,
-          pageInfo: omit(conversationResponse, ["results"]),
-        }),
+          pageInfo: omit(conversationResponse, ['results']),
+        })
       );
     } catch (error) {
       toast.error(errorFormat(error).message);
@@ -119,8 +119,8 @@ export const backgroundUpdateConversation =
       dispatch(
         backgroundUpdateConversationSuccess({
           conversations: conversationResponse.results,
-          pageInfo: omit(conversationResponse, ["results"]),
-        }),
+          pageInfo: omit(conversationResponse, ['results']),
+        })
       );
     } catch (error) {
       toast.error(errorFormat(error).message);
@@ -133,10 +133,10 @@ const fetchConversations = async (query: PaginateParams) => {
   const queryParams = queryParamsToString({ ...query });
   const conversationResponse = await getConversationsApi(queryParams);
   if (isEmpty(conversationResponse)) {
-    throw new Error("Conversation response is empty.");
+    throw new Error('Conversation response is empty.');
   }
   if (!isArray(conversationResponse.results)) {
-    throw new Error("Conversations is not found.");
+    throw new Error('Conversations is not found.');
   }
   return conversationResponse;
 };

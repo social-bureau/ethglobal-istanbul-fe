@@ -1,5 +1,5 @@
-import { Database } from "firebase/database";
-import { PayloadAction, createSlice } from "@reduxjs/toolkit";
+import { Database } from 'firebase/database';
+import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
 export type FirebaseReducerState = {
   database: Database | null;
@@ -12,14 +12,14 @@ const initialState: FirebaseReducerState = {
 };
 
 const firebaseSlice = createSlice({
-  name: "firebase",
+  name: 'firebase',
   initialState,
   reducers: {
     initializeDatabaseSuccess: (
       state,
       action: PayloadAction<{
         database: Database;
-      }>,
+      }>
     ) => ({
       ...state,
       database: action.payload.database,

@@ -1,11 +1,11 @@
-import { Dropdown } from "flowbite-react";
-import PlaceholderAvatar from "../@share/PlaceholderAvatar";
-import { isEmpty } from "lodash";
-import { useSelector } from "../../redux";
-import trimAddress from "../../helper/trim-address";
+import { Dropdown } from 'flowbite-react';
+import PlaceholderAvatar from '../@share/PlaceholderAvatar';
+import { isEmpty } from 'lodash';
+import { useSelector } from '../../redux';
+import trimAddress from '../../helper/trim-address';
 
 export default function UserDropdown() {
-  const { user } = useSelector((state) => state.account);
+  const { user } = useSelector(state => state.account);
 
   if (isEmpty(user)) {
     return <></>;
@@ -20,8 +20,7 @@ export default function UserDropdown() {
             <span className="sr-only">User menu</span>
             <PlaceholderAvatar publicAddress={user.publicAddress} />
           </span>
-        }
-      >
+        }>
         <Dropdown.Header>
           <div className="cursor-pointer mr-5">
             <span className="block text-sm">Neil Sims</span>

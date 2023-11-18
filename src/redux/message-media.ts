@@ -1,14 +1,14 @@
-import { isEmpty, omit } from "lodash";
-import { queryParamsToString } from "../helper/formater";
-import { getCoversationMediaApi } from "../rest-api/conversation";
-import { PageInfo, PaginateParams } from "../type/common";
-import { MessageType } from "../type/message";
-import { MediaContent } from "../type/message-media";
-import { initialPageInfoValue } from "../constant/page-info";
-import { PayloadAction, createSlice } from "@reduxjs/toolkit";
-import { StoreDispatch, StoreGetState } from ".";
-import { toast } from "react-toastify";
-import { errorFormat } from "../helper/error-format";
+import { isEmpty, omit } from 'lodash';
+import { queryParamsToString } from '../helper/formater';
+import { getCoversationMediaApi } from '../rest-api/conversation';
+import { PageInfo, PaginateParams } from '../type/common';
+import { MessageType } from '../type/message';
+import { MediaContent } from '../type/message-media';
+import { initialPageInfoValue } from '../constant/page-info';
+import { PayloadAction, createSlice } from '@reduxjs/toolkit';
+import { StoreDispatch, StoreGetState } from '.';
+import { toast } from 'react-toastify';
+import { errorFormat } from '../helper/error-format';
 
 type PreviewPayload = {
   media: MediaContent[];
@@ -80,19 +80,19 @@ const initialState: MessageMediaReducerState = {
 };
 
 const messageMediaSlice = createSlice({
-  name: "message-media",
+  name: 'message-media',
   initialState,
   reducers: {
     // initialization
-    initializingPreview: (state) => {
+    initializingPreview: state => {
       state.preview.initializing = true;
       state.preview.success = false;
     },
-    initializingImagePreview: (state) => {
+    initializingImagePreview: state => {
       state.image.initializing = true;
       state.image.success = false;
     },
-    initializingFilePreview: (state) => {
+    initializingFilePreview: state => {
       state.file.initializing = true;
       state.file.success = false;
     },
@@ -103,7 +103,7 @@ const messageMediaSlice = createSlice({
           image: PreviewPayload;
           file: PreviewPayload;
         };
-      }>,
+      }>
     ) => {
       state.preview.file = action.payload.preview.file;
       state.preview.image = action.payload.preview.image;
@@ -115,7 +115,7 @@ const messageMediaSlice = createSlice({
       action: PayloadAction<{
         media: MediaContent[];
         pageInfo: PageInfo;
-      }>,
+      }>
     ) => {
       state.image.media = action.payload.media;
       state.image.pageInfo = action.payload.pageInfo;
@@ -126,7 +126,7 @@ const messageMediaSlice = createSlice({
       action: PayloadAction<{
         media: MediaContent[];
         pageInfo: PageInfo;
-      }>,
+      }>
     ) => {
       state.file.media = action.payload.media;
       state.file.pageInfo = action.payload.pageInfo;
@@ -166,23 +166,23 @@ export const initializePreviewMedia =
         fetchConversationsMedia(
           conversationId,
           MessageType.IMAGE,
-          imagePreviewParam,
+          imagePreviewParam
         ),
         await fetchConversationsMedia(
           conversationId,
           MessageType.FILE,
-          filePreviewParam,
+          filePreviewParam
         ),
       ]);
 
       const preview = {
         image: {
           media: imageResponse.results,
-          pageInfo: omit(imageResponse, ["results"]),
+          pageInfo: omit(imageResponse, ['results']),
         },
         file: {
           media: fileResponse.results,
-          pageInfo: omit(fileResponse, ["results"]),
+          pageInfo: omit(fileResponse, ['results']),
         },
       };
 
@@ -200,21 +200,21 @@ export const initializeImageMedia =
       const { image } = getState().messageMedia;
 
       if (isEmpty(selectedConversation)) {
-        throw new Error("Selected conversation not found.");
+        throw new Error('Selected conversation not found.');
       }
       dispatch(initializingImagePreview());
 
       const imageResponse = await fetchConversationsMedia(
         selectedConversation.conversation.id,
         MessageType.IMAGE,
-        image.query,
+        image.query
       );
 
       dispatch(
         initializeImageSuccess({
           media: imageResponse.results,
-          pageInfo: omit(imageResponse, ["results"]),
-        }),
+          pageInfo: omit(imageResponse, ['results']),
+        })
       );
     } catch (error) {
       toast.error(errorFormat(error).message);
@@ -229,21 +229,21 @@ export const initializeFileMedia =
       const { file } = getState().messageMedia;
 
       if (isEmpty(selectedConversation)) {
-        throw new Error("Selected conversation not found.");
+        throw new Error('Selected conversation not found.');
       }
       dispatch(initializingFilePreview());
 
       const fileResponse = await fetchConversationsMedia(
         selectedConversation.conversation.id,
         MessageType.FILE,
-        file.query,
+        file.query
       );
 
       dispatch(
         initializeFileSuccess({
           media: fileResponse.results,
-          pageInfo: omit(fileResponse, ["results"]),
-        }),
+          pageInfo: omit(fileResponse, ['results']),
+        })
       );
     } catch (error) {
       toast.error(errorFormat(error).message);
@@ -254,16 +254,16 @@ export const initializeFileMedia =
 const fetchConversationsMedia = async (
   conversationId: string,
   contentType: MessageType,
-  query: PaginateParams,
+  query: PaginateParams
 ) => {
   const queryParams = queryParamsToString({ ...query });
   const mediaResponse = await getCoversationMediaApi(
     conversationId,
     contentType,
-    queryParams,
+    queryParams
   );
   if (isEmpty(mediaResponse)) {
-    throw new Error("Media response is empty.");
+    throw new Error('Media response is empty.');
   }
   return mediaResponse;
 };

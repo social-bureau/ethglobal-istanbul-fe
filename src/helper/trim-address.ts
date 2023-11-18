@@ -1,11 +1,11 @@
 export default function trimAddress(address?: string) {
-  if (!address) return "";
+  if (!address) return '';
   const startSubStringLength = 5;
   const endSubStringLength = 4;
   if (address) {
     return `${address.substring(
       0,
-      startSubStringLength,
+      startSubStringLength
     )}....${address.substring(address.length - endSubStringLength)}`;
   }
 }

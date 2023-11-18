@@ -10,7 +10,7 @@ export default function Error500() {
             Internal Server Error.
           </p>
           <p className="mb-4 text-lg font-light text-gray-500 dark:text-gray-400">
-            We are already working to solve the problem.{" "}
+            We are already working to solve the problem.{' '}
           </p>
         </div>
       </div>

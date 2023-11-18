@@ -1,22 +1,25 @@
-import { BrowserRouter } from "react-router-dom";
-import AppRoutes from "./route/AppRoutes";
-import { CombineComponents } from "./wrapper/CombineComponents";
-import FlowbiteProvider from "./wrapper/FlowbiteProvider";
-import ReduxProvider from "./wrapper/ReduxProvider";
-import WagmiProvider from "./wrapper/WagmiProvider";
-import AccountPortal from "./wrapper/AccountPortal";
-import ToastifyPortal from "./wrapper/ToastifyPortal";
-import ContractPortal from "./wrapper/ContractPortal";
-import SkeletonTheme from "./wrapper/SkeletonTheme";
-import FirebasePortal from "./wrapper/FirebasePortal";
-import ErrorBoundary from "./wrapper/ErrorBoundary";
+import { BrowserRouter } from 'react-router-dom';
+import { CombineComponents } from './wrapper/CombineComponents';
+import WagmiProvider from './wrapper/WagmiProvider';
+import ErrorBoundary from './wrapper/ErrorBoundary';
+import SkeletonTheme from './wrapper/SkeletonTheme';
+import AppRoutes from './route/AppRoutes';
+import FlowbiteProvider from './wrapper/FlowbiteProvider';
+import ToastifyPortal from './wrapper/ToastifyPortal';
+import ContractPortal from './wrapper/ContractPortal';
+import AccountPortal from './wrapper/AccountPortal';
+import FirebasePortal from './wrapper/FirebasePortal';
+import LightBoxPortal from './wrapper/LightBoxPortal';
+import ReduxProvider from './wrapper/ReduxProvider';
+import WidgetPortal from './wrapper/WidgetPortal';
 
 const providers = [
   ReduxProvider,
   ErrorBoundary,
+  WidgetPortal,
   ToastifyPortal,
   SkeletonTheme,
-  // LightBoxPortal,
+  LightBoxPortal,
   FlowbiteProvider,
   WagmiProvider,
   ContractPortal,

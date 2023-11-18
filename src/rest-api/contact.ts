@@ -1,13 +1,13 @@
-import axios from "../helper/axios";
-import environment from "../environment";
+import axios from '../helper/axios';
+import environment from '../environment';
 import {
   Contact,
   ContactWithPageInfo,
   CreateContactBody,
-} from "../type/contact";
+} from '../type/contact';
 
 export async function createContactApi(
-  body: CreateContactBody,
+  body: CreateContactBody
 ): Promise<Contact | undefined> {
   const url = `${environment.apiUrl}/api/contacts`;
   const { data } = await axios.post(url, body);
@@ -15,7 +15,7 @@ export async function createContactApi(
 }
 
 export async function getContactsApi(
-  query: string,
+  query: string
 ): Promise<ContactWithPageInfo | undefined> {
   const url = `${environment.apiUrl}/api/contacts${query}`;
   const { data } = await axios.get(url);
@@ -23,7 +23,7 @@ export async function getContactsApi(
 }
 
 export async function getContactApi(
-  contactId: string,
+  contactId: string
 ): Promise<Contact | undefined> {
   const url = `${environment.apiUrl}/api/contacts/${contactId}`;
   const { data } = await axios.get(url);

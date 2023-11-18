@@ -1,10 +1,10 @@
-import { useParams, useNavigate } from "react-router-dom";
-import classnames from "classnames";
-import trimAddress from "../../../helper/trim-address";
-import { Contact } from "../../../type/contact";
-import PlaceholderAvatar from "../../@share/PlaceholderAvatar";
-import { toggleIsShowAddContact } from "../../../redux/layout";
-import { useDispatch, useSelector } from "../../../redux";
+import { useParams, useNavigate } from 'react-router-dom';
+import classnames from 'classnames';
+import trimAddress from '../../../helper/trim-address';
+import { Contact } from '../../../type/contact';
+import PlaceholderAvatar from '../../@share/PlaceholderAvatar';
+import { toggleIsShowAddContact } from '../../../redux/layout';
+import { useDispatch, useSelector } from '../../../redux';
 
 type Props = {
   contact: Contact;
@@ -14,7 +14,7 @@ export default function ContactCard({ contact }: Props) {
   const navigate = useNavigate();
   const { id: contactIdParam } = useParams();
   const dispatch = useDispatch();
-  const { activeChatMenuTab } = useSelector((state) => state.layout);
+  const { activeChatMenuTab } = useSelector(state => state.layout);
 
   // const onlineIndicator = () => {
   //   return contact?.online ? (
@@ -33,12 +33,11 @@ export default function ContactCard({ contact }: Props) {
     <div
       onClick={() => onClickCard(contact)}
       className={classnames(
-        "flex pt-2 pb-1 px-3 items-center overflow-hidden relative cursor-pointer hover:bg-gray-100 rounded",
+        'flex pt-2 pb-1 px-3 items-center overflow-hidden relative cursor-pointer hover:bg-gray-100 rounded',
         {
-          "bg-gray-100": contactIdParam === contact.id,
-        },
-      )}
-    >
+          'bg-gray-100': contactIdParam === contact.id,
+        }
+      )}>
       <div className="relative flex justify-center w-[36px] h-[36px]">
         <PlaceholderAvatar publicAddress={contact.address} />
         {/* {onlineIndicator()} */}

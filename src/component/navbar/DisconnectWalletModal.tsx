@@ -1,8 +1,8 @@
-import { Button, Modal } from "flowbite-react";
-import { Dispatch, SetStateAction } from "react";
-import { useDisconnect } from "wagmi";
-import { useDispatch } from "../../redux";
-import { disconnectWallet } from "../../redux/account";
+import { Button, Modal } from 'flowbite-react';
+import { Dispatch, SetStateAction } from 'react';
+import { useDisconnect } from 'wagmi';
+import { useDispatch } from '../../redux';
+import { disconnectWallet } from '../../redux/account';
 
 type Props = {
   openModal: boolean;
@@ -27,8 +27,7 @@ export default function DisconnectWalletModal({
       dismissible
       show={openModal}
       onClose={() => setOpenModal(false)}
-      size={"sm"}
-    >
+      size={'sm'}>
       <Modal.Header>Disconnect wallet</Modal.Header>
       <Modal.Body>
         <div className="space-y-6">

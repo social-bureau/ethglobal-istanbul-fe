@@ -1,4 +1,4 @@
-import { ReactElement, FC, JSXElementConstructor } from "react";
+import { ReactElement, FC, JSXElementConstructor } from 'react';
 
 type ChildrenProps = {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -18,6 +18,6 @@ export const CombineComponents = (
         );
       };
     },
-    ({ children }) => <>{children}</>,
+    ({ children }) => <>{children}</>
   );
 };

@@ -1,16 +1,16 @@
-import { Button, Spinner, Textarea } from "flowbite-react";
-import bytes from "bytes";
-import { ChangeEvent, KeyboardEvent, useRef, useState } from "react";
-import { useDispatch } from "../../../../redux";
-import { sendMessage } from "../../../../redux/message";
+import { Button, Spinner, Textarea } from 'flowbite-react';
+import bytes from 'bytes';
+import { ChangeEvent, KeyboardEvent, useRef, useState } from 'react';
+import { useDispatch } from '../../../../redux';
+import { sendMessage } from '../../../../redux/message';
 import {
   maxUploadFileSize,
   maxUploadImageSize,
-} from "../../../../constant/file";
-import { toast } from "react-toastify";
-import { fileToBase64 } from "../../../../helper/file";
-import { MessageType, SendingMessageState } from "../../../../type/message";
-import { FaRegFileAlt } from "react-icons/fa";
+} from '../../../../constant/file';
+import { toast } from 'react-toastify';
+import { fileToBase64 } from '../../../../helper/file';
+import { MessageType, SendingMessageState } from '../../../../type/message';
+import { FaRegFileAlt } from 'react-icons/fa';
 
 export default function Input() {
   const hiddenImageInput = useRef<HTMLInputElement | null>(null);
@@ -19,7 +19,7 @@ export default function Input() {
   const [fileUploading, setFileUploading] = useState(false);
   const [message, setMessage] = useState<SendingMessageState>({
     type: null,
-    content: "",
+    content: '',
     optional: {},
   });
 
@@ -38,7 +38,7 @@ export default function Input() {
     if (file.size > bytes.parse(maxUploadImageSize)) {
       const fileSize = bytes(file.size);
       return toast.error(
-        `Please make sure your image is no larger than ${maxUploadImageSize}. (${fileSize})`,
+        `Please make sure your image is no larger than ${maxUploadImageSize}. (${fileSize})`
       );
     }
     setFileUploading(true);
@@ -58,7 +58,7 @@ export default function Input() {
     if (file.size > bytes.parse(maxUploadFileSize)) {
       const fileSize = bytes(file.size);
       return toast.error(
-        `Please make sure your file is no larger than ${maxUploadFileSize}. (${fileSize})`,
+        `Please make sure your file is no larger than ${maxUploadFileSize}. (${fileSize})`
       );
     }
     setFileUploading(true);
@@ -77,7 +77,7 @@ export default function Input() {
 
   const handleResetMessageState = () => {
     setMessage({
-      content: "",
+      content: '',
       type: null,
       optional: {},
     });
@@ -113,20 +113,17 @@ export default function Input() {
           <button
             onClick={handleResetMessageState}
             type="button"
-            className="absolute bottom-1 left-1 text-red-600 dark:text-red-500 hover:text-red-500 dark:hover:text-red-400"
-          >
+            className="absolute bottom-1 left-1 text-red-600 dark:text-red-500 hover:text-red-500 dark:hover:text-red-400">
             <svg
               aria-hidden="true"
               className="w-5 h-5"
               fill="currentColor"
               viewBox="0 0 20 20"
-              xmlns="http://www.w3.org/2000/svg"
-            >
+              xmlns="http://www.w3.org/2000/svg">
               <path
                 fillRule="evenodd"
                 d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z"
-                clipRule="evenodd"
-              ></path>
+                clipRule="evenodd"></path>
             </svg>
             <span className="sr-only">Delete image</span>
           </button>
@@ -141,20 +138,17 @@ export default function Input() {
           <button
             onClick={handleResetMessageState}
             type="button"
-            className="absolute bottom-1 left-1 text-red-600 dark:text-red-500 hover:text-red-500 dark:hover:text-red-400"
-          >
+            className="absolute bottom-1 left-1 text-red-600 dark:text-red-500 hover:text-red-500 dark:hover:text-red-400">
             <svg
               aria-hidden="true"
               className="w-5 h-5"
               fill="currentColor"
               viewBox="0 0 20 20"
-              xmlns="http://www.w3.org/2000/svg"
-            >
+              xmlns="http://www.w3.org/2000/svg">
               <path
                 fillRule="evenodd"
                 d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z"
-                clipRule="evenodd"
-              ></path>
+                clipRule="evenodd"></path>
             </svg>
             <span className="sr-only">Delete image</span>
           </button>
@@ -183,8 +177,7 @@ export default function Input() {
               className="cursor-pointer"
               onClick={() =>
                 hiddenFileInput?.current && hiddenFileInput?.current.click()
-              }
-            >
+              }>
               <img src="/svg/paperclip.svg" alt="" />
               <input
                 type="file"
@@ -201,8 +194,7 @@ export default function Input() {
               className="cursor-pointer"
               onClick={() =>
                 hiddenImageInput?.current && hiddenImageInput?.current.click()
-              }
-            >
+              }>
               <img src="/svg/gallery.svg" alt="" />
               <input
                 type="file"

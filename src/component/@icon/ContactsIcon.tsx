@@ -6,8 +6,7 @@ export default function ContactsIcon({ className }: { className?: string }) {
       height="16"
       viewBox="0 0 17 16"
       fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-    >
+      xmlns="http://www.w3.org/2000/svg">
       <path
         d="M12.26 14.4132C11.6734 14.5866 10.98 14.6666 10.1667 14.6666H6.1667C5.35336 14.6666 4.66003 14.5866 4.07336 14.4132C4.22003 12.6799 6.00003 11.3132 8.1667 11.3132C10.3334 11.3132 12.1134 12.6799 12.26 14.4132Z"
         stroke="#9CA3AF"

@@ -1,4 +1,4 @@
-import { AxiosError } from "axios";
+import { AxiosError } from 'axios';
 
 export const errorFormat = (error: unknown) => {
   if (error instanceof TypeError) {
@@ -17,7 +17,7 @@ export const errorFormat = (error: unknown) => {
         error?.response?.data?.errors?.message ||
         error?.response?.data?.message,
     };
-  } else if (typeof error === "string") {
+  } else if (typeof error === 'string') {
     return {
       code: undefined,
       message: error,
@@ -26,7 +26,7 @@ export const errorFormat = (error: unknown) => {
     const e = error as any; // eslint-disable-line
     return {
       code: e?.code || e?.status || undefined,
-      message: e?.message || "unknown error instance",
+      message: e?.message || 'unknown error instance',
     };
   }
 };

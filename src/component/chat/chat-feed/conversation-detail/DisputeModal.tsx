@@ -1,6 +1,6 @@
-import { Button, Modal } from "flowbite-react";
-import { Dispatch, SetStateAction } from "react";
-import { PiWarningBold } from "react-icons/pi";
+import { Button, Modal } from 'flowbite-react';
+import { Dispatch, SetStateAction } from 'react';
+import { PiWarningBold } from 'react-icons/pi';
 type Props = {
   openModal: boolean;
   setOpenModal: Dispatch<SetStateAction<boolean>>;
@@ -16,8 +16,7 @@ export default function DisputeModal({ openModal, setOpenModal }: Props) {
       dismissible
       show={openModal}
       onClose={() => setOpenModal(false)}
-      size={"md"}
-    >
+      size={'md'}>
       <Modal.Header></Modal.Header>
       <Modal.Body>
         <div className="flex justify-center w-full text-2xl mb-4 mt-[-26px]">
@@ -27,14 +26,12 @@ export default function DisputeModal({ openModal, setOpenModal }: Props) {
           <div className="self-stretch flex flex-col items-start">
             <div
               id="NextFridayShouldB"
-              className="text-center font-bold leading-[24px] text-[#f05252]"
-            >
+              className="text-center font-bold leading-[24px] text-[#f05252]">
               Are you sure to send a dispute request ?
             </div>
             <div
               id="NextFridayShouldB1"
-              className="text-center text-xs leading-[18px] text-[#9ca3af] w-full"
-            >
+              className="text-center text-xs leading-[18px] text-[#9ca3af] w-full">
               If you are not sure about the dispute is, please read our document
               before sending a dispute request
             </div>

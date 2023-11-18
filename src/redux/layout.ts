@@ -1,5 +1,5 @@
-import { PayloadAction, createSlice } from "@reduxjs/toolkit";
-import { ChatMenuTab, MediaPanel } from "../type/conversation";
+import { PayloadAction, createSlice } from '@reduxjs/toolkit';
+import { ChatMenuTab, MediaPanel } from '../type/conversation';
 
 export type LayoutReducerState = {
   isOpenSidebar: boolean;
@@ -19,12 +19,12 @@ const initialState: LayoutReducerState = {
   activeChatMenuTab: ChatMenuTab.Chats,
   isShowConversationDetail: true,
   conversationDetailPanel: null,
-  lightBoxPortal: "",
+  lightBoxPortal: '',
   isWidget: false,
 };
 
 const layoutSlice = createSlice({
-  name: "layout",
+  name: 'layout',
   initialState,
   reducers: {
     toggleIsOpenSidebar: (state, action: PayloadAction<boolean>) => {
@@ -44,7 +44,7 @@ const layoutSlice = createSlice({
     },
     setConversationDetailPanel: (
       state,
-      action: PayloadAction<MediaPanel | null>,
+      action: PayloadAction<MediaPanel | null>
     ) => {
       state.conversationDetailPanel = action.payload;
     },

@@ -1,20 +1,20 @@
-import type { FC } from "react";
-import { Navbar } from "flowbite-react";
-import { HiMenu, HiX } from "react-icons/hi";
-import isSmallScreen from "../../helper/is-small-screen";
-import ConnectWalletButton from "./ConnectWalletButton";
-import UserDropdown from "./UserDropdown";
-import NotificationDropdown from "./NotificationDropdown";
-import AppDrawerDropdown from "./AppDrawerDropdown";
-import { isEmpty } from "lodash";
-import { useAccount, useNetwork } from "wagmi";
-import { useDispatch, useSelector } from "../../redux";
-import { toggleIsOpenSidebar } from "../../redux/layout";
+import type { FC } from 'react';
+import { Navbar } from 'flowbite-react';
+import { HiMenu, HiX } from 'react-icons/hi';
+import isSmallScreen from '../../helper/is-small-screen';
+import ConnectWalletButton from './ConnectWalletButton';
+import UserDropdown from './UserDropdown';
+import NotificationDropdown from './NotificationDropdown';
+import AppDrawerDropdown from './AppDrawerDropdown';
+import { isEmpty } from 'lodash';
+import { useAccount, useNetwork } from 'wagmi';
+import { useDispatch, useSelector } from '../../redux';
+import { toggleIsOpenSidebar } from '../../redux/layout';
 
 const AppNavbar: FC = function () {
   const dispatch = useDispatch();
-  const { isOpenSidebar } = useSelector((state) => state.layout);
-  const { user } = useSelector((state) => state.account);
+  const { isOpenSidebar } = useSelector(state => state.layout);
+  const { user } = useSelector(state => state.account);
   const { address } = useAccount();
   const { chain } = useNetwork();
 
@@ -36,8 +36,7 @@ const AppNavbar: FC = function () {
               <>
                 <button
                   onClick={() => toggleSidebar()}
-                  className="mr-3 cursor-pointer rounded p-2 text-gray-600 hover:bg-gray-100 hover:text-gray-900 lg:inline"
-                >
+                  className="mr-3 cursor-pointer rounded p-2 text-gray-600 hover:bg-gray-100 hover:text-gray-900 lg:inline">
                   <span className="sr-only">Toggle sidebar</span>
                   {isOpenSidebar && isSmallScreen() ? (
                     <HiX className="h-6 w-6" />
@@ -78,6 +77,7 @@ const AppNavbar: FC = function () {
             )}
             <div className="hidden lg:block">
               <ConnectWalletButton />
+              {/* {address && <LensLoginButton address={address} />} */}
             </div>
           </div>
         </div>

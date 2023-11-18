@@ -1,16 +1,16 @@
-import CopyIcon from "../../../@icon/CopyIcon";
-import { Button } from "flowbite-react";
-import { isEmpty } from "lodash";
-import PlaceholderAvatar from "../../../@share/PlaceholderAvatar";
-import { CopyToClipboard } from "react-copy-to-clipboard";
-import { Contact } from "../../../../type/contact";
-import { useState } from "react";
-import { toast } from "react-toastify";
-import { errorFormat } from "../../../../helper/error-format";
-import { requestConversationApi } from "../../../../rest-api/conversation";
-import { useNavigate } from "react-router-dom";
-import { ChatMenuTab } from "../../../../type/conversation";
-import sleep from "../../../../helper/sleep";
+import CopyIcon from '../../../@icon/CopyIcon';
+import { Button } from 'flowbite-react';
+import { isEmpty } from 'lodash';
+import PlaceholderAvatar from '../../../@share/PlaceholderAvatar';
+import { CopyToClipboard } from 'react-copy-to-clipboard';
+import { Contact } from '../../../../type/contact';
+import { useState } from 'react';
+import { toast } from 'react-toastify';
+import { errorFormat } from '../../../../helper/error-format';
+import { requestConversationApi } from '../../../../rest-api/conversation';
+import { useNavigate } from 'react-router-dom';
+import { ChatMenuTab } from '../../../../type/conversation';
+import sleep from '../../../../helper/sleep';
 
 type Props = {
   selectedContact: Contact;
@@ -64,7 +64,7 @@ export default function ContactDetail({ selectedContact }: Props) {
                 </div>
                 <CopyToClipboard text={selectedContact.address}>
                   <button>
-                    <CopyIcon className={"w-[18px] cursor-pointer"} />
+                    <CopyIcon className={'w-[18px] cursor-pointer'} />
                   </button>
                 </CopyToClipboard>
               </div>
@@ -102,12 +102,11 @@ export default function ContactDetail({ selectedContact }: Props) {
             <Button
               color="primary"
               className={
-                " text-white text-sm font-medium   self-stretch justify-center items-center bg-blue-700   max-w-full  rounded-lg"
+                ' text-white text-sm font-medium   self-stretch justify-center items-center bg-blue-700   max-w-full  rounded-lg'
               }
-              size={"sm"}
+              size={'sm'}
               disabled={checking}
-              onClick={() => startConversation()}
-            >
+              onClick={() => startConversation()}>
               Start a conversation
             </Button>
 

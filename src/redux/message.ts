@@ -1,30 +1,30 @@
-import { PayloadAction, createSlice } from "@reduxjs/toolkit";
-import { toast } from "react-toastify";
-import { omit, isEmpty, isArray } from "lodash";
-import { StoreDispatch, StoreGetState } from ".";
-import { initialPageInfoValue } from "../constant/page-info";
-import { PageInfo, PaginateParams } from "../type/common";
-import { queryParamsToString } from "../helper/formater";
-import { errorFormat } from "../helper/error-format";
+import { PayloadAction, createSlice } from '@reduxjs/toolkit';
+import { toast } from 'react-toastify';
+import { omit, isEmpty, isArray } from 'lodash';
+import { StoreDispatch, StoreGetState } from '.';
+import { initialPageInfoValue } from '../constant/page-info';
+import { PageInfo, PaginateParams } from '../type/common';
+import { queryParamsToString } from '../helper/formater';
+import { errorFormat } from '../helper/error-format';
 import {
   getConversationApi,
   getMessagesApi,
   sendTextMessageApi,
-} from "../rest-api/conversation";
-import { Participant } from "../type/conversation";
+} from '../rest-api/conversation';
+import { Participant } from '../type/conversation';
 import {
   ChatBubbleAlign,
   MessageWithAlignAndSentStatus,
   Message,
   SendingMessageState,
-} from "../type/message";
-import { getReceiver } from "../helper/conversation";
-import { Contract } from "ethers";
-import { CryptoAES256, CryptoECIES, generateSecret } from "../helper/crypto";
+} from '../type/message';
+import { getReceiver } from '../helper/conversation';
+import { Contract } from 'ethers';
+import { CryptoAES256, CryptoECIES, generateSecret } from '../helper/crypto';
 import {
   backgroundUpdateConversation,
   setSelectedConversation,
-} from "./conversation";
+} from './conversation';
 
 export type MessageReducerState = {
   messages: MessageWithAlignAndSentStatus[];
@@ -54,11 +54,11 @@ const initialState: MessageReducerState = {
 };
 
 const messageSlice = createSlice({
-  name: "message",
+  name: 'message',
   initialState,
   reducers: {
     // initialization
-    initializingMessage: (state) => {
+    initializingMessage: state => {
       state.initialzing = true;
     },
     initializeMessageSuccess: (
@@ -68,7 +68,7 @@ const messageSlice = createSlice({
         participants: Participant[];
         pageInfo: PageInfo;
         chatScheme: CryptoAES256;
-      }>,
+      }>
     ) => {
       state.messages = action.payload.messages;
       state.participants = action.payload.participants;
@@ -77,7 +77,7 @@ const messageSlice = createSlice({
       state.initialzing = false;
     },
     // background update
-    backgroundUpdatingMessage: (state) => {
+    backgroundUpdatingMessage: state => {
       state.backgroundUpdating = true;
     },
     backgroundUpdateMessageSuccess: (
@@ -86,7 +86,7 @@ const messageSlice = createSlice({
         messages: MessageWithAlignAndSentStatus[];
         participants: Participant[];
         pageInfo: PageInfo;
-      }>,
+      }>
     ) => {
       state.messages = action.payload.messages;
       state.participants = action.payload.participants;
@@ -97,7 +97,7 @@ const messageSlice = createSlice({
       state,
       action: PayloadAction<{
         messages: MessageWithAlignAndSentStatus[];
-      }>,
+      }>
     ) => {
       state.messages = action.payload.messages;
     },
@@ -130,11 +130,11 @@ export const initializeMessage =
       const { contract } = getState().contract;
 
       if (isEmpty(contract)) {
-        throw new Error("Contract not found.");
+        throw new Error('Contract not found.');
       }
 
       if (isEmpty(user) || isEmpty(userScheme)) {
-        throw new Error("User public address not found.");
+        throw new Error('User public address not found.');
       }
       dispatch(initializingMessage());
 
@@ -144,36 +144,36 @@ export const initializeMessage =
 
       const peer = getReceiver(messageResponse.participants, user);
       if (isEmpty(peer)) {
-        throw new Error("Peer public address not found.");
+        throw new Error('Peer public address not found.');
       }
 
       const chatScheme = await getChatScheme(
         contract,
         peer.publicAddress,
         user.publicAddress,
-        userScheme,
+        userScheme
       );
 
       const conversation = await getConversationApi(conversationIdParam);
       if (isEmpty(conversation)) {
-        throw new Error("Conversation not found.");
+        throw new Error('Conversation not found.');
       }
       dispatch(
         setSelectedConversation({
           selectedConversation: conversation,
-        }),
+        })
       );
 
       dispatch(
         initializeMessageSuccess({
           messages: prepareMessages(
             messageResponse.conversationMessages.results,
-            user.publicAddress,
+            user.publicAddress
           ),
           participants: messageResponse.participants,
-          pageInfo: omit(messageResponse.conversationMessages, ["results"]),
+          pageInfo: omit(messageResponse.conversationMessages, ['results']),
           chatScheme,
-        }),
+        })
       );
     } catch (error) {
       console.log(error);
@@ -195,23 +195,23 @@ export const backgroundUpdateMessage =
       const { user, userScheme } = getState().account;
 
       if (isEmpty(user) || isEmpty(userScheme)) {
-        throw new Error("User public address not found.");
+        throw new Error('User public address not found.');
       }
 
       const messageResponse = await fetchMessage(
         query,
-        selectedConversation.conversation.id,
+        selectedConversation.conversation.id
       );
 
       dispatch(
         backgroundUpdateMessageSuccess({
           messages: prepareMessages(
             messageResponse.conversationMessages.results,
-            user.publicAddress,
+            user.publicAddress
           ),
           participants: messageResponse.participants,
-          pageInfo: omit(messageResponse.conversationMessages, ["results"]),
-        }),
+          pageInfo: omit(messageResponse.conversationMessages, ['results']),
+        })
       );
     } catch (error) {
       toast.error(errorFormat(error).message);
@@ -247,20 +247,20 @@ export const sendMessage =
       const { content, type, optional = {} } = messageState;
 
       if (isEmpty(selectedConversation)) {
-        throw new Error("Selected Conversation not found.");
+        throw new Error('Selected Conversation not found.');
       }
 
       if (isEmpty(user)) {
-        throw new Error("User not found.");
+        throw new Error('User not found.');
       }
 
       if (isEmpty(chatScheme)) {
-        throw new Error("Chat scheme not found.");
+        throw new Error('Chat scheme not found.');
       }
 
       const cypherText = chatScheme
         .encrypt(Buffer.from(content))
-        .toString("hex");
+        .toString('hex');
 
       const sendingMessage: MessageWithAlignAndSentStatus = {
         id: Date.now().toString(),
@@ -282,14 +282,14 @@ export const sendMessage =
       };
 
       dispatch(
-        updateSendingMessage({ messages: [sendingMessage, ...messages] }),
+        updateSendingMessage({ messages: [sendingMessage, ...messages] })
       );
 
       await sendTextMessageApi(
         selectedConversation.conversation.id,
         cypherText,
         type!,
-        optional,
+        optional
       );
 
       dispatch(backgroundUpdateMessage());
@@ -302,27 +302,27 @@ export const sendMessage =
 // Private
 const fetchMessage = async (
   query: PaginateParams,
-  conversationIdParam: string,
+  conversationIdParam: string
 ) => {
   const queryParams = queryParamsToString({ ...query });
   const messageResponse = await getMessagesApi(
     conversationIdParam,
-    queryParams,
+    queryParams
   );
   if (isEmpty(messageResponse)) {
-    throw new Error("Message response is empty.");
+    throw new Error('Message response is empty.');
   }
   if (!isArray(messageResponse.conversationMessages.results)) {
-    throw new Error("Messages is not found.");
+    throw new Error('Messages is not found.');
   }
   return messageResponse;
 };
 
 const prepareMessages = (
   messages: Message[],
-  userAddress: string,
+  userAddress: string
 ): MessageWithAlignAndSentStatus[] => {
-  const messageWithAlignAndSentStatus = messages.map((msg) => {
+  const messageWithAlignAndSentStatus = messages.map(msg => {
     const align: ChatBubbleAlign =
       msg.senderId === userAddress
         ? ChatBubbleAlign.Right
@@ -340,11 +340,11 @@ const getChatScheme = async (
   contract: Contract,
   peerAddress: string,
   userAddress: string,
-  userScheme: CryptoECIES,
+  userScheme: CryptoECIES
 ) => {
   const isChatInitialized = await contract.callStatic.isChatInitialized(
     userAddress,
-    peerAddress,
+    peerAddress
   );
 
   let chatSecret: Buffer | null = null;
@@ -352,11 +352,11 @@ const getChatScheme = async (
   if (isChatInitialized) {
     const chatSecretEncrypted = await contract.callStatic.getChatInitialization(
       userAddress,
-      peerAddress,
+      peerAddress
     );
     const encryptedChatSecret = Buffer.from(
       chatSecretEncrypted.slice(2),
-      "hex",
+      'hex'
     );
     chatSecret = userScheme.decrypt(encryptedChatSecret);
   } else {
@@ -369,12 +369,12 @@ const getChatScheme = async (
 
     // encrypt for peer
     const peerPublicKey = Buffer.from(
-      (peerInit.publicKeyPrefix ? "02" : "03") + peerInit.publicKeyX.slice(2),
-      "hex",
+      (peerInit.publicKeyPrefix ? '02' : '03') + peerInit.publicKeyX.slice(2),
+      'hex'
     );
     const chatSecretEncryptedForPeer = CryptoECIES.encrypt(
-      peerPublicKey.toString("hex"),
-      chatSecret,
+      peerPublicKey.toString('hex'),
+      chatSecret
     );
     const chatSecretEncryptedForMe = userScheme.encrypt(chatSecret);
 
@@ -382,7 +382,7 @@ const getChatScheme = async (
     const tx = await contract.initializeChat(
       chatSecretEncryptedForMe,
       chatSecretEncryptedForPeer,
-      peerAddress,
+      peerAddress
     );
     await tx.wait();
   }

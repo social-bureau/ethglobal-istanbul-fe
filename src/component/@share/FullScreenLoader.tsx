@@ -1,4 +1,4 @@
-import { Spinner } from "flowbite-react";
+import { Spinner } from 'flowbite-react';
 
 export default function FullScreenLoader() {
   return (

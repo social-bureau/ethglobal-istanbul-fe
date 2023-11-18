@@ -1,14 +1,14 @@
-import { isEmpty } from "lodash";
-import { useDispatch, useSelector } from "../../../../redux";
-import FileCard from "./FileCard";
-import { setConversationDetailPanel } from "../../../../redux/layout";
-import { MediaPanel } from "../../../../type/conversation";
-import FileMediaTabSkeleton from "../../../@skeleton/FileMediaTabSkeleton";
+import { isEmpty } from 'lodash';
+import { useDispatch, useSelector } from '../../../../redux';
+import FileCard from './FileCard';
+import { setConversationDetailPanel } from '../../../../redux/layout';
+import { MediaPanel } from '../../../../type/conversation';
+import FileMediaTabSkeleton from '../../../@skeleton/FileMediaTabSkeleton';
 
 export default function File() {
   const dispatch = useDispatch();
-  const { preview } = useSelector((state) => state.messageMedia);
-  const { chatScheme } = useSelector((state) => state.message);
+  const { preview } = useSelector(state => state.messageMedia);
+  const { chatScheme } = useSelector(state => state.message);
 
   if (!preview.file.media.length || isEmpty(chatScheme)) {
     return null;
@@ -22,8 +22,7 @@ export default function File() {
         </h2>
         <a
           onClick={() => dispatch(setConversationDetailPanel(MediaPanel.File))}
-          className="text-blue-700 text-sm font-medium leading-[150%] cursor-pointer"
-        >
+          className="text-blue-700 text-sm font-medium leading-[150%] cursor-pointer">
           See all
         </a>
       </div>
@@ -32,7 +31,7 @@ export default function File() {
         <FileMediaTabSkeleton length={3} />
       ) : (
         <>
-          {preview.file.media.slice(0, 3).map((media) => {
+          {preview.file.media.slice(0, 3).map(media => {
             if (isEmpty(media.optional)) {
               return <></>;
             }
@@ -44,7 +43,7 @@ export default function File() {
                 fileType={fileType as string}
                 fileSize={+fileSize}
                 base64={chatScheme
-                  .decrypt(Buffer.from(media.content, "hex"))
+                  .decrypt(Buffer.from(media.content, 'hex'))
                   .toString()}
               />
             );

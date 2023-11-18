@@ -1,5 +1,5 @@
-import { PageInfo, Time } from "./common";
-import { Message } from "./message";
+import { PageInfo, Time } from './common';
+import { Message } from './message';
 
 export type Conversation = {
   createdAt: Time;
@@ -29,8 +29,8 @@ export type ConversationWithPageInfo = PageInfo & {
 };
 
 export enum ConversationType {
-  DM = "1-1",
-  GROUP = "group",
+  DM = '1-1',
+  GROUP = 'group',
 }
 
 export type ConversationState = {
@@ -39,13 +39,13 @@ export type ConversationState = {
 };
 
 export enum ChatMenuTab {
-  Chats = "chats",
+  Chats = 'chats',
   // Disputes: 'disputes',
-  Contacts = "contacts",
+  Contacts = 'contacts',
 }
 
 export enum MediaPanel {
-  Media = "media",
+  Media = 'media',
   // Disputes: 'disputes',
-  File = "file",
+  File = 'file',
 }

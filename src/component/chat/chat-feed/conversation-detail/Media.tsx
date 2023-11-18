@@ -1,15 +1,15 @@
-import { useDispatch, useSelector } from "../../../../redux";
+import { useDispatch, useSelector } from '../../../../redux';
 import {
   setConversationDetailPanel,
   setLightBoxPortal,
-} from "../../../../redux/layout";
-import { MediaPanel } from "../../../../type/conversation";
-import ImageMediaTabSkeleton from "../../../@skeleton/ImageMediaTabSkeleton";
+} from '../../../../redux/layout';
+import { MediaPanel } from '../../../../type/conversation';
+import ImageMediaTabSkeleton from '../../../@skeleton/ImageMediaTabSkeleton';
 
 export default function Media() {
   const dispatch = useDispatch();
-  const { preview } = useSelector((state) => state.messageMedia);
-  const { chatScheme } = useSelector((state) => state.message);
+  const { preview } = useSelector(state => state.messageMedia);
+  const { chatScheme } = useSelector(state => state.message);
 
   if (!preview.image.media.length) {
     return null;
@@ -17,10 +17,10 @@ export default function Media() {
 
   const decrypt = (cypher: string) => {
     if (chatScheme) {
-      const plain = chatScheme.decrypt(Buffer.from(cypher, "hex")).toString();
+      const plain = chatScheme.decrypt(Buffer.from(cypher, 'hex')).toString();
       return plain;
     }
-    return "";
+    return '';
   };
 
   const openLightBox = (src: string) => {
@@ -32,7 +32,7 @@ export default function Media() {
     if (image.pageInfo.totalResults >= 3) {
       return (
         <div className="justify-between items-start flex w-[312px] h-[85px] max-w-full gap-1 mt-2">
-          {image.media.slice(0, 3).map((media) => {
+          {image.media.slice(0, 3).map(media => {
             const src = decrypt(media.content);
             return (
               <img
@@ -49,8 +49,7 @@ export default function Media() {
             className="justify-center items-center rounded bg-gray-100 flex flex-col flex-1 w-[calc(100%-2rem)] h-[85px] cursor-pointer"
             onClick={() =>
               dispatch(setConversationDetailPanel(MediaPanel.Media))
-            }
-          >
+            }>
             <div className="text-gray-900 text-sm font-bold leading-[150%] self-center">
               +{image.pageInfo.totalResults - 2}
             </div>
@@ -61,7 +60,7 @@ export default function Media() {
 
     return (
       <div className="items-start flex w-[312px] h-[85px] max-w-full gap-1 mt-2">
-        {image.media.map((media) => {
+        {image.media.map(media => {
           const src = decrypt(media.content);
           return (
             <img
@@ -86,8 +85,7 @@ export default function Media() {
         </h2>
         <a
           onClick={() => dispatch(setConversationDetailPanel(MediaPanel.Media))}
-          className="text-blue-700 text-sm font-medium leading-[150%] cursor-pointer"
-        >
+          className="text-blue-700 text-sm font-medium leading-[150%] cursor-pointer">
           See all
         </a>
       </div>

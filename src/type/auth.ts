@@ -1,4 +1,4 @@
-import { NestHttpException, Time } from "./common";
+import { NestHttpException, Time } from './common';
 
 export type CommonAuthResponse = {
   status: number;
@@ -30,4 +30,4 @@ export type User = {
   nonce: number;
 };
 
-export type UserRole = "GUEST" | "ADMIN" | "USER";
+export type UserRole = 'GUEST' | 'ADMIN' | 'USER';

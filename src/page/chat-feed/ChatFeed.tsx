@@ -1,30 +1,56 @@
-import classNames from "classnames";
-import ChatFeedContainer from "../../component/chat/chat-feed/ChatFeedContainer";
-import MenuContainer from "../../component/chat/chat-menu/MenuContainer";
-import { isEmpty } from "lodash";
-import { useDispatch, useSelector } from "../../redux";
-import { useDeepEffect } from "../../hook/useDeepEffect";
-import { initializeConversation } from "../../redux/conversation";
+import classNames from 'classnames';
+import ChatFeedContainer from '../../component/chat/chat-feed/ChatFeedContainer';
+import MenuContainer from '../../component/chat/chat-menu/MenuContainer';
+import { isEmpty } from 'lodash';
+import { useDispatch, useSelector } from '../../redux';
+import { useDeepEffect } from '../../hook/useDeepEffect';
+import {
+  initializeConversation,
+  // setSelectedConversation,
+} from '../../redux/conversation';
 import {
   initializeContact,
   initializeSelectedContact,
-} from "../../redux/contact";
-import { ChatMenuTab } from "../../type/conversation";
-import { useLocation, useParams } from "react-router-dom";
-import { setActiveChatMenuTab } from "../../redux/layout";
-import { initializeMessage, receiveMessage } from "../../redux/message";
-import { onChildChanged, ref } from "firebase/database";
-import { Message } from "../../type/message";
-import { initializePreviewMedia } from "../../redux/message-media";
-import UnauthorizedUserScheme from "../../component/unauthorized/UnauthorizedUserScheme";
+  // setDefaultContactState,
+} from '../../redux/contact';
+import { ChatMenuTab } from '../../type/conversation';
+import { useLocation, useParams } from 'react-router-dom';
+import { setActiveChatMenuTab } from '../../redux/layout';
+import {
+  initializeMessage,
+  receiveMessage,
+  // setDefaultMessageState,
+} from '../../redux/message';
+import { onChildChanged, ref } from 'firebase/database';
+import { Message } from '../../type/message';
+import { initializePreviewMedia } from '../../redux/message-media';
+import UnauthorizedUserScheme from '../../component/unauthorized/UnauthorizedUserScheme';
+// import { LensClient, development } from '@lens-protocol/client';
 
 export default function ChatFeed() {
   const dispatch = useDispatch();
-  const { isOpenSidebar } = useSelector((state) => state.layout);
-  const { userScheme, user } = useSelector((state) => state.account);
-  const { database } = useSelector((state) => state.firebase);
+  const { isOpenSidebar } = useSelector(state => state.layout);
+  const { userScheme, user } = useSelector(state => state.account);
+  const { database } = useSelector(state => state.firebase);
   const location = useLocation();
   const { tab: tabParam, id: idParam } = useParams();
+
+  // const lensClient = new LensClient({
+  //   environment: development,
+  // });
+
+  // console.log(lensClient);
+
+  // useDeepEffect(() => {
+  //   (async () => {
+  //     const profileCreateResult = await lensClient.profile.create({
+  //       handle: 'ikhalas-mann',
+  //       to: '0x2fa07c39b42659353374579bE62910530eD4Bf60',
+  //     });
+
+  //     console.log(profileCreateResult);
+  //   })();
+  // }, []);
 
   useDeepEffect(() => {
     if (!isEmpty(userScheme)) {
@@ -40,7 +66,7 @@ export default function ChatFeed() {
     } else {
       const allTabs = Object.values(ChatMenuTab);
       dispatch(
-        setActiveChatMenuTab(allTabs.includes(tab) ? tab : ChatMenuTab.Chats),
+        setActiveChatMenuTab(allTabs.includes(tab) ? tab : ChatMenuTab.Chats)
       );
     }
   }, [tabParam, location.pathname]);
@@ -58,7 +84,7 @@ export default function ChatFeed() {
 
       if (!isEmpty(user) && !isEmpty(database)) {
         const conversationRef = ref(database, user.publicAddress);
-        onChildChanged(conversationRef, (snapshot) => {
+        onChildChanged(conversationRef, snapshot => {
           if (snapshot.exists()) {
             const latestMessage = snapshot.val();
             if (!isEmpty(latestMessage)) {
@@ -79,10 +105,9 @@ export default function ChatFeed() {
       <MenuContainer />
       <div
         className={classNames(
-          "overflow-y-auto relative w-full h-full bg-white dark:bg-gray-900",
-          isOpenSidebar ? "lg:ml-80" : "lg:ml-0",
-        )}
-      >
+          'overflow-y-auto relative w-full h-full bg-white dark:bg-gray-900',
+          isOpenSidebar ? 'lg:ml-80' : 'lg:ml-0'
+        )}>
         <div className="h-full">
           <ChatFeedContainer />
         </div>

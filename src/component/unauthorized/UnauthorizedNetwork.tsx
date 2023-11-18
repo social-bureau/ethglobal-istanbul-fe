@@ -1,6 +1,6 @@
-import { Button } from "flowbite-react";
-import { useWeb3Modal } from "@web3modal/wagmi/react";
-import { useAccount } from "wagmi";
+import { Button } from 'flowbite-react';
+import { useWeb3Modal } from '@web3modal/wagmi/react';
+import { useAccount } from 'wagmi';
 
 export default function UnauthorizedNetwork() {
   const { open } = useWeb3Modal();
@@ -18,8 +18,7 @@ export default function UnauthorizedNetwork() {
         </p>
         <Button
           disabled={isConnecting}
-          onClick={() => open({ view: "Networks" })}
-        >
+          onClick={() => open({ view: 'Networks' })}>
           Switch Network
         </Button>
       </div>

@@ -1,20 +1,23 @@
-import { RouteObject, useRoutes } from "react-router-dom";
-import AppLayout from "../layout/AppLayout";
-import AuthGuard from "../guard/AuthGuard";
-import GuestGuard from "../guard/GuestGuard";
-import Error404 from "../page/miscellaneous/Error404";
-import ChatFeed from "../page/chat-feed/ChatFeed";
-import Unauthorized from "../page/unauthorize/Unauthorized";
+import { RouteObject, useRoutes } from 'react-router-dom';
+import AppLayout from '../layout/AppLayout';
+import AuthGuard from '../guard/AuthGuard';
+import GuestGuard from '../guard/GuestGuard';
+import ChatFeed from '../page/chat-feed/ChatFeed';
+import Error404 from '../page/miscellaneous/Error404';
+import Unauthorized from '../page/unauthorize/Unauthorized';
+import WidgetLayout from '../layout/WidgetLayout';
+import ChatWidget from '../page/chat-widget/ChatWidget';
+import WidgetGuard from '../guard/WidgetGuard';
 
 const routes: RouteObject = {
-  path: "/",
+  path: '/',
   children: [
     {
-      path: "/",
+      path: '/',
       element: <AppLayout />,
       children: [
         {
-          path: ":tab?/:id?",
+          path: ':tab?/:id?',
           element: (
             <AuthGuard>
               <ChatFeed />
@@ -22,7 +25,7 @@ const routes: RouteObject = {
           ),
         },
         {
-          path: "unauthorized",
+          path: 'unauthorized',
           element: (
             <GuestGuard>
               <Unauthorized />
@@ -32,7 +35,29 @@ const routes: RouteObject = {
       ],
     },
     {
-      path: "*",
+      path: '/widget',
+      element: <WidgetLayout />,
+      children: [
+        {
+          path: 'chat/:address?',
+          element: (
+            <WidgetGuard>
+              <ChatWidget />
+            </WidgetGuard>
+          ),
+        },
+        {
+          path: 'unauthorized',
+          element: (
+            <GuestGuard>
+              <Unauthorized />
+            </GuestGuard>
+          ),
+        },
+      ],
+    },
+    {
+      path: '*',
       element: <Error404 />,
     },
   ],

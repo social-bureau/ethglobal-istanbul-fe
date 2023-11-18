@@ -1,7 +1,7 @@
-import { PropsWithChildren } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
-import { useAccount, useNetwork } from "wagmi";
-import { useDeepEffect } from "../hook/useDeepEffect";
+import { PropsWithChildren } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { useAccount, useNetwork } from 'wagmi';
+import { useDeepEffect } from '../hook/useDeepEffect';
 
 export default function AuthGuard({ children }: PropsWithChildren) {
   const { address } = useAccount();
@@ -11,7 +11,7 @@ export default function AuthGuard({ children }: PropsWithChildren) {
 
   useDeepEffect(() => {
     if (!address || chain?.unsupported) {
-      navigate(location?.state?.from || "/unauthorized", {
+      navigate(location?.state?.from || '/unauthorized', {
         state: {
           from: location.pathname,
         },
