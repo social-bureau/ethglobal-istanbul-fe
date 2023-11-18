@@ -26,6 +26,8 @@
     "@lens-protocol/client": "^2.0.0-alpha.21",
     "@metamask/eth-sig-util": "^4.0.1",
     "@reduxjs/toolkit": "^1.9.7",
+    "@web3inbox/core": "^0.0.22",
+    "@web3inbox/widget-react": "^0.6.25",
     "@web3modal/wagmi": "^3.3.2",
     "axios": "^1.5.1",
     "browserify-zlib": "^0.2.0",

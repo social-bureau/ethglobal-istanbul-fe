@@ -8,14 +8,15 @@ import { useSelector } from '../../redux';
 import { useState } from 'react';
 import { useNetwork } from 'wagmi';
 import { updateLensProfile } from '../../rest-api/conversation';
-import { TextInput } from 'flowbite-react';
+import { TextInput, ToggleSwitch, Button } from 'flowbite-react';
 
 export default function Setting() {
   const { chain } = useNetwork();
   const [lensHandle, setLensHandle] = useState('');
   const { user } = useSelector(state => state.account);
   const [lensProfile, setLensProfile] = useState<any>(null);
-
+  const [notification, setNotification] = useState(false);
+  const [fetching, setFetching] = useState(true);
   console.log({ user });
 
   useDeepEffect(() => {
@@ -23,10 +24,10 @@ export default function Setting() {
       if (user) {
         const profile = await getLensProfile(user.lensId);
         if (profile) {
-          console.log(profile.handle?.fullHandle);
           setLensProfile(profile);
         }
       }
+      setFetching(false);
     })();
   }, [user]);
 
@@ -50,24 +51,32 @@ export default function Setting() {
     }
   };
 
-  console.log(chain);
+  if (fetching) return null;
 
   return (
     <section className="bg-white dark:bg-gray-900 flex justify-center w-full">
       <div className="py-8 px-12 mx-auto w-full sm:py-16 lg:px-6 ">
-        <h2 className="mb-6 lg:mb-8 text-3xl lg:text-4xl tracking-tight font-extrabold text-center text-gray-900 dark:text-white">
+        <h2 className="mb-6 lg:mb-8 text-3xl lg:text-4xl tracking-tight font-extrabold text-start text-gray-900 dark:text-white">
           Settings
         </h2>
         <div className="mx-auto w-full">
           {chain?.id === 80001 && (
             <>
               <h2 id="accordion-flush-heading-2">
-                <div className="flex justify-between items-center py-5 w-full font-medium text-left text-gray-500 border-b border-gray-200 dark:border-gray-700 dark:text-gray-400">
+                <div
+                  className={
+                    (lensProfile ? 'cursor-pointer ' : ' ') +
+                    'flex justify-between items-center py-5 w-full font-medium text-left text-gray-500 border-b border-gray-200 dark:border-gray-700 dark:text-gray-400'
+                  }>
                   <span>Lens profile</span>
                   {lensProfile ? (
-                    <>@{lensProfile?.handle?.fullHandle}</>
+                    <>
+                      <div className="flex items-center gap-3">
+                        @{lensProfile?.handle?.fullHandle}
+                      </div>
+                    </>
                   ) : (
-                    <div>
+                    <div className="flex items-center gap-3">
                       <TextInput
                         className="w-full bg-gray-50 border-gray-300"
                         placeholder="Enter wallet address "
@@ -75,15 +84,157 @@ export default function Setting() {
                         value={lensHandle}
                         onChange={e => setLensHandle(e.target.value)}
                       />
-                      <button onClick={() => createLens()}>create</button>
+                      <Button color="primary" onClick={() => createLens()}>
+                        Create
+                      </Button>
                     </div>
                   )}
                 </div>
+
+                {/* {toggleLensProfile && (
+                  <div className="py-2 px-4 mt-3 rounded bg-gray-100">
+                    <div className="flex justify-between items-center py-2 w-full font-medium text-left text-gray-500 dark:text-gray-400">
+                      <span>Handle</span>
+                      <TextInput
+                        className="bg-gray-50 border-gray-300"
+                        style={{ maxWidth: '200px' }}
+                        placeholder="Enter name"
+                        sizing="md"
+                        value={lensName ? lensName : ''}
+                        onChange={e => setLensName(e.target.value)}
+                      />
+                    </div>
+                  </div>
+                )} */}
               </h2>
             </>
           )}
         </div>
+        <div className="flex max-w-md flex-col mt-4">
+          <ToggleSwitch
+            checked={notification}
+            label="Notification"
+            onChange={setNotification}
+          />
+        </div>{' '}
       </div>
     </section>
   );
 }
+
+// import {
+//   useManageSubscription,
+//   useSubscription,
+//   useW3iAccount,
+//   useInitWeb3InboxClient,
+//   useMessages,
+// } from '@web3inbox/widget-react';
+// import { useCallback, useEffect } from 'react';
+// import { useSignMessage, useAccount } from 'wagmi';
+// import environment from '../../environment';
+
+// const projectId = environment.walletconnectProjectId;
+// const domain = environment.web3InboxDomain;
+
+// export default function App() {
+//   const { address } = useAccount();
+//   const { signMessageAsync } = useSignMessage();
+
+//   console.log(domain);
+
+//   // Initialize the Web3Inbox SDK
+//   const isReady = useInitWeb3InboxClient({
+//     // The project ID and domain you setup in the Domain Setup section
+//     projectId,
+//     domain,
+
+//     // Allow localhost development with "unlimited" mode.
+//     // This authorizes this dapp to control notification subscriptions for all domains (including `app.example.com`), not just `window.location.host`
+//     isLimited: false,
+//   });
+
+//   const { account, setAccount, isRegistered, isRegistering, register } =
+//     useW3iAccount();
+//   useEffect(() => {
+//     if (!address) return;
+//     // Convert the address into a CAIP-10 blockchain-agnostic account ID and update the Web3Inbox SDK with it
+//     setAccount(`eip155:1:${address}`);
+//   }, [address, setAccount]);
+
+//   // In order to authorize the dapp to control subscriptions, the user needs to sign a SIWE message which happens automatically when `register()` is called.
+//   // Depending on the configuration of `domain` and `isLimited`, a different message is generated.
+//   const performRegistration = useCallback(async () => {
+//     if (!address) return;
+//     try {
+//       await register(message => signMessageAsync({ message }));
+//     } catch (registerIdentityError) {
+//       alert(registerIdentityError);
+//     }
+//   }, [signMessageAsync, register, address]);
+
+//   useEffect(() => {
+//     // Register even if an identity key exists, to account for stale keys
+//     performRegistration();
+//   }, [performRegistration]);
+
+//   const { isSubscribed, isSubscribing, subscribe } = useManageSubscription();
+
+//   const performSubscribe = useCallback(async () => {
+//     // Register again just in case
+//     await performRegistration();
+//     await subscribe();
+//   }, [subscribe, isRegistered]);
+
+//   const { subscription } = useSubscription();
+//   const { messages } = useMessages();
+
+//   return (
+//     <>
+//       {!isReady ? (
+//         <div>Loading client...</div>
+//       ) : (
+//         <>
+//           {!address ? (
+//             <div>Connect your wallet</div>
+//           ) : (
+//             <>
+//               <div>Address: {address}</div>
+//               <div>Account ID: {account}</div>
+//               {!isRegistered ? (
+//                 <div>
+//                   To manage notifications, sign and register an identity
+//                   key:&nbsp;
+//                   <button
+//                     onClick={performRegistration}
+//                     disabled={isRegistering}>
+//                     {isRegistering ? 'Signing...' : 'Sign'}
+//                   </button>
+//                 </div>
+//               ) : (
+//                 <>
+//                   {!isSubscribed ? (
+//                     <>
+//                       <button
+//                         onClick={performSubscribe}
+//                         disabled={isSubscribing}>
+//                         {isSubscribing
+//                           ? 'Subscribing...'
+//                           : 'Subscribe to notifications'}
+//                       </button>
+//                     </>
+//                   ) : (
+//                     <>
+//                       <div>You are subscribed</div>
+//                       <div>Subscription: {JSON.stringify(subscription)}</div>
+//                       <div>Messages: {JSON.stringify(messages)}</div>
+//                     </>
+//                   )}
+//                 </>
+//               )}
+//             </>
+//           )}
+//         </>
+//       )}
+//     </>
+//   );
+// }
