@@ -9,11 +9,14 @@ import ToastifyPortal from "./wrapper/ToastifyPortal";
 import ContractPortal from "./wrapper/ContractPortal";
 import SkeletonTheme from "./wrapper/SkeletonTheme";
 import FirebasePortal from "./wrapper/FirebasePortal";
+import ErrorBoundary from "./wrapper/ErrorBoundary";
 
 const providers = [
   ReduxProvider,
+  ErrorBoundary,
   ToastifyPortal,
   SkeletonTheme,
+  // LightBoxPortal,
   FlowbiteProvider,
   WagmiProvider,
   ContractPortal,

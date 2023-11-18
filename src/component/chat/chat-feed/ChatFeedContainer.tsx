@@ -1,27 +1,29 @@
-import { ChatMenuTab } from '../../../type/conversation';
-import AddContactForm from './other/AddContactForm';
-import ContactDetail from './other/ContactDetail';
-import NoSelectedLanding from './other/NoSelectedLanding';
-import DetailContainer from './conversation-detail/DetailContainer';
-import FeedContainer from './conversation-feed/FeedContainer';
-import classNames from 'classnames';
-import FetchingLanding from './other/FetchingLanding';
-import { isEmpty } from 'lodash';
-import { useSelector } from '../../../redux';
+import { ChatMenuTab } from "../../../type/conversation";
+import AddContactForm from "./other/AddContactForm";
+import ContactDetail from "./other/ContactDetail";
+import NoSelectedLanding from "./other/NoSelectedLanding";
+import DetailContainer from "./conversation-detail/DetailContainer";
+import FeedContainer from "./conversation-feed/FeedContainer";
+import classNames from "classnames";
+import FetchingLanding from "./other/FetchingLanding";
+import { isEmpty } from "lodash";
+import { useSelector } from "../../../redux";
 
 export default function Container() {
   const { selectedContact, selectedContactInitialzing } = useSelector(
-    state => state.contact
+    (state) => state.contact
   );
-  const { isWidget } = useSelector(state => state.layout);
-  const { isShowConversationDetail } = useSelector(state => state.layout);
+  const { isWidget } = useSelector((state) => state.layout);
+  const { isShowConversationDetail } = useSelector((state) => state.layout);
   const { initialzing: messageInitialzing, participants: messageParticipants } =
-    useSelector(state => state.message);
+    useSelector((state) => state.message);
+
+  console.log({ messageParticipants });
 
   const isSelectedConversation = !!messageParticipants.length;
 
   const { isShowAddContact, activeChatMenuTab } = useSelector(
-    state => state.layout
+    (state) => state.layout
   );
 
   if (messageInitialzing || selectedContactInitialzing) {
@@ -31,6 +33,8 @@ export default function Container() {
   if (isShowAddContact) {
     return <AddContactForm />;
   }
+
+  console.log({ isSelectedConversation });
 
   if (activeChatMenuTab === ChatMenuTab.Chats && !isSelectedConversation) {
     return (
@@ -66,16 +70,18 @@ export default function Container() {
   return (
     <div className="h-full overflow-hidden">
       <div
-        className={classNames('h-full', {
-          'pr-72': isShowConversationDetail && !isWidget,
-        })}>
+        className={classNames("h-full", {
+          "pr-72": isShowConversationDetail && !isWidget,
+        })}
+      >
         <FeedContainer />
       </div>
       {!isWidget && isShowConversationDetail && (
         <div
-          className={classNames('fixed top-0 right-0 z-40 pt-16 h-full', {
-            'w-72': isShowConversationDetail,
-          })}>
+          className={classNames("fixed top-0 right-0 z-40 pt-16 h-full", {
+            "w-72": isShowConversationDetail,
+          })}
+        >
           <DetailContainer />
         </div>
       )}
