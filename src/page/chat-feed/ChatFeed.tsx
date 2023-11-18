@@ -17,6 +17,8 @@ import { onChildChanged, ref } from 'firebase/database';
 import { Message } from '../../type/message';
 import { initializePreviewMedia } from '../../redux/message-media';
 import UnauthorizedUserScheme from '../../component/unauthorized/UnauthorizedUserScheme';
+import { createLensProfile } from '../../helper/lens';
+// import { lensClient } from '../../helper/lens';
 
 export default function ChatFeed() {
   const dispatch = useDispatch();
@@ -25,6 +27,14 @@ export default function ChatFeed() {
   const { database } = useSelector(state => state.firebase);
   const location = useLocation();
   const { tab: tabParam, id: idParam } = useParams();
+
+  useDeepEffect(() => {
+    (async () => {
+      if (user) {
+        createLensProfile(user.publicAddress);
+      }
+    })();
+  }, [user]);
 
   useDeepEffect(() => {
     if (!isEmpty(userScheme)) {

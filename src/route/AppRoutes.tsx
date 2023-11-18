@@ -8,6 +8,7 @@ import Unauthorized from '../page/unauthorize/Unauthorized';
 import WidgetLayout from '../layout/WidgetLayout';
 import ChatWidget from '../page/chat-widget/ChatWidget';
 import WidgetGuard from '../guard/WidgetGuard';
+import Setting from '../page/setting/Setting';
 
 const routes: RouteObject = {
   path: '/',
@@ -21,6 +22,14 @@ const routes: RouteObject = {
           element: (
             <AuthGuard>
               <ChatFeed />
+            </AuthGuard>
+          ),
+        },
+        {
+          path: '/settings',
+          element: (
+            <AuthGuard>
+              <Setting />
             </AuthGuard>
           ),
         },

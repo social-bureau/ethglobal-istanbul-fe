@@ -23,6 +23,7 @@
   },
   "dependencies": {
     "@esbuild-plugins/node-globals-polyfill": "^0.2.3",
+    "@lens-protocol/client": "^2.0.0-alpha.21",
     "@metamask/eth-sig-util": "^4.0.1",
     "@reduxjs/toolkit": "^1.9.7",
     "@web3modal/wagmi": "^3.3.2",

@@ -10,9 +10,11 @@ import { isEmpty } from 'lodash';
 import { useAccount, useNetwork } from 'wagmi';
 import { useDispatch, useSelector } from '../../redux';
 import { toggleIsOpenSidebar } from '../../redux/layout';
+import { useNavigate } from 'react-router-dom';
 
 const AppNavbar: FC = function () {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { isOpenSidebar } = useSelector(state => state.layout);
   const { user } = useSelector(state => state.account);
   const { address } = useAccount();
@@ -29,7 +31,7 @@ const AppNavbar: FC = function () {
       <div className="w-full p-3 lg:px-5 lg:pl-3">
         <div className="flex items-center justify-between pl-1">
           <div className="flex items-center">
-            <Navbar.Brand>
+            <Navbar.Brand onClick={() => navigate('/')}>
               <img alt="" src="/svg/logo.svg" className="mr-3 h-6 sm:h-8" />
             </Navbar.Brand>
             {showNavbarItem && (
