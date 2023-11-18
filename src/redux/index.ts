@@ -11,15 +11,18 @@ import {
 } from "@reduxjs/toolkit";
 import layoutSlice, { LayoutReducerState } from "./layout";
 import accountSlice, { AccountReducerState } from "./account";
+import contractSlice, { ContractReducerState } from "./contract";
 
 export type ReduxRootState = {
   layout: LayoutReducerState;
   account: AccountReducerState;
+  contract: ContractReducerState;
 };
 
 const rootReducer: Reducer<CombinedState<ReduxRootState>> = combineReducers({
   layout: layoutSlice.reducer,
   account: accountSlice.reducer,
+  contract: contractSlice.reducer,
 });
 
 const store = configureStore({

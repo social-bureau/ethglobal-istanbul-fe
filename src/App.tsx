@@ -5,9 +5,13 @@ import FlowbiteProvider from "./wrapper/FlowbiteProvider";
 import ReduxProvider from "./wrapper/ReduxProvider";
 import WagmiProvider from "./wrapper/WagmiProvider";
 import AccountPortal from "./wrapper/AccountPortal";
+import ToastifyPortal from "./wrapper/ToastifyPortal";
+import { SkeletonTheme } from "react-loading-skeleton";
 
 const providers = [
   ReduxProvider,
+  ToastifyPortal,
+  SkeletonTheme,
   FlowbiteProvider,
   WagmiProvider,
   AccountPortal,
