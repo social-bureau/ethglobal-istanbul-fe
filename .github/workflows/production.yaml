@@ -9,24 +9,29 @@ jobs:
   deploy-prod:
     runs-on: ubuntu-latest
 
-    container:
-      image: andreysenov/firebase-tools:latest-node-16
-
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
+      - name: Check Out Repository
+        uses: actions/checkout@v2
 
-    - name: Cache node_modules
-      uses: actions/cache@v2
-      with:
-        path: node_modules
-        key: ${{ runner.os }}-node-${{ hashFiles('**/yarn.lock') }}
+      - name: Use Node.js 16
+        uses: actions/setup-node@v2
+        with:
+          node-version: 16
 
-    - name: Install dependencies
-      run: yarn
+      - name: Cache node_modules
+        uses: actions/cache@v2
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-node-${{ hashFiles('**/yarn.lock') }}
 
-    - name: Build Angular project for production
-      run: yarn build
+      - name: Install Dependencies
+        run: yarn
 
-    - name: Deploy to Firebase hosting
-      run: firebase deploy --only hosting:prod --token ${{ secrets.FIREBASE_TOKEN }}
+      - name: Build Angular Project
+        run: yarn build
+
+      - name: Install Firebase CLI
+        run: yarn global add firebase-tools
+
+      - name: Deploy to Firebase Hosting
+        run: firebase deploy --only hosting --token ${{ secrets.FIREBASE_TOKEN }}
