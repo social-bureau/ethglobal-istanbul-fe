@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-import { EffectCallback, useEffect, useRef } from "react";
-import _ from "lodash";
+import { EffectCallback, useEffect, useRef } from 'react';
+import _ from 'lodash';
 
 const isArrayDeepEqual = (x: any[], y: any[]) => {
   if (x.length !== y.length) return false;
