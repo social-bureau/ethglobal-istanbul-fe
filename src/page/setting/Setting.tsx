@@ -1,57 +1,57 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-import { toast } from 'react-toastify';
-import { errorFormat } from '../../helper/error-format';
-import { createLensProfile, getLensProfile } from '../../helper/lens';
-import { useDeepEffect } from '../../hook/useDeepEffect';
-import { useSelector } from '../../redux';
+// import { toast } from 'react-toastify';
+// import { errorFormat } from '../../helper/error-format';
+// import { createLensProfile, getLensProfile } from '../../helper/lens';
+// import { useDeepEffect } from '../../hook/useDeepEffect';
+// import { useSelector } from '../../redux';
 import { useState } from 'react';
-import { useNetwork } from 'wagmi';
-import { updateLensProfile } from '../../rest-api/conversation';
-import { TextInput, ToggleSwitch, Button } from 'flowbite-react';
+// import { useNetwork } from 'wagmi';
+// import { updateLensProfile } from '../../rest-api/conversation';
+// import { TextInput, ToggleSwitch, Button } from 'flowbite-react';
+import { ToggleSwitch } from 'flowbite-react';
 
 export default function Setting() {
-  const { chain } = useNetwork();
-  const [lensHandle, setLensHandle] = useState('');
-  const { user } = useSelector(state => state.account);
-  const [lensProfile, setLensProfile] = useState<any>(null);
+  // const { chain } = useNetwork();
+  // const [lensHandle, setLensHandle] = useState('');
+  // const { user } = useSelector(state => state.account);
+  // const [lensProfile, setLensProfile] = useState<any>(null);
   const [notification, setNotification] = useState(false);
-  const [fetching, setFetching] = useState(true);
-  console.log({ user });
+  // const [fetching, setFetching] = useState(true);
 
-  useDeepEffect(() => {
-    (async () => {
-      if (user) {
-        const profile = await getLensProfile(user.lensId);
-        if (profile) {
-          setLensProfile(profile);
-        }
-      }
-      setFetching(false);
-    })();
-  }, [user]);
+  // useDeepEffect(() => {
+  //   (async () => {
+  //     if (user) {
+  //       const profile = await getLensProfile(user.lensId);
+  //       if (profile) {
+  //         setLensProfile(profile);
+  //       }
+  //     }
+  //     setFetching(false);
+  //   })();
+  // }, [user]);
 
-  const createLens = async () => {
-    try {
-      if (user) {
-        const createResponse = await createLensProfile(
-          user.publicAddress,
-          lensHandle
-        );
+  // const createLens = async () => {
+  //   try {
+  //     if (user) {
+  //       const createResponse = await createLensProfile(
+  //         user.publicAddress,
+  //         lensHandle
+  //       );
 
-        if (createResponse) {
-          await updateLensProfile(createResponse.items[0].id);
-          window.location.reload();
-        }
-      }
-    } catch (error) {
-      toast.error(errorFormat(error).message);
-    } finally {
-      setLensHandle('');
-    }
-  };
+  //       if (createResponse) {
+  //         await updateLensProfile(createResponse.items[0].id);
+  //         window.location.reload();
+  //       }
+  //     }
+  //   } catch (error) {
+  //     toast.error(errorFormat(error).message);
+  //   } finally {
+  //     setLensHandle('');
+  //   }
+  // };
 
-  if (fetching) return null;
+  // if (fetching) return null;
 
   return (
     <section className="bg-white dark:bg-gray-900 flex justify-center w-full">
@@ -59,7 +59,7 @@ export default function Setting() {
         <h2 className="mb-6 lg:mb-8 text-3xl lg:text-4xl tracking-tight font-extrabold text-start text-gray-900 dark:text-white">
           Settings
         </h2>
-        <div className="mx-auto w-full">
+        {/* <div className="mx-auto w-full">
           {chain?.id === 80001 && (
             <>
               <h2 id="accordion-flush-heading-2">
@@ -90,26 +90,10 @@ export default function Setting() {
                     </div>
                   )}
                 </div>
-
-                {/* {toggleLensProfile && (
-                  <div className="py-2 px-4 mt-3 rounded bg-gray-100">
-                    <div className="flex justify-between items-center py-2 w-full font-medium text-left text-gray-500 dark:text-gray-400">
-                      <span>Handle</span>
-                      <TextInput
-                        className="bg-gray-50 border-gray-300"
-                        style={{ maxWidth: '200px' }}
-                        placeholder="Enter name"
-                        sizing="md"
-                        value={lensName ? lensName : ''}
-                        onChange={e => setLensName(e.target.value)}
-                      />
-                    </div>
-                  </div>
-                )} */}
               </h2>
             </>
           )}
-        </div>
+        </div> */}
         <div className="flex max-w-md flex-col mt-4">
           <ToggleSwitch
             checked={notification}

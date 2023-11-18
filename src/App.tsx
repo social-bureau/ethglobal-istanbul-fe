@@ -12,6 +12,7 @@ import FirebasePortal from './wrapper/FirebasePortal';
 import LightBoxPortal from './wrapper/LightBoxPortal';
 import ReduxProvider from './wrapper/ReduxProvider';
 import WidgetPortal from './wrapper/WidgetPortal';
+import Web3InboxPortal from './wrapper/Web3InboxPortal';
 
 const providers = [
   ReduxProvider,
@@ -25,6 +26,7 @@ const providers = [
   ContractPortal,
   AccountPortal,
   FirebasePortal,
+  Web3InboxPortal,
   BrowserRouter,
 ];
 const AppProvider = CombineComponents(...providers);
