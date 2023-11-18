@@ -8,6 +8,7 @@ import AccountPortal from "./wrapper/AccountPortal";
 import ToastifyPortal from "./wrapper/ToastifyPortal";
 import ContractPortal from "./wrapper/ContractPortal";
 import SkeletonTheme from "./wrapper/SkeletonTheme";
+import FirebasePortal from "./wrapper/FirebasePortal";
 
 const providers = [
   ReduxProvider,
@@ -17,6 +18,7 @@ const providers = [
   WagmiProvider,
   ContractPortal,
   AccountPortal,
+  FirebasePortal,
   BrowserRouter,
 ];
 const AppProvider = CombineComponents(...providers);
