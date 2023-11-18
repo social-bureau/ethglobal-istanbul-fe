@@ -140,8 +140,6 @@ export const initializeMessage =
 
       const messageResponse = await fetchMessage(query, conversationIdParam);
 
-      console.log(messageResponse);
-
       const peer = getReceiver(messageResponse.participants, user);
       if (isEmpty(peer)) {
         throw new Error('Peer public address not found.');
@@ -176,7 +174,6 @@ export const initializeMessage =
         })
       );
     } catch (error) {
-      console.log(error);
       toast.error(errorFormat(error).message);
       dispatch(fetchMessageFailure());
     }

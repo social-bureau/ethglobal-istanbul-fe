@@ -4,28 +4,19 @@ import MenuContainer from '../../component/chat/chat-menu/MenuContainer';
 import { isEmpty } from 'lodash';
 import { useDispatch, useSelector } from '../../redux';
 import { useDeepEffect } from '../../hook/useDeepEffect';
-import {
-  initializeConversation,
-  // setSelectedConversation,
-} from '../../redux/conversation';
+import { initializeConversation } from '../../redux/conversation';
 import {
   initializeContact,
   initializeSelectedContact,
-  // setDefaultContactState,
 } from '../../redux/contact';
 import { ChatMenuTab } from '../../type/conversation';
 import { useLocation, useParams } from 'react-router-dom';
 import { setActiveChatMenuTab } from '../../redux/layout';
-import {
-  initializeMessage,
-  receiveMessage,
-  // setDefaultMessageState,
-} from '../../redux/message';
+import { initializeMessage, receiveMessage } from '../../redux/message';
 import { onChildChanged, ref } from 'firebase/database';
 import { Message } from '../../type/message';
 import { initializePreviewMedia } from '../../redux/message-media';
 import UnauthorizedUserScheme from '../../component/unauthorized/UnauthorizedUserScheme';
-// import { LensClient, development } from '@lens-protocol/client';
 
 export default function ChatFeed() {
   const dispatch = useDispatch();
@@ -34,23 +25,6 @@ export default function ChatFeed() {
   const { database } = useSelector(state => state.firebase);
   const location = useLocation();
   const { tab: tabParam, id: idParam } = useParams();
-
-  // const lensClient = new LensClient({
-  //   environment: development,
-  // });
-
-  // console.log(lensClient);
-
-  // useDeepEffect(() => {
-  //   (async () => {
-  //     const profileCreateResult = await lensClient.profile.create({
-  //       handle: 'ikhalas-mann',
-  //       to: '0x2fa07c39b42659353374579bE62910530eD4Bf60',
-  //     });
-
-  //     console.log(profileCreateResult);
-  //   })();
-  // }, []);
 
   useDeepEffect(() => {
     if (!isEmpty(userScheme)) {

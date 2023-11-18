@@ -18,8 +18,6 @@ export default function Container() {
   const { initialzing: messageInitialzing, participants: messageParticipants } =
     useSelector(state => state.message);
 
-  console.log({ messageParticipants });
-
   const isSelectedConversation = !!messageParticipants.length;
 
   const { isShowAddContact, activeChatMenuTab } = useSelector(
@@ -33,8 +31,6 @@ export default function Container() {
   if (isShowAddContact) {
     return <AddContactForm />;
   }
-
-  console.log({ isSelectedConversation });
 
   if (activeChatMenuTab === ChatMenuTab.Chats && !isSelectedConversation) {
     return (
