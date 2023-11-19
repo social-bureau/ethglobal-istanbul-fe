@@ -1,177 +1,46 @@
-// import { PropsWithChildren, useCallback } from 'react';
-// import { useDeepEffect } from '../hook/useDeepEffect';
-// import {
-//   useInitWeb3InboxClient,
-//   useManageSubscription,
-//   useW3iAccount,
-// } from '@web3inbox/widget-react';
-// import {
-//   useAccount,
-//   // usePublicClient,
-//   useSignMessage,
-// } from 'wagmi';
-// import environment from '../environment';
+// import { useW3iAccount } from '@web3inbox/widget-react';
+import { PropsWithChildren } from 'react';
 
-// const projectId = environment.walletconnectProjectId;
-// const domain = environment.web3InboxDomain;
-
-// export default function Web3InboxPortal({ children }: PropsWithChildren) {
-//   const isW3iInitialized = useInitWeb3InboxClient({
-//     projectId,
-//     domain,
-//     isLimited: false,
-//   });
-//   const { address } = useAccount({
-//     onDisconnect: () => {
-//       setAccount('');
-//     },
-//   });
-//   const {
-//     account,
-//     setAccount,
-//     register: registerIdentity,
-//     identityKey,
-//   } = useW3iAccount();
-//   const {
-//     subscribe,
-//     //   unsubscribe,
-//     //   isSubscribed,
-//     //   isSubscribing,
-//     //   isUnsubscribing,
-//   } = useManageSubscription(account);
-//   const { signMessageAsync } = useSignMessage();
-//   //   const wagmiPublicClient = usePublicClient();
-
-//   const signMessage = useCallback(
-//     async (message: string) => {
-//       const res = await signMessageAsync({
-//         message,
-//       });
-
-//       return res as string;
-//     },
-//     [signMessageAsync]
-//   );
-
-//   useDeepEffect(() => {
-//     if (!address) return;
-//     setAccount(`eip155:1:${address}`);
-//   }, [signMessage, address, setAccount]);
-
-//   const handleRegistration = useCallback(async () => {
-//     if (!account) return;
-//     try {
-//       await registerIdentity(signMessage);
-//     } catch (registerIdentityError) {
-//       console.error({ registerIdentityError });
-//     }
-//   }, [signMessage, registerIdentity, account]);
-
-//   useDeepEffect(() => {
-//     // register even if an identity key exists, to account for stale keys
-//     handleRegistration();
-//   }, [handleRegistration]);
-
-//   const handleSubscribe = useCallback(async () => {
-//     if (!identityKey) {
-//       await handleRegistration();
-//     }
-//     await subscribe();
-//   }, [subscribe, identityKey]);
-
-//   useDeepEffect(() => {
-//     if (address && account) {
-//       handleSubscribe();
-//     }
-//   }, [address, account]);
-
-//   console.log({ isW3iInitialized });
-
-//   return <>{children}</>;
-// }
-
-import {
-  useManageSubscription,
-  useSubscription,
-  useW3iAccount,
-  useInitWeb3InboxClient,
-  useMessages,
-} from '@web3inbox/widget-react';
-import { PropsWithChildren, useCallback } from 'react';
-import { useSignMessage, useAccount } from 'wagmi';
-import environment from '../environment';
+// import { Button } from 'flowbite-react';
+// import { notifyWalletconnect } from '../helper/notification';
+import { useMessages } from '@web3inbox/widget-react';
 import { useDeepEffect } from '../hook/useDeepEffect';
-
-const projectId = environment.walletconnectProjectId;
-const domain = environment.web3InboxDomain;
+import { toast } from 'react-toastify';
+import { isEmpty } from 'lodash';
 
 export default function Web3InboxPortal({ children }: PropsWithChildren) {
-  const { address } = useAccount();
-  const { signMessageAsync } = useSignMessage();
-
-  const isReady = useInitWeb3InboxClient({
-    projectId,
-    domain,
-    isLimited: false,
-  });
-
-  const { account, setAccount, isRegistered, isRegistering, register } =
-    useW3iAccount();
-
-  const { isSubscribed, isSubscribing, subscribe } = useManageSubscription();
-
-  useDeepEffect(() => {
-    if (!address) return;
-    setAccount(`eip155:1:${address}`);
-  }, [address, setAccount]);
-
-  const performRegistration = useCallback(async () => {
-    if (!address) return;
-    try {
-      await register(message => signMessageAsync({ message }));
-    } catch (registerIdentityError) {
-      alert(registerIdentityError);
-    }
-  }, [signMessageAsync, register, address]);
-
-  useDeepEffect(() => {
-    performRegistration();
-  }, [performRegistration]);
-
-  const performSubscribe = useCallback(async () => {
-    await performRegistration();
-    await subscribe();
-  }, [subscribe, isRegistered]);
-
-  const { subscription } = useSubscription();
+  // const { account } = useW3iAccount();
   const { messages } = useMessages();
 
-  console.log(isReady);
-  console.log(account);
-  console.log(subscription);
-  console.log(messages);
-  console.log(isRegistering);
-  console.log(performSubscribe);
-  console.log(isSubscribed, isSubscribing);
+  useDeepEffect(() => {
+    console.log({ messages });
+    if (!isEmpty(messages)) {
+      const latestMessage = JSON.parse(JSON.stringify(messages))[0];
+      console.log({ latestMessage });
+      latestMessage?.message?.body &&
+        toast.success(latestMessage?.message?.body);
+    }
+  }, [messages]);
 
   return (
     <>
-      {/* {!isSubscribed ? (
-        <>
-          <button onClick={performSubscribe} disabled={isSubscribing}>
-            {isSubscribing ? 'Subscribing...' : 'Subscribe to notifications'}
-          </button>
-        </>
-      ) : (
-        <>
-          <div>You are subscribed</div>
-          <div>Subscription: {JSON.stringify(subscription)}</div>
-          <div>Messages: {JSON.stringify(messages)}</div>
-        </>
-      )} */}
-      {/* <>
-        <div>You are subscribed</div>
-        <div>Subscription: {JSON.stringify(subscription)}</div>
+      {/* <Button
+        onClick={() => {
+          notifyWalletconnect({
+            accounts: [account!],
+            notification: {
+              title: 'GM Hacker',
+              body: 'Hack it until you make it!',
+              icon: `${window.location.origin}/svg/logo.svg`,
+              url: window.location.origin,
+              type: '4ff69db6-5a68-4215-b739-101bfbf70473',
+            },
+          });
+        }}>
+        push
+      </Button>
+
+      <>
         <div>Messages: {JSON.stringify(messages)}</div>
       </> */}
       {children}
