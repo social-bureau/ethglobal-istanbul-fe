@@ -4,6 +4,9 @@ Catcha Chat is a secure, private, and dispute-resolution-ready web3 chat service
 
 Building Catcha Chat involved a comprehensive mix of technologies for both frontend and backend development, as well as blockchain integration. Here's a breakdown of how these technologies were utilized:
 
+### ETHGlobal Istanbul
+- [Genosis Tweet](https://twitter.com/nolifelover/status/1726114058879783157)
+
 ### Frontend Development
 <strong>React</strong>: Used for building the user interface, leveraging its component-based architecture for a responsive and dynamic experience.
 <strong>CSS and Tailwind</strong>: These were used for styling the application. Tailwind, a utility-first CSS framework, enabled rapid and responsive design implementation.
