@@ -119,7 +119,7 @@ export default function UnauthorizedUserScheme() {
 
   const { setAccount, isRegistered, register } = useW3iAccount();
 
-  const { isSubscribed, subscribe } = useManageSubscription();
+  const { isSubscribed, subscribe, unsubscribe } = useManageSubscription();
 
   useDeepEffect(() => {
     if (!address) return;
@@ -137,6 +137,10 @@ export default function UnauthorizedUserScheme() {
 
   useDeepEffect(() => {
     performRegistration();
+
+    return () => {
+      unsubscribe();
+    };
   }, [performRegistration]);
 
   const web3InboxSubscribe = useCallback(async () => {

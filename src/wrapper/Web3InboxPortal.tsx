@@ -1,5 +1,5 @@
 // import { useW3iAccount } from '@web3inbox/widget-react';
-import { PropsWithChildren } from 'react';
+import { PropsWithChildren, useState } from 'react';
 
 // import { Button } from 'flowbite-react';
 // import { notifyWalletconnect } from '../helper/notification';
@@ -11,15 +11,17 @@ import { isEmpty } from 'lodash';
 export default function Web3InboxPortal({ children }: PropsWithChildren) {
   // const { account } = useW3iAccount();
   const { messages } = useMessages();
+  const [firstMount, setFirstMount] = useState(true);
 
   useDeepEffect(() => {
-    console.log({ messages });
-    if (!isEmpty(messages)) {
+    console.log({ firstMount });
+    if (!isEmpty(messages) && !firstMount) {
       const latestMessage = JSON.parse(JSON.stringify(messages))[0];
       console.log({ latestMessage });
       latestMessage?.message?.body &&
         toast.success(latestMessage?.message?.body);
     }
+    setFirstMount(false);
   }, [messages]);
 
   return (

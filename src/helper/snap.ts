@@ -15,7 +15,7 @@ const defaultSnapOrigin = environment.defaultSnapOrigin;
  */
 
 export const getSnaps = async (
-  provider?: MetaMaskInpageProvider,
+  provider?: MetaMaskInpageProvider
 ): Promise<GetSnapsResponse> =>
   (await (provider ?? window.ethereum).request({
     method: 'wallet_getSnaps',
@@ -27,10 +27,14 @@ export const getSnaps = async (
  * @param params - The params to pass with the snap to connect.
  */
 export const connectSnap = async (
+  window: Window,
   snapId: string = defaultSnapOrigin,
-  params: Record<'version' | string, unknown> = {},
+  params: Record<'version' | string, unknown> = {}
 ) => {
-  await window.ethereum.request({
+  if (typeof window === 'undefined') {
+    console.log('Oops, `window` is not defined');
+  }
+  await window.ethereum?.request({
     method: 'wallet_requestSnaps',
     params: {
       [snapId]: params,
@@ -49,8 +53,8 @@ export const getSnap = async (version?: string): Promise<Snap | undefined> => {
     const snaps = await getSnaps();
 
     return Object.values(snaps).find(
-      (snap) =>
-        snap.id === defaultSnapOrigin && (!version || snap.version === version),
+      snap =>
+        snap.id === defaultSnapOrigin && (!version || snap.version === version)
     );
   } catch (error) {
     console.log('Failed to obtain installed snap', error);
@@ -62,7 +66,7 @@ export const getSnap = async (version?: string): Promise<Snap | undefined> => {
  * Invoke the "hello" method from the example snap.
  */
 
-export const sendHello = async () => {
+export const sendHello = async (window: Window) => {
   await window.ethereum.request({
     method: 'wallet_invokeSnap',
     params: { snapId: defaultSnapOrigin, request: { method: 'hello' } },
@@ -89,7 +93,11 @@ export const sendHelloNoti = async () => {
   });
 };
 
-export const sendNotification = async (alertBody: string, messageBody: string) => {
+export const sendNotification = async (
+  window: Window,
+  alertBody: string,
+  messageBody: string
+) => {
   await window.ethereum.request({
     method: 'wallet_invokeSnap',
     params: {
