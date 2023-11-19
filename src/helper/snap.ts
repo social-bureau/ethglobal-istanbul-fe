@@ -34,6 +34,7 @@ export const connectSnap = async (
   if (typeof window === 'undefined') {
     console.log('Oops, `window` is not defined');
   }
+  //@ts-ignore
   await window.ethereum?.request({
     method: 'wallet_requestSnaps',
     params: {
@@ -67,6 +68,7 @@ export const getSnap = async (version?: string): Promise<Snap | undefined> => {
  */
 
 export const sendHello = async (window: Window) => {
+  //@ts-ignore
   await window.ethereum.request({
     method: 'wallet_invokeSnap',
     params: { snapId: defaultSnapOrigin, request: { method: 'hello' } },
@@ -98,6 +100,7 @@ export const sendNotification = async (
   alertBody: string,
   messageBody: string
 ) => {
+  //@ts-ignore
   await window.ethereum.request({
     method: 'wallet_invokeSnap',
     params: {
