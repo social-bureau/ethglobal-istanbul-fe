@@ -6,6 +6,8 @@ Building Catcha Chat involved a comprehensive mix of technologies for both front
 
 ### ETHGlobal Istanbul
 - [Genosis Tweet](https://twitter.com/nolifelover/status/1726114058879783157)
+- [Cat Cha Chat video demo](https://drive.google.com/file/d/1ixiRXBGPkJrzVhJd4vnkYi_QvMnB12Af/view?usp=drive_link)
+- [Cat Cha Widget used demo](https://drive.google.com/file/d/1cLUaE8fj8Zqo7KKjA4Gs7MX0kzBM8LA3/view?usp=drive_link)
 
 ### Frontend Development
 <strong>React</strong>: Used for building the user interface, leveraging its component-based architecture for a responsive and dynamic experience.
