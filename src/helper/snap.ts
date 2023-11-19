@@ -4,7 +4,6 @@ import environment from '../environment';
 import { GetSnapsResponse, Snap } from '../type/snap';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-let window: any;
 
 const defaultSnapOrigin = environment.defaultSnapOrigin;
 /**

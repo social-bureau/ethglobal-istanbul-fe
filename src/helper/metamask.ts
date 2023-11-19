@@ -6,18 +6,17 @@ import { getSnaps } from './snap';
  * @returns True if the MetaMask version supports Snaps, false otherwise.
  */
 export const detectSnaps = async () => {
-  //@ts-ignore
   if (window.ethereum?.detected) {
-    //@ts-ignore
+  
     for (const provider of window.ethereum.detected) {
       try {
         // Detect snaps support
         await getSnaps(provider);
 
         // enforces MetaMask as provider
-        //@ts-ignore
+      
         if (window.ethereum.setProvider) {
-          //@ts-ignore
+        
           window.ethereum.setProvider(provider);
         }
 
@@ -27,14 +26,14 @@ export const detectSnaps = async () => {
       }
     }
   }
-  //@ts-ignore
+
   if (window.ethereum?.providers) {
-    //@ts-ignore
+  
     for (const provider of window.ethereum.providers) {
       try {
         // Detect snaps support
         await getSnaps(provider);
-        //@ts-ignore
+      
         window.ethereum = provider;
 
         return true;
@@ -59,11 +58,11 @@ export const detectSnaps = async () => {
  * @returns True if the MetaMask version is Flask, false otherwise.
  */
 export const isFlask = async () => {
-  //@ts-ignore
+
   const provider = window.ethereum;
 
   try {
-    //@ts-ignore
+  
     const clientVersion = await provider?.request({
       method: 'web3_clientVersion',
     });
