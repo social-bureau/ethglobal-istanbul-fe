@@ -1,4 +1,4 @@
-# N2N Catcha Chat
+# N2N Catcha Chat [Demo](https://chat-ethglobal-n2n.socialbureau.io/)
 
 Catcha Chat is a secure, private, and dispute-resolution-ready web3 chat service that empowers users to communicate freely without compromising their privacy or facing censorship. It is tamper-proof, pseudonymous, interoperable between platforms, multi-chain, and available on all devices. Additionally, Catcha Chat allows users to restore their chat history without compromising privacy.
 
@@ -56,6 +56,9 @@ This blend of modern web technologies and blockchain innovations allowed Catcha 
 3. Goto Wallet > Setting
 4. Click Catcha notification 
 5. Enjoy
+
+#### Thegraph
+
 
 ### Dependency 
 1. [ethglobal-istanbul-be](https://github.com/social-bureau/ethglobal-istanbul-be) backend service
