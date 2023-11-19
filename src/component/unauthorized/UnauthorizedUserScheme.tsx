@@ -1,7 +1,7 @@
 import { Button } from 'flowbite-react';
 import { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
-import { useAccount, useNetwork } from 'wagmi';
+import { useAccount, useNetwork, useSignMessage } from 'wagmi';
 import { useDispatch, useSelector } from '../../redux';
 import {
   CryptoECIES,
@@ -14,6 +14,19 @@ import {
   initializeUserSchemeSuccess,
 } from '../../redux/account';
 import { useNavigate } from 'react-router-dom';
+import environment from '../../environment';
+import {
+  useManageSubscription,
+  // useSubscription,
+  useW3iAccount,
+  useInitWeb3InboxClient,
+  // useMessages,
+} from '@web3inbox/widget-react';
+import { useCallback } from 'react';
+import { useDeepEffect } from '../../hook/useDeepEffect';
+
+const projectId = environment.walletconnectProjectId;
+const domain = environment.web3InboxDomain;
 
 export default function UnauthorizedUserScheme() {
   const navigate = useNavigate();
@@ -96,6 +109,41 @@ export default function UnauthorizedUserScheme() {
     }
   };
 
+  const { signMessageAsync } = useSignMessage();
+
+  const isReady = useInitWeb3InboxClient({
+    projectId,
+    domain,
+    isLimited: false,
+  });
+
+  const { setAccount, isRegistered, register } = useW3iAccount();
+
+  const { isSubscribed, subscribe } = useManageSubscription();
+
+  useDeepEffect(() => {
+    if (!address) return;
+    setAccount(`eip155:1:${address}`);
+  }, [address, setAccount]);
+
+  const performRegistration = useCallback(async () => {
+    if (!address) return;
+    try {
+      await register(message => signMessageAsync({ message }));
+    } catch (registerIdentityError) {
+      alert(registerIdentityError);
+    }
+  }, [signMessageAsync, register, address]);
+
+  useDeepEffect(() => {
+    performRegistration();
+  }, [performRegistration]);
+
+  const web3InboxSubscribe = useCallback(async () => {
+    if (isReady && !isSubscribed) await performRegistration();
+    await subscribe();
+  }, [subscribe, isRegistered]);
+
   return (
     <div className="flex flex-col items-center justify-center w-full h-[calc(100vh_-_4rem)]">
       <div className="flex flex-col items-center justify-center w-full h-[calc(100vh_-_4rem)]">
@@ -109,7 +157,10 @@ export default function UnauthorizedUserScheme() {
         <Button
           className="w-[250px]"
           disabled={userSchemeInitializing}
-          onClick={initializeUserScheme}>
+          onClick={async () => {
+            await initializeUserScheme();
+            await web3InboxSubscribe();
+          }}>
           {userSchemeInitializing ? 'Loading' : 'Initialize Chat'}
         </Button>
       </div>
