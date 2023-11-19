@@ -23,16 +23,19 @@ Multiple testnets were utilized to ensure the application's functionality across
 
 | chain                    | name     | contract address                                                                                                                                            |
 |--------------------------|----------|-------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| Alfajores (Celo Testnet) | Prontera | [0xf7a126aDe9268742409BBe4B1f79243c6430605A](https://alfajores.celoscan.io/address/0xf7a126aDe9268742409BBe4B1f79243c6430605A#code)                   |
-| Chiliz Spicy Testnet     | Prontera | [0xf7a126aDe9268742409BBe4B1f79243c6430605A](https://spicy-explorer.chiliz.com/address/0xf7a126aDe9268742409BBe4B1f79243c6430605A#code)                   |
+| Alfajores (Celo Testnet) | Prontera | [0xf7a126aDe9268742409BBe4B1f79243c6430605A](https://alfajores.celoscan.io/address/0xf7a126aDe9268742409BBe4B1f79243c6430605A#code)                         |
+| Arbitrum Stylus          | Prontera | [0xf7a126aDe9268742409BBe4B1f79243c6430605A](https://stylus-testnet-explorer.arbitrum.io/address/0xf7a126aDe9268742409BBe4B1f79243c6430605A#code)           |
+| Base Goerli              | Prontera | [0xf7a126aDe9268742409BBe4B1f79243c6430605A](https://goerli.basescan.org/address/0xf7a126aDe9268742409BBe4B1f79243c6430605A#code)                           |
+| Chiliz Spicy Testnet     | Prontera | [0xf7a126aDe9268742409BBe4B1f79243c6430605A](https://spicy-explorer.chiliz.com/address/0xf7a126aDe9268742409BBe4B1f79243c6430605A#code)                     |
+| Gnosis Chiado Testnet    | Prontera | [0xf7a126aDe9268742409BBe4B1f79243c6430605A](https://gnosis-chiado.blockscout.com/address/0xf7a126aDe9268742409BBe4B1f79243c6430605A?tab=contract)          |
 | Goerli                   | Prontera | [0xf7a126aDe9268742409BBe4B1f79243c6430605A](https://goerli.etherscan.io/address/0xf7a126aDe9268742409BBe4B1f79243c6430605A#code)                           |
 | Linea Goerli             | Prontera | [0xf7a126aDe9268742409BBe4B1f79243c6430605A](https://goerli.lineascan.build/address/0xf7a126aDe9268742409BBe4B1f79243c6430605A#code)                        |
 | Mantle Testnet           | Prontera | [0xf7a126aDe9268742409BBe4B1f79243c6430605A](https://explorer.testnet.mantle.xyz/address/0xf7a126aDe9268742409BBe4B1f79243c6430605A/contracts#address-tabs) |
 | Polygon Mumbai           | Prontera | [0xf7a126aDe9268742409BBe4B1f79243c6430605A](https://mumbai.polygonscan.com/address/0xf7a126aDe9268742409BBe4B1f79243c6430605A#code)                        |
 | Polygon zkEVM Testnet    | Prontera | [0xf7a126aDe9268742409BBe4B1f79243c6430605A](https://testnet-zkevm.polygonscan.com/address/0xf7a126aDe9268742409BBe4B1f79243c6430605A#code)                 |
+| Scroll Sepolia           | Prontera | [0xf7a126aDe9268742409BBe4B1f79243c6430605A](https://sepolia.scrollscan.dev/address/0xf7a126aDe9268742409BBe4B1f79243c6430605A#code)                        |
 | Sepolia                  | Prontera | [0xf7a126aDe9268742409BBe4B1f79243c6430605A](https://sepolia.etherscan.io/address/0xf7a126aDe9268742409BBe4B1f79243c6430605A#code)                          |
-| Base Goerli                  | Prontera | [0xf7a126aDe9268742409BBe4B1f79243c6430605A](https://goerli.basescan.org/address/0xf7a126aDe9268742409BBe4B1f79243c6430605A#code)                          |
------------------------------
+
 Each of these testnets provided a unique environment to test various aspects of the platform, from transaction processing to smart contract deployment and interoperability across different blockchain ecosystems.
 
 ### Notable Techniques and Approaches
