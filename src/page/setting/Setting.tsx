@@ -29,7 +29,8 @@ export default function Setting() {
   const handleConnectClick = async () => {
     try {
       console.log(window);
-      await connectSnap(window);
+      await connectSnap();
+      console.log(`success connectSnap()`)
       const installedSnap = await getSnap();
 
       dispatch({

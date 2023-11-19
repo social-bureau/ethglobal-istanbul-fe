@@ -3,8 +3,6 @@ import type { MetaMaskInpageProvider } from '@metamask/providers';
 import environment from '../environment';
 import { GetSnapsResponse, Snap } from '../type/snap';
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-
 const defaultSnapOrigin = environment.defaultSnapOrigin;
 /**
  * Get the installed snaps in MetaMask.
@@ -26,14 +24,13 @@ export const getSnaps = async (
  * @param params - The params to pass with the snap to connect.
  */
 export const connectSnap = async (
-  window: Window,
   snapId: string = defaultSnapOrigin,
   params: Record<'version' | string, unknown> = {}
 ) => {
   if (typeof window === 'undefined') {
     console.log('Oops, `window` is not defined');
   }
-  //@ts-ignore
+  console.log(`wallet_requestSnaps`);
   await window.ethereum?.request({
     method: 'wallet_requestSnaps',
     params: {
@@ -66,8 +63,7 @@ export const getSnap = async (version?: string): Promise<Snap | undefined> => {
  * Invoke the "hello" method from the example snap.
  */
 
-export const sendHello = async (window: Window) => {
-  //@ts-ignore
+export const sendHello = async () => {
   await window.ethereum.request({
     method: 'wallet_invokeSnap',
     params: { snapId: defaultSnapOrigin, request: { method: 'hello' } },
@@ -95,11 +91,9 @@ export const sendHelloNoti = async () => {
 };
 
 export const sendNotification = async (
-  window: Window,
   alertBody: string,
   messageBody: string
 ) => {
-  //@ts-ignore
   await window.ethereum.request({
     method: 'wallet_invokeSnap',
     params: {

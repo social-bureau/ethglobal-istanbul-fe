@@ -7,16 +7,13 @@ import { getSnaps } from './snap';
  */
 export const detectSnaps = async () => {
   if (window.ethereum?.detected) {
-  
     for (const provider of window.ethereum.detected) {
       try {
         // Detect snaps support
         await getSnaps(provider);
 
         // enforces MetaMask as provider
-      
         if (window.ethereum.setProvider) {
-        
           window.ethereum.setProvider(provider);
         }
 
@@ -28,12 +25,11 @@ export const detectSnaps = async () => {
   }
 
   if (window.ethereum?.providers) {
-  
     for (const provider of window.ethereum.providers) {
       try {
         // Detect snaps support
         await getSnaps(provider);
-      
+
         window.ethereum = provider;
 
         return true;
@@ -58,11 +54,9 @@ export const detectSnaps = async () => {
  * @returns True if the MetaMask version is Flask, false otherwise.
  */
 export const isFlask = async () => {
-
   const provider = window.ethereum;
 
   try {
-  
     const clientVersion = await provider?.request({
       method: 'web3_clientVersion',
     });

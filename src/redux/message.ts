@@ -230,7 +230,7 @@ export const receiveMessage =
 
         const title = 'Notification';
         const body = `You received a message from ${receiver?.publicAddress}`;
-        sendNotification(window, title, body);
+        sendNotification(title, body);
 
         notifyWalletconnect({
           accounts: [`eip155:1:${user.publicAddress}`],
