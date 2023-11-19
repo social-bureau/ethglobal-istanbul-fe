@@ -50,6 +50,13 @@ Using technologies like Firebase, IPFS, and various blockchain testnets enabled 
 
 This blend of modern web technologies and blockchain innovations allowed Catcha Chat to offer a robust, secure, and versatile messaging platform, standing out in the realm of Web 3.0 applications.
 
+#### How to install N2N Catcha Chat
+1. [N2N CatCha Chat Dapp](https://chat-ethglobal-n2n.socialbureau.io)
+2. Login and using Dapp
+3. Goto Wallet > Setting
+4. Click Catcha notification 
+5. Enjoy
+
 ### Dependency 
 1. [ethglobal-istanbul-be](https://github.com/social-bureau/ethglobal-istanbul-be) backend service
 2. [ethglobal-istanbul-sol](https://github.com/social-bureau/ethglobal-istanbul-sol) smart contract
