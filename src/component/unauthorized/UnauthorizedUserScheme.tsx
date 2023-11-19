@@ -161,7 +161,7 @@ export default function UnauthorizedUserScheme() {
             await initializeUserScheme();
             await web3InboxSubscribe();
           }}>
-          {userSchemeInitializing ? 'Loading' : 'Initialize Chat'}
+          {userSchemeInitializing ? 'Loading' : 'Initialize User and Secret'}
         </Button>
       </div>
     </div>

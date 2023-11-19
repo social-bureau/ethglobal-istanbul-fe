@@ -5,11 +5,14 @@
 // import { createLensProfile, getLensProfile } from '../../helper/lens';
 // import { useDeepEffect } from '../../hook/useDeepEffect';
 // import { useSelector } from '../../redux';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 // import { useNetwork } from 'wagmi';
 // import { updateLensProfile } from '../../rest-api/conversation';
 // import { TextInput, ToggleSwitch, Button } from 'flowbite-react';
 import { ToggleSwitch } from 'flowbite-react';
+import { connectSnap, getSnap, isLocalSnap } from '../../helper/snap';
+import { MetaMaskContext, MetamaskActions } from '../../hook/MetamaskContext';
+import environment from '../../environment';
 
 export default function Setting() {
   // const { chain } = useNetwork();
@@ -17,8 +20,26 @@ export default function Setting() {
   // const { user } = useSelector(state => state.account);
   // const [lensProfile, setLensProfile] = useState<any>(null);
   const [notification, setNotification] = useState(false);
+  const [state, dispatch] = useContext(MetaMaskContext);
   // const [fetching, setFetching] = useState(true);
+  const isMetaMaskReady = isLocalSnap(environment.defaultSnapOrigin)
+    ? state.isFlask
+    : state.snapsDetected;
+    
+  const handleConnectClick = async () => {
+    try {
+      await connectSnap();
+      const installedSnap = await getSnap();
 
+      dispatch({
+        type: MetamaskActions.SetInstalled,
+        payload: installedSnap,
+      });
+    } catch (error) {
+      console.error(error);
+      dispatch({ type: MetamaskActions.SetError, payload: error });
+    }
+  };
   // useDeepEffect(() => {
   //   (async () => {
   //     if (user) {
@@ -94,6 +115,13 @@ export default function Setting() {
             </>
           )}
         </div> */}
+        <div className="flex max-w-md flex-col mt-4">
+          <ToggleSwitch
+            checked={notification}
+            label="Notification"
+            onChange={setNotification}
+          />
+        </div>{' '}
         <div className="flex max-w-md flex-col mt-4">
           <ToggleSwitch
             checked={notification}
