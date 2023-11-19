@@ -27,6 +27,7 @@ import {
 } from './conversation';
 import { notifyWalletconnect } from '../helper/notification';
 import { sendNotification } from '../helper/snap';
+import trimAddress from '../helper/trim-address';
 
 export type MessageReducerState = {
   messages: MessageWithAlignAndSentStatus[];
@@ -229,7 +230,9 @@ export const receiveMessage =
         const receiver = getReceiver(selectedConversation?.participants, user);
 
         const title = 'Notification';
-        const body = `You received a message from ${receiver?.publicAddress}`;
+        const body = `You received a message from ${trimAddress(
+          receiver?.publicAddress
+        )}`;
         sendNotification(body, body);
 
         notifyWalletconnect({
