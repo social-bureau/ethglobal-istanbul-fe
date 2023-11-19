@@ -24,6 +24,7 @@ import {
 } from '@web3inbox/widget-react';
 import { useCallback } from 'react';
 import { useDeepEffect } from '../../hook/useDeepEffect';
+import axios from 'axios';
 
 const projectId = environment.walletconnectProjectId;
 const domain = environment.web3InboxDomain;
@@ -59,10 +60,29 @@ export default function UnauthorizedUserScheme() {
 
       setUserSchemeInitializing(true);
 
-      const isUserInitialized =
-        await contract.callStatic.isUserInitialized(address);
+      const result = await axios({
+        url: 'https://api.thegraph.com/subgraphs/name/doctornasa/n2n-sepolia',
+        method: 'post',
+        data: {
+          query: `
+          query GetUserInitialize {
+            userInitializeds(where: {user: "${address}"}) {
+              id
+              user
+            }
+          }
+            `,
+        },
+      });
+
+      const isUserInitialized = result?.data?.data?.userInitializeds?.length;
+
+      // const isUserInitialized =
+      //   await contract.callStatic.isUserInitialized(address);
 
       let userScheme: CryptoECIES | null = null;
+
+      // console.log({ isUserInitialized });
 
       if (!isUserInitialized) {
         const userSecret = generateSecret();
@@ -165,7 +185,7 @@ export default function UnauthorizedUserScheme() {
             await initializeUserScheme();
             await web3InboxSubscribe();
           }}>
-          {userSchemeInitializing ? 'Loading' : 'Initialize User and Secret'}
+          {userSchemeInitializing ? 'Loading' : `Let's Catcha.`}
         </Button>
       </div>
     </div>

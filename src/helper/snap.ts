@@ -27,10 +27,6 @@ export const connectSnap = async (
   snapId: string = defaultSnapOrigin,
   params: Record<'version' | string, unknown> = {}
 ) => {
-  if (typeof window === 'undefined') {
-    console.log('Oops, `window` is not defined');
-  }
-  console.log(`wallet_requestSnaps`);
   await window.ethereum?.request({
     method: 'wallet_requestSnaps',
     params: {

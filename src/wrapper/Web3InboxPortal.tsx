@@ -14,10 +14,9 @@ export default function Web3InboxPortal({ children }: PropsWithChildren) {
   const [firstMount, setFirstMount] = useState(true);
 
   useDeepEffect(() => {
-    console.log({ firstMount });
     if (!isEmpty(messages) && !firstMount) {
       const latestMessage = JSON.parse(JSON.stringify(messages))[0];
-      console.log({ latestMessage });
+
       latestMessage?.message?.body &&
         toast.success(latestMessage?.message?.body);
     }

@@ -5,11 +5,11 @@
 // import { createLensProfile, getLensProfile } from '../../helper/lens';
 // import { useDeepEffect } from '../../hook/useDeepEffect';
 // import { useSelector } from '../../redux';
-import { useContext, useState } from 'react';
+import { useContext } from 'react';
 // import { useNetwork } from 'wagmi';
 // import { updateLensProfile } from '../../rest-api/conversation';
 // import { TextInput, ToggleSwitch, Button } from 'flowbite-react';
-import { Button, ToggleSwitch } from 'flowbite-react';
+import { Button } from 'flowbite-react';
 import { connectSnap, getSnap, isLocalSnap } from '../../helper/snap';
 import { MetaMaskContext, MetamaskActions } from '../../hook/MetamaskContext';
 import environment from '../../environment';
@@ -19,7 +19,7 @@ export default function Setting() {
   // const [lensHandle, setLensHandle] = useState('');
   // const { user } = useSelector(state => state.account);
   // const [lensProfile, setLensProfile] = useState<any>(null);
-  const [notification, setNotification] = useState(false);
+  // const [notification, setNotification] = useState(false);
   const [state, dispatch] = useContext(MetaMaskContext);
   // const [fetching, setFetching] = useState(true);
   const isMetaMaskReady = isLocalSnap(environment.defaultSnapOrigin)
@@ -28,9 +28,8 @@ export default function Setting() {
 
   const handleConnectClick = async () => {
     try {
-      console.log(window);
       await connectSnap();
-      console.log(`success connectSnap()`)
+
       const installedSnap = await getSnap();
 
       dispatch({
@@ -117,25 +116,35 @@ export default function Setting() {
             </>
           )}
         </div> */}
-        <div className="flex max-w-md flex-col mt-4">
-          <ToggleSwitch
-            checked={notification}
-            label="Notification"
-            onChange={setNotification}
-          />
-        </div>{' '}
-        <div className="flex max-w-md flex-col mt-4">
-          <ToggleSwitch
-            checked={notification}
-            label="Notification"
-            onChange={setNotification}
-          />
-        </div>{' '}
-        <div>
-          <Button onClick={() => handleConnectClick()}>
-            handleConnectClick
-          </Button>
+        <div className="mx-auto w-full">
+          <div>
+            <h2 id="accordion-flush-heading-2">
+              <div
+                className={
+                  'flex justify-between items-center py-5 w-full font-medium text-left text-gray-500 border-b border-gray-200 dark:border-gray-700 dark:text-gray-400'
+                }>
+                <span>Meta mask snap</span>
+                <Button onClick={() => handleConnectClick()}>
+                  Enable Catcha Notification
+                </Button>
+              </div>
+            </h2>
+          </div>
         </div>
+        {/* <div className="flex max-w-md flex-col mt-4">
+          <ToggleSwitch
+            checked={notification}
+            label="Notification"
+            onChange={setNotification}
+          />
+        </div>{' '}
+        <div className="flex max-w-md flex-col mt-4">
+          <ToggleSwitch
+            checked={notification}
+            label="Notification"
+            onChange={setNotification}
+          />
+        </div>{' '} */}
       </div>
     </section>
   );

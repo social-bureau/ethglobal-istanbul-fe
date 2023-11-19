@@ -27,12 +27,7 @@ export const notifyWalletconnect = async (notificationPayload: {
     }
   );
 
-  console.log(result);
-
   const gmRes = await result.json();
-
-  console.log({ gmRes });
-  // const { success, message } = gmRes;
 
   return gmRes;
 };
