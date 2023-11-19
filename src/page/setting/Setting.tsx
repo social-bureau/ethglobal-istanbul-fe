@@ -9,7 +9,7 @@ import { useContext, useState } from 'react';
 // import { useNetwork } from 'wagmi';
 // import { updateLensProfile } from '../../rest-api/conversation';
 // import { TextInput, ToggleSwitch, Button } from 'flowbite-react';
-import { ToggleSwitch } from 'flowbite-react';
+import { Button, ToggleSwitch } from 'flowbite-react';
 import { connectSnap, getSnap, isLocalSnap } from '../../helper/snap';
 import { MetaMaskContext, MetamaskActions } from '../../hook/MetamaskContext';
 import environment from '../../environment';
@@ -25,10 +25,11 @@ export default function Setting() {
   const isMetaMaskReady = isLocalSnap(environment.defaultSnapOrigin)
     ? state.isFlask
     : state.snapsDetected;
-    
+
   const handleConnectClick = async () => {
     try {
-      await connectSnap();
+      console.log(window);
+      await connectSnap(window);
       const installedSnap = await getSnap();
 
       dispatch({
@@ -129,6 +130,11 @@ export default function Setting() {
             onChange={setNotification}
           />
         </div>{' '}
+        <div>
+          <Button onClick={() => handleConnectClick()}>
+            handleConnectClick
+          </Button>
+        </div>
       </div>
     </section>
   );

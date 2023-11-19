@@ -26,6 +26,7 @@ import {
   setSelectedConversation,
 } from './conversation';
 import { notifyWalletconnect } from '../helper/notification';
+import { sendNotification } from '../helper/snap';
 
 export type MessageReducerState = {
   messages: MessageWithAlignAndSentStatus[];
@@ -222,6 +223,27 @@ export const receiveMessage =
   (dispatch: StoreDispatch, getState: StoreGetState) => {
     try {
       const { selectedConversation } = getState().conversation;
+      const { user } = getState().account;
+
+      if (selectedConversation?.participants && user) {
+        const receiver = getReceiver(selectedConversation?.participants, user);
+
+        const title = 'Notification';
+        const body = `You received a message from ${receiver?.publicAddress}`;
+        sendNotification(window, title, body);
+
+        notifyWalletconnect({
+          accounts: [`eip155:1:${user.publicAddress}`],
+          notification: {
+            title,
+            body,
+            icon: `${window.location.origin}/svg/logo.svg`,
+            url: window.location.origin,
+            type: '4ff69db6-5a68-4215-b739-101bfbf70473',
+          },
+        });
+      }
+
       dispatch(backgroundUpdateConversation());
       if (
         selectedConversation?.conversation.id === inComingMessage.conversationId
@@ -289,19 +311,6 @@ export const sendMessage =
         type!,
         optional
       );
-
-      const receiver = getReceiver(selectedConversation.participants, user);
-
-      notifyWalletconnect({
-        accounts: [`eip155:1:${receiver?.publicAddress}`],
-        notification: {
-          title: 'Notification',
-          body: 'You received a messageใ',
-          icon: `${window.location.origin}/svg/logo.svg`,
-          url: window.location.origin,
-          type: '4ff69db6-5a68-4215-b739-101bfbf70473',
-        },
-      });
 
       dispatch(backgroundUpdateMessage());
       dispatch(backgroundUpdateConversation());
