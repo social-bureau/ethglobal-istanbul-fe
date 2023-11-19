@@ -110,7 +110,7 @@ export default function UnauthorizedUserScheme() {
           className="w-[250px]"
           disabled={userSchemeInitializing}
           onClick={initializeUserScheme}>
-          {userSchemeInitializing ? 'Loading' : 'Initialize Chat'}
+          {userSchemeInitializing ? 'Loading' : 'Initialize User and Secret'}
         </Button>
       </div>
     </div>
