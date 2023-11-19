@@ -28,7 +28,7 @@ import {
 import { notifyWalletconnect } from '../helper/notification';
 import { sendNotification } from '../helper/snap';
 import trimAddress from '../helper/trim-address';
-import axios from 'axios';
+// import axios from 'axios';
 
 export type MessageReducerState = {
   messages: MessageWithAlignAndSentStatus[];
@@ -366,30 +366,30 @@ const getChatScheme = async (
   userAddress: string,
   userScheme: CryptoECIES
 ) => {
-  // const isChatInitialized = await contract.callStatic.isChatInitialized(
-  //   userAddress,
-  //   peerAddress
-  // );
+  const isChatInitialized = await contract.callStatic.isChatInitialized(
+    userAddress,
+    peerAddress
+  );
 
   // console.log({ isChatInitialized });
 
-  const result = await axios({
-    url: 'https://api.thegraph.com/subgraphs/name/doctornasa/n2n-sepolia',
-    method: 'post',
-    data: {
-      query: `
-      query GetUserInitialize {
-        chatInitializeds(where: {initializer: "${userAddress}", peer: "${peerAddress}"}) {
-          id
-          initializer
-          peer
-        }
-      }
-        `,
-    },
-  });
+  // const result = await axios({
+  //   url: 'https://api.thegraph.com/subgraphs/name/doctornasa/n2n-sepolia',
+  //   method: 'post',
+  //   data: {
+  //     query: `
+  //     query GetUserInitialize {
+  //       chatInitializeds(where: {initializer: "${userAddress}", peer: "${peerAddress}"}) {
+  //         id
+  //         initializer
+  //         peer
+  //       }
+  //     }
+  //       `,
+  //   },
+  // });
 
-  const isChatInitialized = result.data.data.chatInitializeds.length;
+  // const isChatInitialized = result.data.data.chatInitializeds.length;
 
   // console.log(result);
 

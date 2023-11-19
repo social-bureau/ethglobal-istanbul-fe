@@ -24,7 +24,7 @@ import {
 } from '@web3inbox/widget-react';
 import { useCallback } from 'react';
 import { useDeepEffect } from '../../hook/useDeepEffect';
-import axios from 'axios';
+// import axios from 'axios';
 
 const projectId = environment.walletconnectProjectId;
 const domain = environment.web3InboxDomain;
@@ -60,25 +60,25 @@ export default function UnauthorizedUserScheme() {
 
       setUserSchemeInitializing(true);
 
-      const result = await axios({
-        url: 'https://api.thegraph.com/subgraphs/name/doctornasa/n2n-sepolia',
-        method: 'post',
-        data: {
-          query: `
-          query GetUserInitialize {
-            userInitializeds(where: {user: "${address}"}) {
-              id
-              user
-            }
-          }
-            `,
-        },
-      });
+      // const result = await axios({
+      //   url: 'https://api.thegraph.com/subgraphs/name/doctornasa/n2n-sepolia',
+      //   method: 'post',
+      //   data: {
+      //     query: `
+      //     query GetUserInitialize {
+      //       userInitializeds(where: {user: "${address}"}) {
+      //         id
+      //         user
+      //       }
+      //     }
+      //       `,
+      //   },
+      // });
 
-      const isUserInitialized = result?.data?.data?.userInitializeds?.length;
+      // const isUserInitialized = result?.data?.data?.userInitializeds?.length;
 
-      // const isUserInitialized =
-      //   await contract.callStatic.isUserInitialized(address);
+      const isUserInitialized =
+        await contract.callStatic.isUserInitialized(address);
 
       let userScheme: CryptoECIES | null = null;
 
