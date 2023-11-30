@@ -1,6 +1,6 @@
 import { ethers } from 'ethers';
 import { goerli, lineaTestnet, sepolia, polygonMumbai, celoAlfajores, mantleTestnet, polygonZkEvmTestnet } from 'viem/chains';
-import { chilizSpicyTestnet } from './chains';
+import { chilizSpicyTestnet, klytnBaobabTestnet } from './chains';
 
 const contractAddresses: Readonly<{
   [contractName: string]: { [chainId: number]: string | undefined };
@@ -15,6 +15,7 @@ const contractAddresses: Readonly<{
     [polygonZkEvmTestnet.id]: '0xf7a126aDe9268742409BBe4B1f79243c6430605A',
     [lineaTestnet.id]: '0xf7a126aDe9268742409BBe4B1f79243c6430605A',
     [chilizSpicyTestnet.id]: '0xf7a126aDe9268742409BBe4B1f79243c6430605A',
+    [klytnBaobabTestnet.id]: '0xf7a126aDe9268742409BBe4B1f79243c6430605A',
   },
 };
 
