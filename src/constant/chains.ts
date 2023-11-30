@@ -26,7 +26,7 @@ export const chilizSpicyTestnet = /*#__PURE__*/ defineChain({
 })
 
 export const klytnBaobabTestnet = /*#__PURE__*/ defineChain({
-  id: 88882,
+  id: 1001,
   name: 'Klaytn Baobab Testnet',
   network: 'klaytn-baobab-testnet',
   nativeCurrency: {
